@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home-Grown CRM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>My CRM Dashboard</h1>
+
+    <!-- Add Customer Form -->
+    <div class="form-container">
+        <h2>Add Customer</h2>
+        <input type="text" id="name" placeholder="Customer Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="phone" placeholder="Phone">
+        <button onclick="addCustomer()">Add</button>
+    </div>
+
+    <!-- Customer List -->
+    <h2>Customer List</h2>
+    <table id="customerTable">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
