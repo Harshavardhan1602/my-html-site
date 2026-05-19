@@ -1,63 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Healthcare CRM Dashboard</title>
-
-    <!-- ✅ CSS -->
+    <title>Healthcare CRM</title>
     <link rel="stylesheet" href="style.css">
 
+    <!-- ✅ Genesys Embeddable Framework -->
+    <script src="https://apps.usw2.pure.cloud/crm/embeddableFramework.js"></script>
 </head>
+
 <body>
 
-    <!-- ✅ Header -->
-    <div class="header">
-        <h1>🏥 Healthcare CRM Dashboard</h1>
+<!-- ✅ HEADER -->
+<header class="header">
+    <div class="logo">CCare</div>
+
+    <input type="text" class="search" placeholder="Search...">
+
+    <div class="top-right">
+        <span>User</span>
+        <button class="logout">Log Out</button>
     </div>
+</header>
 
-    <!-- ✅ Add Customer Section -->
-    <div class="form-container">
+<!-- ✅ NAVBAR -->
+<nav class="navbar">
+    <a class="active">CCare</a>
+    <a>Plans</a>
+    <a>Claims</a>
+    <a>Contact Us</a>
+    <a>My Account</a>
+</nav>
 
-        <h2>🧑‍⚕️ Add Patient</h2>
-
-        <div class="form-fields">
-            <input type="text" id="name" placeholder="Patient Name">
-            <input type="email" id="email" placeholder="Email">
-            <input type="text" id="phone" placeholder="Phone">
-            <button onclick="addCustomer()">Add</button>
-        </div>
-
-        <!-- ✅ Healthcare Image -->
-        <div class="image-box">
-            <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg" alt="Healthcare Image">
-        </div>
-
-        <!-- ✅ Genesys Integration -->
-        <div class="softphone">
-            <iframe id="softphone"
-                allow="camera *; microphone *"
-                src="https://apps.usw2.pure.cloud/crm/index.html?crm=framework-local-secure">
-            </iframe>
-        </div>
-
+<!-- ✅ HERO SECTION -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>Health plans</h1>
+        <p>Enjoy the freedom to live fearless.</p>
+        <button class="btn">Click here</button>
     </div>
+</section>
 
-    <!-- ✅ Customer List -->
-    <div class="table-section">
-        <h2>📋 Patient Records</h2>
+<!-- ✅ CRM SECTION -->
+<div class="container">
 
-        <table id="customerTable">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Action</th>
-            </tr>
-        </table>
-    </div>
+    <h2>Add Patient</h2>
+    <input type="text" id="name" placeholder="Patient Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="phone" placeholder="Phone">
+    <button onclick="addCustomer()">Add</button>
 
-    <!-- ✅ JS -->
-    <script src="script.js"></script>
+    <h2>Patient List</h2>
+    <table id="customerTable">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+    </table>
+
+</div>
+
+<!-- ✅ ✅ FLOATING SOFTPHONE (LIKE YOUR IMAGE) -->
+<div class="softphone">
+    <iframe 
+        id="softphone"
+        allow="camera *; microphone *"
+        src="https://apps.usw2.pure.cloud/crm/index.html?crm=framework-local-secure">
+    </iframe>
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
-``
