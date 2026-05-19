@@ -1,48 +1,36 @@
 (function () {
-  'use strict';
 
-  // ✅ GENESYS CONFIG
-  const GENESYS_CONFIG = {
-    clientIds: {
-      'usw2.pure.cloud': '226182a8-bb53-435b-bc3c-2140f077768f'
-    },
-    environment: 'usw2.pure.cloud'
-  };
+  const CLIENT_ID = "226182a8-bb53-435b-bc3c-2140f077768f";
+  const ENV = "usw2.pure.cloud";
 
-  // ✅ Post config to iframe
-  function sendConfigToSoftphone() {
-    const iframe = document.getElementById('softphone');
+  const iframe = document.getElementById("softphone");
 
-    if (!iframe || !iframe.contentWindow) return;
+  // ✅ Listen to Genesys messages
+  window.addEventListener("message", function (event) {
 
-    iframe.contentWindow.postMessage({
-      type: 'purecloud-auth-config',
-      clientId: GENESYS_CONFIG.clientIds[GENESYS_CONFIG.environment],
-      environment: GENESYS_CONFIG.environment,
+    // ✅ allow only Genesys domains
+    if (!event.origin.includes("pure.cloud")) return;
 
-      // ✅ ADD THESE NEW FIELDS
-      redirectUri: window.location.origin + window.location.pathname,
-      usePopupAuth: true
-    }, 'https://apps.usw2.pure.cloud');
-}
-
-  // ✅ Listen for events from softphone
-  window.addEventListener('message', function (event) {
-
-    if (!event.origin.includes('pure.cloud')) return;
+    console.log("📩 Message from Genesys:", event.data);
 
     const data = event.data;
 
-    if (!data || !data.type) return;
+    // ✅ IMPORTANT HANDSHAKE
+    if (data && data.type === "purecloud-auth-ready") {
 
-    console.log("Softphone Event:", data.type);
+      console.log("✅ Sending auth config...");
 
-    if (data.type === 'purecloud-auth-ready') {
-      sendConfigToSoftphone();
+      iframe.contentWindow.postMessage({
+        type: "purecloud-auth-config",
+        clientId: CLIENT_ID,
+        environment: ENV,
+        redirectUri: window.location.href,
+        usePopupAuth: true
+      }, "https://apps.usw2.pure.cloud");
     }
 
-    if (data.type === 'purecloud-ready') {
-      console.log("✅ Softphone ready");
+    if (data && data.type === "purecloud-ready") {
+      console.log("✅ Softphone READY ✅");
     }
 
   });
