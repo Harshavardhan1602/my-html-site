@@ -9,9 +9,15 @@ h1 {
 }
 
 .form-container {
-    margin-bottom: 20px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
 }
 
+.softphone iframe {
+    width: 350px;
+    height: 280px;
+}
 input {
     padding: 8px;
     margin: 5px;
