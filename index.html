@@ -1,71 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NexaConnect</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Integration - Genesys Cloud</title>
 
-  <link rel="stylesheet" href="style.css">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-</head>
-
-<body>
-
-<!-- HEADER -->
-<header class="navbar">
-  <h1>NexaConnect</h1>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Dashboard</a>
-    <a href="#">Support</a>
-  </nav>
+    <!-- ✅ Correct CSS link -->
+    <link rel="stylesheet" href="eader class="header">
+    <h1>My CRM (Salesforce Style)</h1>
+    <div class="meta">
+        <span>Client ID: 226182a8-bb53-435b-bc3c-2140f077768f</span><br>
+        <span>Region: usw2.pure.cloud</span>
+    </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <h2>Smart Customer Engagement Platform</h2>
-  <p>Connect, call, and manage customer interactions seamlessly.</p>
-</section>
+<div class="container">
 
-<!-- MAIN -->
-<main class="container">
+    <aside class="sidebar">
+        <ul>
+            <li class="active">Dashboard</li>
+            <li>Contacts</li>
+            <li>Leads</li>
+            <li>Opportunities</li>
+            <li>Reports</li>
+        </ul>
+    </aside>
 
-  <!-- LEFT INFO -->
-  <section class="info">
-    <h3>Why NexaConnect?</h3>
-    <ul>
-      <li>✅ Real-time communication</li>
-      <li>✅ Cloud-based calling</li>
-      <li>✅ Secure OAuth 2.0 login</li>
-      <li>✅ Integrated CRM</li>
-    </ul>
-  </section>
+    <main class="content">
 
-  <!-- SOFTPHONE -->
-  <section class="softphone-section">
+        <div class="card">
+            <h2>Welcome to CRM Dashboard</h2>
+            <p>Embedded Genesys Cloud Softphone</p>
+        </div>
 
-    <h3>Genesys Cloud Softphone</h3>
+        <div class="softphone-container">
+            <h3>📞 Softphone</h3>
 
-    <div class="softphone">
-    <iframe
-  id="softphone"
-  allow="camera *; microphone *"
-  src="https://apps.usw2.pure.cloud/crm/index.html?crm=simple"
-``"
-  style="width:100%; height:500px; border:none;"
-></iframe>
-    </div>
+            <!-- ✅ iframe -->
+            <iframe id="genesysFrame"></iframe>
 
-  </section>
+            <button onclick="loadSoftphone()">Reload Softphone</button>
+        </div>
 
-</main>
+    </main>
+</div>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 NexaConnect | Powered by Genesys Cloud CX</p>
-</footer>
+<!-- ✅ Correct JS link (IMPORTANT: at bottom) -->
+app.js</script>
 
-<script src="app.js" defer></script>
 </body>
 </html>
