@@ -7,7 +7,6 @@ body {
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 15px 20px;
     background: white;
 }
@@ -23,17 +22,11 @@ body {
     width: 300px;
 }
 
-.top-right {
-    display: flex;
-    gap: 10px;
-}
-
 .logout {
     background: teal;
     color: white;
     border: none;
     padding: 8px 12px;
-    cursor: pointer;
 }
 
 /* ✅ Navbar */
@@ -44,42 +37,46 @@ body {
 
 .navbar a {
     margin-right: 20px;
-    cursor: pointer;
 }
 
-.navbar .active {
-    color: orange;
-    font-weight: bold;
-}
-
-/* ✅ Hero Section */
+/* ✅ HERO (Main Layout) */
 .hero {
-    background: url("https://images.unsplash.com/photo-1505751172876-fa1923c5c528") no-repeat center;
-    background-size: cover;
-    height: 400px;
-    color: white;
     display: flex;
     align-items: center;
-    padding-left: 50px;
+    justify-content: space-between;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    padding: 40px;
+}
+
+/* ✅ Left Text */
+.hero-text {
+    width: 30%;
 }
 
 .hero-text h1 {
-    font-size: 60px;
+    font-size: 48px;
 }
 
 .hero-text p {
-    font-size: 24px;
+    font-size: 20px;
 }
 
-.btn {
-    padding: 10px 20px;
-    background: transparent;
-    border: 2px solid white;
-    color: white;
-    cursor: pointer;
+/* ✅ Image */
+.hero-image img {
+    width: 250px;
+    border-radius: 10px;
 }
 
-/* ✅ CRM Container */
+/* ✅ Softphone */
+.softphone iframe {
+    width: 320px;
+    height: 260px;
+    border-radius: 10px;
+    border: none;
+}
+
+/* ✅ CRM Section */
 .container {
     padding: 30px;
 }
@@ -96,8 +93,8 @@ button {
 /* ✅ Table */
 table {
     width: 100%;
-    margin-top: 20px;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
 th {
@@ -107,20 +104,6 @@ th {
 
 td, th {
     padding: 10px;
-    text-align: center;
     border: 1px solid #ccc;
-}
-
-/* ✅ ✅ FLOATING SOFTPHONE */
-.softphone {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-}
-
-.softphone iframe {
-    width: 350px;
-    height: 300px;
-    border-radius: 12px;
-    border: none;
+    text-align: center;
 }
