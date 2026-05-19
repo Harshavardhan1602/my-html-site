@@ -1,15 +1,21 @@
-(function () {
+const clientId = "226182a8-bb53-435b-bc3c-2140f077768f";
+const region = "usw2.pure.cloud";
 
-  window.addEventListener("message", function (event) {
+const genesysUrl = "https://apps.usw2.pure.cloud/crm/index.html?crm=framework-local-secure";
 
-    if (!event.origin.includes("pure.cloud")) return;
+// Load iframe
+function loadSoftphone() {
+    const frame = document.getElementById("genesysFrame");
 
-    console.log("📩 Genesys Event:", event.data);
-
-    if (event.data.type === "purecloud-ready") {
-      console.log("✅ Softphone Loaded Successfully");
+    // Prevent reload loop
+    if (!frame.src) {
+        frame.src = genesysUrl;
     }
 
-  });
+    console.log("✅ Softphone iframe loaded");
+}
 
-})();
+// Auto-load
+window.addEventListener("load", () => {
+    loadSoftphone();
+});
