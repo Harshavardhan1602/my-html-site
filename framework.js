@@ -18,9 +18,13 @@
     iframe.contentWindow.postMessage({
       type: 'purecloud-auth-config',
       clientId: GENESYS_CONFIG.clientIds[GENESYS_CONFIG.environment],
-      environment: GENESYS_CONFIG.environment
+      environment: GENESYS_CONFIG.environment,
+
+      // ✅ ADD THESE NEW FIELDS
+      redirectUri: window.location.origin + window.location.pathname,
+      usePopupAuth: true
     }, 'https://apps.usw2.pure.cloud');
-  }
+}
 
   // ✅ Listen for events from softphone
   window.addEventListener('message', function (event) {
