@@ -8,7 +8,19 @@
 
     <h1>My CRM Dashboard</h1>
 
-    <!-- Add Customer Form -->
+    <!-- ✅ Softphone Iframe -->
+    <div class="softphone">
+        <iframe 
+            id="softphone"
+            allow="camera *; microphone *"
+            src="https://apps.usw2.pure.cloud/crm/index.html?crm=framework-local-secure"
+            width="400"
+            height="600"
+            style="border:1px solid #ccc;">
+        </iframe>
+    </div>
+
+    <!-- ✅ Add Customer Form -->
     <div class="form-container">
         <h2>Add Customer</h2>
         <input type="text" id="name" placeholder="Customer Name">
@@ -17,7 +29,7 @@
         <button onclick="addCustomer()">Add</button>
     </div>
 
-    <!-- Customer List -->
+    <!-- ✅ Customer List -->
     <h2>Customer List</h2>
     <table id="customerTable">
         <tr>
@@ -28,6 +40,9 @@
         </tr>
     </table>
 
+    <!-- ✅ JavaScript file -->
     <script src="script.js"></script>
+
 </body>
 </html>
+``
