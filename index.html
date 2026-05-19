@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NexaConnect | Customer Engagement Platform</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
@@ -117,13 +117,23 @@
       </div>
 
       <!-- IFRAME WRAPPER -->
+      <!--
+        FIX 1: Changed crm param from "framework-local-secure" → "framework-oauth"
+                "framework-local-secure" blocks the OAuth popup flow entirely;
+                "framework-oauth" is the correct CRM integration mode for popup auth.
+
+        FIX 2: Added allow="autoplay" alongside camera/microphone.
+                Genesys softphone plays audio (ringtones, in-call audio) via the
+                Web Audio API, which requires the autoplay permission on the iframe.
+                Without it the browser silently blocks audio in many Chromium builds.
+      -->
       <div class="softphone-frame-wrap">
         <div class="frame-glow"></div>
         <div class="softphone">
           <iframe
             id="softphone"
-            allow="camera *; microphone *"
-            src="https://apps.usw2.pure.cloud/crm/index.html?crm=framework-local-secure&dedicatedLoginWindow=true"
+            allow="camera *; microphone *; autoplay *"
+            src="https://apps.usw2.pure.cloud/crm/index.html?crm=framework-oauth&dedicatedLoginWindow=true"
             title="Genesys Cloud Softphone"
           ></iframe>
         </div>
