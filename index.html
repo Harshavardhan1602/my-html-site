@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home-Grown CRM</title>
+    <title>Healthcare CRM Dashboard</title>
+
+    <!-- ✅ CSS -->
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
 
-    <h1>My CRM Dashboard</h1>
+    <!-- ✅ Header -->
+    <div class="header">
+        <h1>🏥 Healthcare CRM Dashboard</h1>
+    </div>
 
     <!-- ✅ Add Customer Section -->
     <div class="form-container">
-        <h2>Add Customer</h2>
 
-        <input type="text" id="name" placeholder="Customer Name">
-        <input type="email" id="email" placeholder="Email">
-        <input type="text" id="phone" placeholder="Phone">
-        <button onclick="addCustomer()">Add</button>
+        <h2>🧑‍⚕️ Add Patient</h2>
 
-        <!-- ✅ ✅ Integration placed UNDER Add Customer -->
+        <div class="form-fields">
+            <input type="text" id="name" placeholder="Patient Name">
+            <input type="email" id="email" placeholder="Email">
+            <input type="text" id="phone" placeholder="Phone">
+            <button onclick="addCustomer()">Add</button>
+        </div>
+
+        <!-- ✅ Healthcare Image -->
+        <div class="image-box">
+            <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg" alt="Healthcare Image">
+        </div>
+
+        <!-- ✅ Genesys Integration -->
         <div class="softphone">
-            <iframe 
-                id="softphone"
+            <iframe id="softphone"
                 allow="camera *; microphone *"
-                src="https://apps.usw2.pure.cloud/crm/index.html?crm=framework-local-secure"
-                width="400"
-                height="300"
-                style="border:1px solid #ccc; margin-top:20px;">
+                src="https://apps.usw2.pure.cloud/crm/index.html?crm=framework-local-secure">
             </iframe>
         </div>
+
     </div>
 
     <!-- ✅ Customer List -->
-    <h2>Customer List</h2>
-    <table id="customerTable">
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Action</th>
-        </tr>
-    </table>
+    <div class="table-section">
+        <h2>📋 Patient Records</h2>
 
-    <!-- ✅ JS file -->
+        <table id="customerTable">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ✅ JS -->
     <script src="script.js"></script>
 
 </body>
