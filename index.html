@@ -2,66 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CRM Integration - Genesys Cloud</title>
-
-  <!-- Config -->
-  <meta name="client-id" content="226182a8-bb53-435b-bc3c-2140f077768f">
-  <meta name="region" content="usw2.pure.cloud">
-
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexaConnect | Customer Engagement Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
-<div class="container">
-
-  <!-- LEFT LOGIN -->
-  <div class="left-panel">
-    <div class="logo">salesforce</div>
-
-    <div class="login-box">
-      <h3>Login to CRM</h3>
-
-      <input type="text" placeholder="Username" />
-      <input type="password" placeholder="Password" />
-
-      <button onclick="login()">Log In</button>
-
-      <label class="remember">
-        <input type="checkbox" />
-        Remember me
-      </label>
-
-      <a href="#">Forgot Password?</a>
+  <!-- TOP NAV -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">◈</span>
+      <span class="brand-name">NexaConnect</span>
     </div>
-  </div>
+    <nav class="nav-links">
+      <a href="#">Dashboard</a>
+      <a href="#">Contacts</a>
+      <a href="#">Analytics</a>
+      <a href="#" class="active">Softphone</a>
+    </nav>
+    <div class="nav-right">
+      <div class="status-pill">
+        <span class="status-dot"></span> Agent Online
+      </div>
+      <div class="avatar">AK</div>
+    </div>
+  </header>
 
-  <!-- RIGHT PANEL -->
-  <div class="right-panel">
-    <h1>Trailblazer Community</h1>
-    <p>
-      The reimagined Trailblazer Community is here. 
-      Learn, connect, and grow your CRM ecosystem.
-    </p>
+  <!-- MAIN LAYOUT -->
+  <main class="layout">
 
-    <button class="cta">JOIN THE COMMUNITY</button>
-  </div>
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <p class="sidebar-label">Quick Dial</p>
+        <ul class="quick-dial">
+          <li><span class="dial-icon">📞</span> Support Queue</li>
+          <li><span class="dial-icon">📞</span> Sales Team</li>
+          <li><span class="dial-icon">📞</span> Technical Help</li>
+        </ul>
+      </div>
 
-</div>
+      <div class="sidebar-section">
+        <p class="sidebar-label">Recent Calls</p>
+        <ul class="recent-calls">
+          <li>
+            <div class="call-dot inbound"></div>
+            <div>
+              <p class="call-name">Rajesh Kumar</p>
+              <p class="call-meta">Inbound · 4m 22s</p>
+            </div>
+          </li>
+          <li>
+            <div class="call-dot outbound"></div>
+            <div>
+              <p class="call-name">Priya Sharma</p>
+              <p class="call-meta">Outbound · 1m 08s</p>
+            </div>
+          </li>
+          <li>
+            <div class="call-dot missed"></div>
+            <div>
+              <p class="call-name">Ananya Singh</p>
+              <p class="call-meta">Missed · 10:42 AM</p>
+            </div>
+          </li>
+          <li>
+            <div class="call-dot inbound"></div>
+            <div>
+              <p class="call-name">Mohammed Ali</p>
+              <p class="call-meta">Inbound · 7m 50s</p>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-<!-- FLOATING SOFTPHONE PANEL -->
-<div id="softphone-container" class="softphone hidden">
-  <div class="softphone-header">
-    <span>📞 Genesys Cloud</span>
-    <button onclick="toggleSoftphone()">✖</button>
-  </div>
+      <div class="sidebar-section">
+        <p class="sidebar-label">Stats Today</p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <p class="stat-num">24</p>
+            <p class="stat-lbl">Calls</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-num">3m</p>
+            <p class="stat-lbl">Avg Duration</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-num">96%</p>
+            <p class="stat-lbl">Answered</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-num">2</p>
+            <p class="stat-lbl">Missed</p>
+          </div>
+        </div>
+      </div>
+    </aside>
 
-  <iframe id="softphone-frame"></iframe>
-</div>
+    <!-- CENTER: SOFTPHONE -->
+    <section class="softphone-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-icon">☎</span>
+          <div>
+            <h2>Genesys Cloud Softphone</h2>
+            <p>Integrated Communication Hub</p>
+          </div>
+        </div>
+        <div class="panel-badges">
+          <span class="badge badge-live">● Live</span>
+          <span class="badge badge-region">Region: USW2</span>
+        </div>
+      </div>
 
-<!-- FLOAT BUTTON -->
-<button id="openSoftphone" onclick="toggleSoftphone()">📞</button>
+      <!-- IFRAME WRAPPER -->
+      <div class="softphone-frame-wrap">
+        <div class="frame-glow"></div>
+        <div class="softphone">
+          <iframe
+            id="softphone"
+            allow="camera *; microphone *"
+            src="https://apps.usw2.pure.cloud/crm/index.html?crm=framework-local-secure&dedicatedLoginWindow=true"
+            title="Genesys Cloud Softphone"
+          ></iframe>
+        </div>
+      </div>
 
-<script src="app.js"></script>
+      <div class="panel-footer">
+        <span>🔒 Secured via OAuth 2.0 · Genesys Cloud CX</span>
+        <span id="clock"></span>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+      <div class="contact-card">
+        <div class="contact-avatar">RK</div>
+        <div class="contact-info">
+          <p class="contact-name">Rajesh Kumar</p>
+          <p class="contact-role">Enterprise Client</p>
+        </div>
+        <span class="contact-tag">Active</span>
+      </div>
+
+      <div class="right-section">
+        <p class="sidebar-label">Call Notes</p>
+        <textarea class="notes-area" placeholder="Type notes about the current call..."></textarea>
+      </div>
+
+      <div class="right-section">
+        <p class="sidebar-label">Customer Details</p>
+        <ul class="details-list">
+          <li><span>Account</span><strong>#ENT-20489</strong></li>
+          <li><span>Plan</span><strong>Enterprise Pro</strong></li>
+          <li><span>Since</span><strong>Mar 2021</strong></li>
+          <li><span>Calls</span><strong>38 total</strong></li>
+          <li><span>CSAT</span><strong>4.8 / 5.0</strong></li>
+        </ul>
+      </div>
+
+      <div class="right-section">
+        <p class="sidebar-label">Quick Actions</p>
+        <div class="action-buttons">
+          <button class="action-btn">📋 Log Call</button>
+          <button class="action-btn">📧 Send Email</button>
+          <button class="action-btn">🔁 Transfer</button>
+          <button class="action-btn">📝 Create Ticket</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>© 2026 NexaConnect · Powered by Genesys Cloud CX</span>
+    <span>Agent: Arjun Kumar &nbsp;|&nbsp; Queue: Support-General &nbsp;|&nbsp; Wrap-up: 30s</span>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
