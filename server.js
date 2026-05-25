@@ -1,26 +1,40 @@
-var http = require("http");
-var https = require("https");
-var fs = require("fs");
-var express = require('express');
-var app = express();
+import express from "express";
+import fetch from "node-fetch";
+import cors from "cors";
+import dotenv from "dotenv";
 
-app.use(express.static(__dirname+ "/src"));
+dotenv.config();
 
-app.set('port', (process.env.PORT || 80));
+const app = express();
+app.use(express.json());
+app.use(cors());
 
-var sslOptions = {
-    key: fs.readFileSync('https-requirements/localhost.key'),
-    cert: fs.readFileSync('https-requirements/localhost.crt'),
-    ca: fs.readFileSync('https-requirements/ca.crt'),
-    requestCert: true,
-    rejectUnauthorized: false
-};
+app.post("/token", async (req, res) => {
+  const { code } = req.body;
 
-var httpServer = http.createServer(app);
-var httpsServer = https.createServer(sslOptions, app);
+  try {
+    const response = await fetch("https://login.mypurecloud.com/oauth/token", {
+      method: "POST",
+      headers: {
+        "Authorization": "Basic " + Buffer.from(
+          `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`
+        ).toString("base64"),
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        grant_type: "authorization_code",
+        code: code,
+        redirect_uri: process.env.REDIRECT_URI
+      })
+    });
 
-var httpsPort = 443;
+    const data = await response.json();
+    res.json(data);
 
-console.log("starting on " + httpsPort + ' (https)');
-httpServer.listen(app.get('port'));
-httpsServer.listen(httpsPort);
+  } catch (err) {
+    res.status(500).json({ error: "Token exchange failed" });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
