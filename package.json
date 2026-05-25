@@ -1,11 +1,11 @@
 {
-  "name": "purecloud-embeddable-framework-example",
+  "name": "genesys-backend",
   "version": "1.0.0",
-  "description": "Example project that implements the PureCloud Embeddable Framework",
-  "main": "example.html",
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "express": "^4.19.2"
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
   }
 }
