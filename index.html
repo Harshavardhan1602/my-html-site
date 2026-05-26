@@ -1,77 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cognizant CRM Test Environment - Genesys Cloud Softphone</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cognizant CRM Solutions</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <!-- ✅ GENESYS CONFIG: Client ID and Region set here -->
+  <script>
+    window._genesys = {
+      widgets: {
+        main: {
+          downloadGoogleFont: false,
+          themes: { dark: "cx-theme-dark" },
+          theme: "dark"
+        },
+        softphone: {
+          clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
+          loginUrl: "https://login.usw2.pure.cloud/oauth/authorize",
+          hostUrl:  "https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
+        }
+      }
+    };
+  </script>
 </head>
 <body>
- 
-    <header class="crm-header">
-        <div class="logo-container">
-            <span class="company-logo">cognizant</span>
-            <span class="app-badge">CRM Test Portal</span>
-        </div>
-        <div class="user-profile">
-            <span class="agent-status online"></span>
-            <p class="user-name">Test Agent</p>
-        </div>
-    </header>
- 
-    <div class="crm-workspace">
-        
-        <main class="crm-main-content">
-            <div class="welcome-banner">
-                <h1>Customer Relationship Management Workspace</h1>
-                <p>Welcome back! Use the softphone panel on the right to manage active voice queues and interactions.</p>
-            </div>
- 
-            <div class="crm-dashboard-grid">
-                <div class="crm-card">
-                    <h3>Customer Information</h3>
-                    <hr>
-                    <div class="info-group">
-                        <label>Name:</label>
-                        <p id="cust-name">John Doe</p>
-                    </div>
-                    <div class="info-group">
-                        <label>Phone Number:</label>
-                        <p id="cust-phone">+1 (555) 019-2834</p>
-                    </div>
-                    <div class="info-group">
-                        <label>Account Status:</label>
-                        <span class="badge primary">Premium</span>
-                    </div>
-                </div>
- 
-                <div class="crm-card">
-                    <h3>Recent Interaction History</h3>
-                    <hr>
-                    <ul class="activity-log">
-                        <li><span class="date">May 26</span> - Inbound Call - Resolved</li>
-                        <li><span class="date">May 14</span> - Chat Assistant - Transferred</li>
-                        <li><span class="date">Apr 28</span> - Email Ticket - Closed</li>
-                    </ul>
-                </div>
-            </div>
-        </main>
- 
-        <aside class="phone-panel" id="phonePanel">
-            <div class="panel-header">
-                <img src="https://dhqbr7ddkxw70.cloudfront.net/images/genesys-logo-red.svg" alt="Genesys Cloud" class="genesys-logo" onerror="this.style.display='none';">
-                <h2>Softphone Integration</h2>
-            </div>
-            <div class="iframe-wrapper">
-                <iframe id="genesys-softphone"
-                        allow="microphone; camera; autoplay; display-capture"
-                        title="Genesys Cloud Softphone">
-                </iframe>
-            </div>
-        </aside>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">C</div>
+      <span class="brand-name">Cognizant <span class="brand-accent">CRM</span></span>
     </div>
- 
-    <script src="app.js"></script>
+    <ul class="nav-links">
+      <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
+      <li><a href="#contacts" class="nav-link">Contacts</a></li>
+      <li><a href="#leads" class="nav-link">Leads</a></li>
+      <li><a href="#pipeline" class="nav-link">Pipeline</a></li>
+      <li><a href="#reports" class="nav-link">Reports</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-softphone" id="toggleSoftphone" onclick="toggleSoftphone()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.64a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Softphone
+      </button>
+      <div class="user-avatar">AK</div>
+    </div>
+  </nav>
+
+  <!-- MAIN LAYOUT -->
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <p class="sidebar-label">WORKSPACE</p>
+        <a href="#" class="sidebar-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          Contacts
+          <span class="badge">1.2k</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Leads
+          <span class="badge">84</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Tasks
+        </a>
+      </div>
+      <div class="sidebar-section">
+        <p class="sidebar-label">ANALYTICS</p>
+        <a href="#" class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Reports
+        </a>
+        <a href="#" class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 118 2.83"/><path d="M22 12A10 10 0 0012 2v10z"/></svg>
+          Pipeline
+        </a>
+      </div>
+      <div class="sidebar-section">
+        <p class="sidebar-label">COMMUNICATION</p>
+        <a href="#" class="sidebar-item" onclick="toggleSoftphone(); return false;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.64a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Softphone
+          <span class="badge badge-green">Live</span>
+        </a>
+        <a href="#" class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- STATS ROW -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon stat-blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">Total Contacts</p>
+            <h3 class="stat-value">12,847</h3>
+            <span class="stat-change positive">↑ 8.2% this month</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-orange">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">Active Leads</p>
+            <h3 class="stat-value">3,291</h3>
+            <span class="stat-change positive">↑ 14.5% this month</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">Revenue (MTD)</p>
+            <h3 class="stat-value">$4.7M</h3>
+            <span class="stat-change positive">↑ 22.1% vs last month</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81"/><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.64a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="stat-info">
+            <p class="stat-label">Calls Today</p>
+            <h3 class="stat-value">427</h3>
+            <span class="stat-change positive">↑ 5.3% vs yesterday</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENT GRID -->
+      <div class="content-grid">
+
+        <!-- RECENT CONTACTS TABLE -->
+        <div class="card card-large">
+          <div class="card-header">
+            <h2 class="card-title">Recent Contacts</h2>
+            <button class="btn-secondary">View All</button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Status</th>
+                <th>Last Contact</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="contact-cell"><div class="avatar av-blue">JM</div>James Mitchell</div></td>
+                <td>Apex Technologies</td>
+                <td><span class="status-tag status-active">Active</span></td>
+                <td>2 hours ago</td>
+                <td><button class="btn-call" onclick="toggleSoftphone()">📞 Call</button></td>
+              </tr>
+              <tr>
+                <td><div class="contact-cell"><div class="avatar av-green">SR</div>Sarah Reynolds</div></td>
+                <td>NovaStar Inc</td>
+                <td><span class="status-tag status-prospect">Prospect</span></td>
+                <td>Yesterday</td>
+                <td><button class="btn-call" onclick="toggleSoftphone()">📞 Call</button></td>
+              </tr>
+              <tr>
+                <td><div class="contact-cell"><div class="avatar av-orange">DK</div>Daniel Kim</div></td>
+                <td>BlueBridge Corp</td>
+                <td><span class="status-tag status-closed">Closed</span></td>
+                <td>3 days ago</td>
+                <td><button class="btn-call" onclick="toggleSoftphone()">📞 Call</button></td>
+              </tr>
+              <tr>
+                <td><div class="contact-cell"><div class="avatar av-purple">LP</div>Linda Park</div></td>
+                <td>Streamline Co</td>
+                <td><span class="status-tag status-active">Active</span></td>
+                <td>1 week ago</td>
+                <td><button class="btn-call" onclick="toggleSoftphone()">📞 Call</button></td>
+              </tr>
+              <tr>
+                <td><div class="contact-cell"><div class="avatar av-blue">RM</div>Robert Moore</div></td>
+                <td>Vertex Solutions</td>
+                <td><span class="status-tag status-prospect">Prospect</span></td>
+                <td>2 weeks ago</td>
+                <td><button class="btn-call" onclick="toggleSoftphone()">📞 Call</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PIPELINE CARD -->
+        <div class="card card-small">
+          <div class="card-header">
+            <h2 class="card-title">Pipeline</h2>
+            <span class="card-subtitle">This Quarter</span>
+          </div>
+          <div class="pipeline-stages">
+            <div class="pipeline-item">
+              <div class="pipeline-label">
+                <span>Prospecting</span>
+                <span class="pipeline-count">84</span>
+              </div>
+              <div class="pipeline-bar"><div class="pipeline-fill" style="width:85%; background:#3b82f6;"></div></div>
+              <span class="pipeline-value">$1.2M</span>
+            </div>
+            <div class="pipeline-item">
+              <div class="pipeline-label">
+                <span>Qualification</span>
+                <span class="pipeline-count">62</span>
+              </div>
+              <div class="pipeline-bar"><div class="pipeline-fill" style="width:65%; background:#f59e0b;"></div></div>
+              <span class="pipeline-value">$890K</span>
+            </div>
+            <div class="pipeline-item">
+              <div class="pipeline-label">
+                <span>Proposal</span>
+                <span class="pipeline-count">41</span>
+              </div>
+              <div class="pipeline-bar"><div class="pipeline-fill" style="width:45%; background:#8b5cf6;"></div></div>
+              <span class="pipeline-value">$620K</span>
+            </div>
+            <div class="pipeline-item">
+              <div class="pipeline-label">
+                <span>Negotiation</span>
+                <span class="pipeline-count">23</span>
+              </div>
+              <div class="pipeline-bar"><div class="pipeline-fill" style="width:28%; background:#ec4899;"></div></div>
+              <span class="pipeline-value">$410K</span>
+            </div>
+            <div class="pipeline-item">
+              <div class="pipeline-label">
+                <span>Closed Won</span>
+                <span class="pipeline-count">18</span>
+              </div>
+              <div class="pipeline-bar"><div class="pipeline-fill" style="width:20%; background:#10b981;"></div></div>
+              <span class="pipeline-value">$280K</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIVITY FEED -->
+        <div class="card card-small">
+          <div class="card-header">
+            <h2 class="card-title">Activity Feed</h2>
+          </div>
+          <div class="activity-feed">
+            <div class="activity-item">
+              <div class="activity-dot dot-green"></div>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Call completed</strong> with James Mitchell</p>
+                <span class="activity-time">2 min ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot dot-blue"></div>
+              <div class="activity-content">
+                <p class="activity-text"><strong>New lead</strong> added — Sarah Reynolds</p>
+                <span class="activity-time">18 min ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot dot-orange"></div>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Deal closed</strong> — BlueBridge Corp $45K</p>
+                <span class="activity-time">1 hr ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot dot-purple"></div>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Email sent</strong> to Streamline Co</p>
+                <span class="activity-time">3 hrs ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot dot-green"></div>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Meeting scheduled</strong> with Vertex Solutions</p>
+                <span class="activity-time">5 hrs ago</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot dot-blue"></div>
+              <div class="activity-content">
+                <p class="activity-text"><strong>Proposal sent</strong> to Apex Technologies</p>
+                <span class="activity-time">Yesterday</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ✅ GENESYS SOFTPHONE PANEL -->
+  <div class="softphone-panel" id="softphonePanel">
+    <div class="softphone-header">
+      <div class="softphone-title">
+        <div class="softphone-status-dot"></div>
+        Genesys Softphone
+      </div>
+      <button class="softphone-close" onclick="toggleSoftphone()">✕</button>
+    </div>
+    <div class="softphone-frame-wrapper">
+      <!-- ✅ iframe URL loaded dynamically from widgets-config.js -->
+      <iframe
+        id="genesysIframe"
+        src=""
+        allow="microphone; camera; autoplay"
+        allowfullscreen
+        frameborder="0"
+        title="Genesys Cloud Softphone">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="softphone-overlay" id="softphoneOverlay" onclick="toggleSoftphone()"></div>
+
+  <script src="widgets-config.js"></script>
 </body>
 </html>
