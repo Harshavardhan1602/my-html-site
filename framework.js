@@ -1,44 +1,41 @@
-// NAVIGATION
-document.querySelectorAll('.sb-item').forEach(item => {
-  item.onclick = () => {
-    document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + item.dataset.page).classList.add('active');
-  };
-});
-
-
-// SAMPLE DATA
-let contacts = [
-  {name: "Ravi", company: "TCS"},
-  {name: "Meena", company: "Infosys"}
-];
-
-// RENDER CONTACTS
-function renderContacts() {
-  const tbody = document.getElementById('contactTbody');
-  tbody.innerHTML = '';
-
-  contacts.forEach(c => {
-    tbody.innerHTML += `<tr><td>${c.name}</td><td>${c.company}</td></tr>`;
-  });
-}
-
-renderContacts();
-
-
-// CHART
-const ctx = document.getElementById('revChart');
-
-new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ['Jan','Feb','Mar'],
-    datasets: [{
-      data: [10,20,30],
-      borderColor: '#3b82f6'
-    }]
-  }
+document.addEventListener("DOMContentLoaded", function () {
+    
+    // ====================================================================
+    // CONFIGURATION BLOCK: UPDATED WITH YOUR GENESYS CLOUD DETAILS
+    // ====================================================================
+    const CONFIG = {
+        clientId: '226182a8-bb53-435b-bc3c-2140f077768f',
+        region: 'usw2.pure.cloud',
+        iframeBaseUrl: 'https://apps.usw2.pure.cloud/crm/embeddableFramework.html'
+    };
+    // ====================================================================
+ 
+    /**
+     * Initializes and constructs the Genesys Cloud Framework Embedded client configuration.
+     */
+    function initSoftphone() {
+        const iframeElement = document.getElementById('genesys-softphone');
+        
+        if (!iframeElement) {
+            console.error("Softphone iframe container element was not detected in the DOM.");
+            return;
+        }
+ 
+        // Standard operational query parameter payload required by Genesys Cloud
+        const queryParams = new URLSearchParams({
+            pcOrigin: window.location.origin,
+            clientId: CONFIG.clientId,
+            environment: CONFIG.region
+        });
+ 
+        // Assemble the full uniform resource locator string securely
+        const finalIframeUrl = `${CONFIG.iframeBaseUrl}?${queryParams.toString()}`;
+        
+        // Apply target destination source safely to the markup frame
+        iframeElement.src = finalIframeUrl;
+        console.log("Genesys Cloud softphone integrated cleanly. Target endpoint:", finalIframeUrl);
+    }
+ 
+    // Initialize integration
+    initSoftphone();
 });
