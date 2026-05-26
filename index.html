@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cognizant CRM</title>
+
+  <!-- ✅ CSS LINK FIX -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Genesys Config -->
+  <!-- ✅ Genesys Config -->
   <script>
     window.PURECLOUD_EMBED_CONFIG = {
       clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
@@ -17,66 +19,69 @@
 
 <body>
 
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="logo">Cognizant CRM</div>
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">Cognizant CRM</div>
 
-    <nav>
-      <a href="#">Products</a>
-      <a href="#">Industries</a>
-      <a href="#">Learning</a>
-      <a href="#">Support</a>
-      <a href="#">Company</a>
-    </nav>
+  <nav>
+    <a href="#">Products</a>
+    <a href="#">Industries</a>
+    <a href="#">Learning</a>
+    <a href="#">Support</a>
+    <a href="#">Company</a>
+  </nav>
 
-    <div class="nav-actions">
-      <a href="#">Login</a>
-      <button class="btn primary">Try for free</button>
+  <div class="nav-actions">
+    <a href="#">Login</a>
+    <button class="btn primary">Try for free</button>
+  </div>
+</header>
+
+<!-- BLUE BANNER -->
+<div class="banner">
+  Build success with Cognizant CRM — Modern Customer Engagement Platform
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <h1>Drive growth and cost savings with the world’s smart CRM</h1>
+    <p>
+      Cognizant CRM helps you unify customer data, automate workflows,
+      and deliver seamless experiences across all channels.
+    </p>
+
+    <div class="cta-buttons">
+      <button class="btn green">START MY FREE TRIAL</button>
+      <button class="btn outline">WATCH DEMOS</button>
     </div>
-  </header>
-
-  <!-- BLUE BANNER -->
-  <div class="banner">
-    Build success with Cognizant CRM — Modern Customer Engagement Platform
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left">
-      <h1>Drive growth and cost savings with the world’s smart CRM</h1>
-      <p>
-        Cognizant CRM helps you unify customer data, automate workflows,
-        and deliver seamless experiences across all channels.
-      </p>
-
-      <div class="cta-buttons">
-        <button class="btn green">START MY FREE TRIAL</button>
-        <button class="btn blue-outline">WATCH DEMOS</button>
-      </div>
+  <div class="hero-right">
+    <div class="circle-bg">
+      <img src="https://via.placeholder.com/260" alt="CRM">
     </div>
+  </div>
+</section>
 
-    <div class="hero-right">
-      <div class="circle-bg">
-        <img src="https://via.placeholder.com/260" alt="CRM">
-      </div>
-    </div>
-  </section>
-
-  <!-- FLOATING SOFTPHONE -->
-  <div class="softphone-widget" id="softphoneWidget">
-    <div class="widget-header">
-      <span>📞 Softphone</span>
-      <button onclick="toggleSoftphone()">−</button>
-    </div>
-
-    <iframe
-      id="genesysFrame"
-      src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
-    ></iframe>
+<!-- ✅ FLOATING SOFTPHONE -->
+<div class="softphone-widget" id="softphoneWidget">
+  <div class="widget-header">
+    <span>📞 Softphone</span>
+    <button onclick="toggleSoftphone()">×</button>
   </div>
 
-  <button class="open-btn" onclick="toggleSoftphone()">📞</button>
+  <iframe
+    id="genesysFrame"
+    src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html">
+  </iframe>
+</div>
 
-  <script src="script.js"></script>
+<!-- BUTTON -->
+<button class="open-btn" onclick="toggleSoftphone()">📞</button>
+
+<!-- ✅ JS LINK -->
+<script src="script.js"></script>
+
 </body>
 </html>
