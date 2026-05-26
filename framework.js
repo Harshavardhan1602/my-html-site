@@ -1,44 +1,56 @@
-// Genesys configuration
+<script>
+// ── Genesys Config ──────────────────────────────────────
 const genesysConfig = {
-    clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
-    environment: "usw2.pure.cloud"
+  clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
+  environment: "usw2.pure.cloud"
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("Cognizant CRM Loaded ✅");
-    console.log("Genesys Config:", genesysConfig);
+  console.log("✅ Cognizant CRM Loaded");
+  console.log("⚙️ Genesys Config:", genesysConfig);
 
-    // Tab switching
-    const tabs = document.querySelectorAll(".tab");
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            tabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
-        });
+  // ── Tabs ──
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
     });
+  });
 
-    // Softphone iframe — inject client ID via postMessage once loaded
-    const softphoneFrame = document.getElementById("softphone");
-    if (softphoneFrame) {
-        softphoneFrame.addEventListener("load", () => {
-            try {
-                softphoneFrame.contentWindow.postMessage(
-                    { type: "genesys:config", config: genesysConfig },
-                    `https://apps.${genesysConfig.environment}`
-                );
-                console.log("Genesys config posted to softphone iframe ✅");
-            } catch (e) {
-                console.warn("Could not post message to softphone (cross-origin):", e.message);
-            }
-        });
-    }
+  // ── Softphone iframe ──
+  const iframe = document.getElementById("softphone");
+  if (iframe) {
+    iframe.addEventListener("load", () => {
+      console.log("📞 Softphone loaded");
+      try {
+        iframe.contentWindow.postMessage(
+          { type: "genesys:init", clientId: genesysConfig.clientId, environment: genesysConfig.environment },
+          "https://apps." + genesysConfig.environment
+        );
+      } catch(e) {
+        console.info("ℹ️ Cross-origin (expected):", e.message);
+      }
+    });
+    window.addEventListener("message", e => {
+      if (e.origin.includes("pure.cloud")) console.log("📨 Genesys:", e.data);
+    });
+  }
 
-    // CTA button
-    const ctaBtn = document.querySelector(".cta-btn");
-    if (ctaBtn) {
-        ctaBtn.addEventListener("click", () => {
-            console.log("Learn More clicked");
-            // Add navigation logic here
-        });
-    }
+  // ── Search ──
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn   = document.getElementById("searchBtn");
+  const doSearch = () => {
+    const q = searchInput.value.trim();
+    if (q) console.log("🔍 Search:", q);
+  };
+  searchBtn.addEventListener("click", doSearch);
+  searchInput.addEventListener("keydown", e => { if(e.key==="Enter") doSearch(); });
+
+  // ── Buttons ──
+  document.getElementById("learnMoreBtn").addEventListener("click", () => console.log("▶ Learn More"));
+  document.getElementById("demoBtn").addEventListener("click", () => console.log("▶ View Demo"));
 });
+</script>
+
+</body>
+</html>
