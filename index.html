@@ -1,88 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Cognizant CRM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cognizant CRM</title>
 
-  <!-- ✅ FIXED CSS -->
-  <link rel="stylesheet" href="styles.css">
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- ✅ GENESYS CONFIG -->
-  <script>
-    window.PURECLOUD_EMBED_CONFIG = {
-      clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
-      region: "usw2.pure.cloud"
-    };
-  </script>
+<!-- CSS -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ✅ Genesys Config -->
+<script>
+window.PURECLOUD_EMBED_CONFIG = {
+  clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
+  region: "usw2.pure.cloud"
+};
+</script>
+
 </head>
 
 <body>
 
-<!-- ✅ NAVBAR -->
-<header class="navbar">
-  <div class="logo">Cognizant CRM</div>
+<!-- ✅ SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-icon">CG</div>
+    <div>
+      <div class="sb-logo-name">Cognizant</div>
+      <div class="sb-logo-sub">CRM Platform</div>
+    </div>
+  </div>
 
-  <nav>
-    <a href="#">Products</a>
-    <a href="#">Industries</a>
-    <a href="#">Learning</a>
-    <a href="#">Support</a>
-    <a href="#">Company</a>
+  <nav class="sb-nav">
+    <div class="sb-item active" data-page="dashboard">Dashboard</div>
+    <div class="sb-item" data-page="contacts">Contacts</div>
+    <div class="sb-item" data-page="deals">Deals</div>
+    <div class="sb-item" data-page="activities">Activities</div>
+    <div class="sb-item" data-page="reports">Reports</div>
+    <div class="sb-item" data-page="pipeline">Pipeline</div>
+    <div class="sb-item" data-page="settings">Settings</div>
   </nav>
+</aside>
 
-  <div class="nav-actions">
-    <a href="#">Login</a>
-    <button class="btn primary">Try for free</button>
+<!-- ✅ MAIN -->
+<div class="main">
+
+  <div class="topbar">
+    <div id="topbarTitle">Dashboard</div>
+    <input id="globalSearch" type="text" placeholder="Search..." />
+    <button id="topAddBtn">+ Add</button>
   </div>
-</header>
 
-<!-- ✅ BANNER -->
-<div class="banner">
-  Build success with Cognizant CRM — Modern Customer Engagement Platform
+  <div class="content">
+
+    <div class="page active" id="page-dashboard">
+      <h1>Dashboard</h1>
+      <canvas id="revChart"></canvas>
+    </div>
+
+    <div class="page" id="page-contacts">
+      <h1>Contacts</h1>
+      <table>
+        <tbody id="contactTbody"></tbody>
+      </table>
+    </div>
+
+    <div class="page" id="page-deals">
+      <h1>Deals</h1>
+      <div id="kanbanBoard"></div>
+    </div>
+
+    <div class="page" id="page-activities">
+      <h1>Activities</h1>
+      <div id="timelineWrap"></div>
+    </div>
+
+    <div class="page" id="page-reports">
+      <h1>Reports</h1>
+      <canvas id="stageChart"></canvas>
+    </div>
+
+    <div class="page" id="page-pipeline">
+      <h1>Pipeline</h1>
+      <div id="pipeCards"></div>
+    </div>
+
+    <div class="page" id="page-settings">
+      <h1>Settings</h1>
+    </div>
+
+  </div>
 </div>
 
-<!-- ✅ HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <h1>Drive growth and cost savings with the world’s smart CRM</h1>
-
-    <p>
-      Cognizant CRM helps you unify customer data, automate workflows,
-      and deliver seamless experiences across all channels.
-    </p>
-
-    <div class="cta-buttons">
-      <button class="btn green">START MY FREE TRIAL</button>
-      <button class="btn outline">WATCH DEMOS</button>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <div class="circle-bg">
-      <img src="https://via.placeholder.com/260" alt="CRM">
-    </div>
-  </div>
-</section>
-
-<!-- ✅ SOFTPHONE -->
-<div class="softphone-widget" id="softphoneWidget">
-  <div class="widget-header">
-    <span>📞 Softphone</span>
-    <button onclick="toggleSoftphone()">×</button>
-  </div>
-
-  <iframe 
-    id="genesysFrame"
-    src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html">
-  </iframe>
+<!-- ✅ GENESYS FRAME -->
+<div class="softphone">
+  <iframe src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"></iframe>
 </div>
 
-<button class="open-btn" onclick="toggleSoftphone()">📞</button>
-
-<!-- ✅ JS FILE -->
+<!-- JS -->
 <script src="script.js"></script>
 
 </body>
 </html>
-``
