@@ -1,109 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cognizant CRM</title>
-
-<!-- FONT -->
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<!-- CSS -->
-<link rel="stylesheet" href="styles.css">
-
-<!-- Charts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- ✅ Genesys Config -->
-<script>
-window.PURECLOUD_EMBED_CONFIG = {
-  clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
-  region: "usw2.pure.cloud"
-};
-</script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognizant CRM Test Environment - Genesys Cloud Softphone</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-
-<!-- ✅ SIDEBAR -->
-<aside class="sidebar">
-  <div class="sb-logo">
-    <div class="sb-logo-icon">CG</div>
-    <div>
-      <div class="sb-logo-name">Cognizant</div>
-      <div class="sb-logo-sub">CRM Platform</div>
+ 
+    <header class="crm-header">
+        <div class="logo-container">
+            <span class="company-logo">cognizant</span>
+            <span class="app-badge">CRM Test Portal</span>
+        </div>
+        <div class="user-profile">
+            <span class="agent-status online"></span>
+            <p class="user-name">Test Agent</p>
+        </div>
+    </header>
+ 
+    <div class="crm-workspace">
+        
+        <main class="crm-main-content">
+            <div class="welcome-banner">
+                <h1>Customer Relationship Management Workspace</h1>
+                <p>Welcome back! Use the softphone panel on the right to manage active voice queues and interactions.</p>
+            </div>
+ 
+            <div class="crm-dashboard-grid">
+                <div class="crm-card">
+                    <h3>Customer Information</h3>
+                    <hr>
+                    <div class="info-group">
+                        <label>Name:</label>
+                        <p id="cust-name">John Doe</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Phone Number:</label>
+                        <p id="cust-phone">+1 (555) 019-2834</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Account Status:</label>
+                        <span class="badge primary">Premium</span>
+                    </div>
+                </div>
+ 
+                <div class="crm-card">
+                    <h3>Recent Interaction History</h3>
+                    <hr>
+                    <ul class="activity-log">
+                        <li><span class="date">May 26</span> - Inbound Call - Resolved</li>
+                        <li><span class="date">May 14</span> - Chat Assistant - Transferred</li>
+                        <li><span class="date">Apr 28</span> - Email Ticket - Closed</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+ 
+        <aside class="phone-panel" id="phonePanel">
+            <div class="panel-header">
+                <img src="https://dhqbr7ddkxw70.cloudfront.net/images/genesys-logo-red.svg" alt="Genesys Cloud" class="genesys-logo" onerror="this.style.display='none';">
+                <h2>Softphone Integration</h2>
+            </div>
+            <div class="iframe-wrapper">
+                <iframe id="genesys-softphone"
+                        allow="microphone; camera; autoplay; display-capture"
+                        title="Genesys Cloud Softphone">
+                </iframe>
+            </div>
+        </aside>
     </div>
-  </div>
-
-  <nav class="sb-nav">
-    <div class="sb-item active" data-page="dashboard">Dashboard</div>
-    <div class="sb-item" data-page="contacts">Contacts</div>
-    <div class="sb-item" data-page="deals">Deals</div>
-    <div class="sb-item" data-page="activities">Activities</div>
-    <div class="sb-item" data-page="reports">Reports</div>
-    <div class="sb-item" data-page="pipeline">Pipeline</div>
-    <div class="sb-item" data-page="settings">Settings</div>
-  </nav>
-</aside>
-
-<!-- ✅ MAIN -->
-<div class="main">
-
-  <div class="topbar">
-    <div id="topbarTitle">Dashboard</div>
-    <input id="globalSearch" type="text" placeholder="Search..." />
-    <button id="topAddBtn">+ Add</button>
-  </div>
-
-  <div class="content">
-
-    <div class="page active" id="page-dashboard">
-      <h1>Dashboard</h1>
-      <canvas id="revChart"></canvas>
-    </div>
-
-    <div class="page" id="page-contacts">
-      <h1>Contacts</h1>
-      <table>
-        <tbody id="contactTbody"></tbody>
-      </table>
-    </div>
-
-    <div class="page" id="page-deals">
-      <h1>Deals</h1>
-      <div id="kanbanBoard"></div>
-    </div>
-
-    <div class="page" id="page-activities">
-      <h1>Activities</h1>
-      <div id="timelineWrap"></div>
-    </div>
-
-    <div class="page" id="page-reports">
-      <h1>Reports</h1>
-      <canvas id="stageChart"></canvas>
-    </div>
-
-    <div class="page" id="page-pipeline">
-      <h1>Pipeline</h1>
-      <div id="pipeCards"></div>
-    </div>
-
-    <div class="page" id="page-settings">
-      <h1>Settings</h1>
-    </div>
-
-  </div>
-</div>
-
-<!-- ✅ GENESYS FRAME -->
-<div class="softphone">
-  <iframe src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"></iframe>
-</div>
-
-<!-- JS -->
-<script src="script.js"></script>
-
+ 
+    <script src="app.js"></script>
 </body>
 </html>
