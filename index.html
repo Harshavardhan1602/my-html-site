@@ -4,69 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cognizant CRM Solutions</title>
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="header">
-        <h1>Cognizant CRM Solutions</h1>
-        <p>Manage Customers • Leads • Sales • Communication</p>
-    </header>
+    <!-- Top Navigation -->
+    <header class="navbar">
+        <div class="logo">Cognizant CRM Solutions</div>
 
-    <!-- Main Layout -->
-    <div class="container">
-
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <ul>
-                <li onclick="showSection('dashboard')">Dashboard</li>
-                <li onclick="showSection('leads')">Leads</li>
-                <li onclick="showSection('contacts')">Contacts</li>
-                <li onclick="showSection('opportunities')">Opportunities</li>
-                <li onclick="showSection('softphone')">Softphone</li>
-            </ul>
+        <nav class="menu">
+            <a href="#">Industries</a>
+            <a href="#">Services</a>
+            <a href="#">Insights</a>
+            <a href="#">About</a>
         </nav>
 
-        <!-- Content Area -->
-        <main class="content">
+        <div class="search-box">
+            <input type="text" placeholder="Search">
+        </div>
+    </header>
 
-            <section id="dashboard" class="section active">
-                <h2>Dashboard</h2>
-                <p>Welcome to Cognizant CRM Solutions.</p>
-            </section>
+    <!-- Hero Section -->
+    <section class="hero">
 
-            <section id="leads" class="section">
-                <h2>Leads</h2>
-                <p>Track potential customers here.</p>
-            </section>
+        <!-- Left Content -->
+        <div class="hero-left">
+            <h1>
+                Harness scalable<br>
+                agentic AI networks<br>
+                for unmatched efficiency
+            </h1>
 
-            <section id="contacts" class="section">
-                <h2>Contacts</h2>
-                <p>Manage your customer contacts.</p>
-            </section>
+            <p>
+                Manage customers, leads, sales, and communication
+                efficiently with Cognizant CRM Solutions integrated
+                with Genesys Cloud.
+            </p>
 
-            <section id="opportunities" class="section">
-                <h2>Opportunities</h2>
-                <p>View and manage deals.</p>
-            </section>
+            <button class="cta-btn">Learn More</button>
+        </div>
 
-            <!-- Softphone Section -->
-            <section id="softphone" class="section">
-                <h2>Genesys Cloud Softphone</h2>
+        <!-- Right Softphone Widget -->
+        <div class="hero-right">
+            <div class="softphone-container">
+                <h3>Softphone</h3>
 
                 <iframe 
-                    id="softphone-frame"
+                    id="softphone"
                     allow="camera *; microphone *; autoplay *"
                     src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
                     title="Genesys Cloud Softphone">
                 </iframe>
+            </div>
+        </div>
 
-            </section>
+    </section>
 
-        </main>
-    </div>
+    <!-- Bottom Info -->
+    <section class="info-text">
+        <p>
+            Cognizant helps companies modernize technology,
+            reimagine processes and transform experiences
+            so they stay ahead in a fast‑changing world.
+        </p>
+    </section>
 
     <script src="script.js"></script>
 </body>
 </html>
+``
