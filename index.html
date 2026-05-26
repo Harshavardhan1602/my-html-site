@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cognizant CRM</title>
-
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
 
   <!-- Genesys Config -->
   <script>
@@ -14,13 +13,14 @@
       region: "usw2.pure.cloud"
     };
   </script>
-
 </head>
+
 <body>
 
   <!-- NAVBAR -->
   <header class="navbar">
     <div class="logo">Cognizant CRM</div>
+
     <nav>
       <a href="#">Products</a>
       <a href="#">Industries</a>
@@ -28,43 +28,54 @@
       <a href="#">Support</a>
       <a href="#">Company</a>
     </nav>
+
     <div class="nav-actions">
       <a href="#">Login</a>
       <button class="btn primary">Try for free</button>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
+  <!-- BLUE BANNER -->
+  <div class="banner">
+    Build success with Cognizant CRM — Modern Customer Engagement Platform
+  </div>
+
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-text">
-      <h1>Drive growth and cost savings with Cognizant CRM</h1>
+    <div class="hero-left">
+      <h1>Drive growth and cost savings with the world’s smart CRM</h1>
       <p>
-        Deliver seamless customer experiences across multiple touchpoints
-        with intelligent automation and cloud integration.
+        Cognizant CRM helps you unify customer data, automate workflows,
+        and deliver seamless experiences across all channels.
       </p>
-      <div class="buttons">
-        <button class="btn success">START FREE TRIAL</button>
-        <button class="btn outline">WATCH DEMOS</button>
+
+      <div class="cta-buttons">
+        <button class="btn green">START MY FREE TRIAL</button>
+        <button class="btn blue-outline">WATCH DEMOS</button>
       </div>
     </div>
 
-    <div class="hero-image">
-      <div class="circle">
-        <img src="https://via.placeholder.com/250" alt="user" />
+    <div class="hero-right">
+      <div class="circle-bg">
+        <img src="https://via.placeholder.com/260" alt="CRM">
       </div>
     </div>
   </section>
 
-  <!-- GENESYS CLOUD SOFTPHONE -->
-  <section class="softphone">
-    <h2>Embedded Softphone</h2>
+  <!-- FLOATING SOFTPHONE -->
+  <div class="softphone-widget" id="softphoneWidget">
+    <div class="widget-header">
+      <span>📞 Softphone</span>
+      <button onclick="toggleSoftphone()">−</button>
+    </div>
 
     <iframe
       id="genesysFrame"
       src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
-      allow="microphone; camera"
     ></iframe>
-  </section>
+  </div>
+
+  <button class="open-btn" onclick="toggleSoftphone()">📞</button>
 
   <script src="script.js"></script>
 </body>
