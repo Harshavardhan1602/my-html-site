@@ -1,89 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cognizant CRM</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cognizant CRM</title>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-    <div class="logo">cognizant</div>
+<div class="app">
 
-    <nav class="menu">
-        <a href="#">Industries</a>
-        <a href="#">Services</a>
-        <a href="#">Insights</a>
-        <a href="#">About</a>
-    </nav>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">CRM</div>
+        <ul>
+            <li>🏠</li>
+            <li>👥</li>
+            <li>📞</li>
+            <li>📊</li>
+        </ul>
+    </aside>
 
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search">
-    </div>
-</header>
+    <!-- Main Content -->
+    <div class="main">
 
-<!-- HERO SECTION -->
-<section class="hero">
+        <!-- Contacts List -->
+        <div class="contacts">
+            <h3>People</h3>
+            <input type="text" placeholder="Search">
 
-    <!-- LEFT CONTENT -->
-    <div class="hero-left">
-        <h1>
-            Harness scalable <br>
-            agentic AI networks <br>
-            <span>for unmatched efficiency</span>
-        </h1>
-
-        <p>
-            Manage customers, leads, sales, and communication efficiently
-            with Cognizant CRM integrated with Genesys Cloud.
-        </p>
-
-        <div class="buttons">
-            <button id="learnMoreBtn" class="primary">Learn More</button>
-            <button id="demoBtn" class="outline">View Demo</button>
+            <div class="contact">John Miller</div>
+            <div class="contact active">Bessie Warren</div>
+            <div class="contact">Jenny Wilson</div>
+            <div class="contact">Devon Lane</div>
         </div>
-    </div>
 
-    <!-- RIGHT SIDE SOFTPHONE -->
-    <div class="hero-right">
-        <div class="softphone-card">
+        <!-- Center Panel -->
+        <div class="details">
+            <h2>Bessie Warren</h2>
+            <p>Senior Manager</p>
 
-            <div class="softphone-header">
-                Genesys Cloud Softphone
+            <div class="cards">
+                <div class="card">
+                    <h4>Tasks</h4>
+                    <p>Follow up with marketing team</p>
+                </div>
+
+                <div class="card">
+                    <h4>Messages</h4>
+                    <p>You: Let's connect tomorrow</p>
+                </div>
             </div>
-
-            <div class="iframe-container">
-                <iframe 
-                    id="softphone"
-                    src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
-                    allow="camera *; microphone *; autoplay *"
-                    title="Softphone">
-                </iframe>
-            </div>
-
         </div>
+
     </div>
 
-</section>
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
 
-<!-- INFO -->
-<section class="info">
-    <p>
-        Cognizant helps companies modernize technology, reimagine processes and 
-        transform experiences to stay ahead in a fast‑changing world.
-    </p>
-</section>
+        <!-- Contact Info -->
+        <div class="info-box">
+            <h3>Contact Info</h3>
+            <p>Email: user@email.com</p>
+            <p>Phone: +1 123456789</p>
+        </div>
 
-<!-- JS -->
+        <!-- ✅ Genesys Softphone -->
+        <div class="softphone-box">
+            <div class="softphone-header">Softphone</div>
+
+            <iframe
+                id="softphone"
+                src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
+                allow="camera *; microphone *; autoplay *"
+                title="Genesys Cloud Softphone">
+            </iframe>
+        </div>
+
+    </div>
+
+</div>
+
 <script src="script.js"></script>
-
 </body>
 </html>
