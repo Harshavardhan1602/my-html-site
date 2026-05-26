@@ -1,269 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cognizant CRM Solutions</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognizant CRM Solutions</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ── TOP NAV ─────────────────────────────────────────────── -->
-  <header class="topbar">
-    <div class="topbar__brand">
-      <div class="brand-icon">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <rect width="12" height="12" rx="3" fill="var(--accent)"/>
-          <rect x="16" width="12" height="12" rx="3" fill="var(--accent2)"/>
-          <rect y="16" width="12" height="12" rx="3" fill="var(--accent2)"/>
-          <rect x="16" y="16" width="12" height="12" rx="3" fill="var(--accent)"/>
-        </svg>
-      </div>
-      <span class="brand-name">Cognizant <em>CRM</em></span>
+    <!-- Header -->
+    <header class="header">
+        <h1>Cognizant CRM Solutions</h1>
+        <p>Manage Customers • Leads • Sales • Communication</p>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="container">
+
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul>
+                <li onclick="showSection('dashboard')">Dashboard</li>
+                <li onclick="showSection('leads')">Leads</li>
+                <li onclick="showSection('contacts')">Contacts</li>
+                <li onclick="showSection('opportunities')">Opportunities</li>
+                <li onclick="showSection('softphone')">Softphone</li>
+            </ul>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="content">
+
+            <section id="dashboard" class="section active">
+                <h2>Dashboard</h2>
+                <p>Welcome to Cognizant CRM Solutions.</p>
+            </section>
+
+            <section id="leads" class="section">
+                <h2>Leads</h2>
+                <p>Track potential customers here.</p>
+            </section>
+
+            <section id="contacts" class="section">
+                <h2>Contacts</h2>
+                <p>Manage your customer contacts.</p>
+            </section>
+
+            <section id="opportunities" class="section">
+                <h2>Opportunities</h2>
+                <p>View and manage deals.</p>
+            </section>
+
+            <!-- Softphone Section -->
+            <section id="softphone" class="section">
+                <h2>Genesys Cloud Softphone</h2>
+
+                <iframe 
+                    id="softphone-frame"
+                    allow="camera *; microphone *; autoplay *"
+                    src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
+                    title="Genesys Cloud Softphone">
+                </iframe>
+
+            </section>
+
+        </main>
     </div>
 
-    <nav class="topbar__nav">
-      <a href="#" class="nav-link active">Dashboard</a>
-      <a href="#" class="nav-link">Accounts</a>
-      <a href="#" class="nav-link">Contacts</a>
-      <a href="#" class="nav-link">Opportunities</a>
-      <a href="#" class="nav-link">Reports</a>
-    </nav>
-
-    <div class="topbar__actions">
-      <div class="search-box">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" placeholder="Search CRM…" />
-      </div>
-      <button class="btn-icon" title="Notifications">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="badge">4</span>
-      </button>
-      <div class="avatar">RK</div>
-    </div>
-  </header>
-
-  <!-- ── MAIN LAYOUT ──────────────────────────────────────────── -->
-  <div class="layout">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar__section">
-        <p class="sidebar__label">Main</p>
-        <a href="#" class="sidebar__item active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-          Dashboard
-        </a>
-        <a href="#" class="sidebar__item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Contacts
-        </a>
-        <a href="#" class="sidebar__item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          Accounts
-        </a>
-        <a href="#" class="sidebar__item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          Pipeline
-        </a>
-        <a href="#" class="sidebar__item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Cases
-        </a>
-      </div>
-
-      <div class="sidebar__section">
-        <p class="sidebar__label">Analytics</p>
-        <a href="#" class="sidebar__item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          Reports
-        </a>
-        <a href="#" class="sidebar__item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Activity
-        </a>
-      </div>
-
-      <div class="sidebar__section">
-        <p class="sidebar__label">Tools</p>
-        <a href="#" class="sidebar__item" id="softphone-toggle">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.34 2 2 0 0 1 3.6 1.14h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.64 16z"/></svg>
-          Softphone
-          <span class="softphone-status" id="softphone-status-dot"></span>
-        </a>
-        <a href="#" class="sidebar__item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Email
-        </a>
-        <a href="#" class="sidebar__item" id="settings-link">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Settings
-        </a>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="main">
-
-      <!-- KPI STRIP -->
-      <section class="kpi-strip">
-        <div class="kpi-card">
-          <span class="kpi-label">Total Accounts</span>
-          <span class="kpi-value">2,847</span>
-          <span class="kpi-delta up">+12% this month</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-label">Open Opportunities</span>
-          <span class="kpi-value">$4.2M</span>
-          <span class="kpi-delta up">+8.3% vs last Q</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-label">Active Cases</span>
-          <span class="kpi-value">183</span>
-          <span class="kpi-delta down">-5 since yesterday</span>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-label">Calls Today</span>
-          <span class="kpi-value" id="calls-today">0</span>
-          <span class="kpi-delta neutral">via Genesys Cloud</span>
-        </div>
-      </section>
-
-      <!-- MIDDLE ROW -->
-      <div class="content-grid">
-
-        <!-- RECENT CONTACTS TABLE -->
-        <section class="card contacts-card">
-          <div class="card-header">
-            <h2>Recent Contacts</h2>
-            <button class="btn-sm">+ New Contact</button>
-          </div>
-          <table class="crm-table">
-            <thead>
-              <tr><th>Name</th><th>Company</th><th>Stage</th><th>Value</th><th>Last Contact</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="contact-avatar">SM</span> Sarah Mitchell</td>
-                <td>TechNova Inc.</td>
-                <td><span class="badge-stage qualify">Qualifying</span></td>
-                <td>$128,000</td>
-                <td>Today, 10:34 AM</td>
-              </tr>
-              <tr>
-                <td><span class="contact-avatar teal">JP</span> James Park</td>
-                <td>Zenith Systems</td>
-                <td><span class="badge-stage propose">Proposal</span></td>
-                <td>$345,000</td>
-                <td>Yesterday</td>
-              </tr>
-              <tr>
-                <td><span class="contact-avatar amber">AL</span> Aisha Lawrence</td>
-                <td>Orbit Digital</td>
-                <td><span class="badge-stage close">Closing</span></td>
-                <td>$87,500</td>
-                <td>May 23</td>
-              </tr>
-              <tr>
-                <td><span class="contact-avatar red">RC</span> Rahul Chopra</td>
-                <td>InfraCore Ltd.</td>
-                <td><span class="badge-stage qualify">Qualifying</span></td>
-                <td>$210,000</td>
-                <td>May 22</td>
-              </tr>
-              <tr>
-                <td><span class="contact-avatar green">EW</span> Emma Watson</td>
-                <td>SkyBridge Co.</td>
-                <td><span class="badge-stage won">Won</span></td>
-                <td>$490,000</td>
-                <td>May 20</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        <!-- ACTIVITY FEED -->
-        <section class="card activity-card">
-          <div class="card-header">
-            <h2>Activity Feed</h2>
-            <span class="live-indicator"><span></span>Live</span>
-          </div>
-          <ul class="activity-list" id="activity-feed">
-            <li class="activity-item">
-              <div class="activity-icon call">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.34 2 2 0 0 1 3.6 1.14h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.64 16z"/></svg>
-              </div>
-              <div class="activity-body">
-                <p>Inbound call from <strong>Sarah Mitchell</strong></p>
-                <span>10:34 AM · 4m 12s</span>
-              </div>
-            </li>
-            <li class="activity-item">
-              <div class="activity-icon email">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              </div>
-              <div class="activity-body">
-                <p>Email sent to <strong>James Park</strong></p>
-                <span>9:51 AM</span>
-              </div>
-            </li>
-            <li class="activity-item">
-              <div class="activity-icon note">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              </div>
-              <div class="activity-body">
-                <p>Note added on <strong>Orbit Digital</strong></p>
-                <span>9:22 AM</span>
-              </div>
-            </li>
-            <li class="activity-item">
-              <div class="activity-icon deal">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-              </div>
-              <div class="activity-body">
-                <p>Deal closed — <strong>SkyBridge Co.</strong> $490K</p>
-                <span>Yesterday, 4:18 PM</span>
-              </div>
-            </li>
-          </ul>
-        </section>
-
-      </div><!-- /content-grid -->
-
-    </main><!-- /main -->
-
-    <!-- ── GENESYS SOFTPHONE PANEL ──────────────────────────── -->
-    <aside class="softphone-panel" id="softphone-panel">
-      <div class="softphone-panel__header">
-        <div class="sp-title">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.34 2 2 0 0 1 3.6 1.14h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.64 16z"/></svg>
-          Genesys Cloud Softphone
-        </div>
-        <button class="sp-close" id="softphone-close" title="Collapse">✕</button>
-      </div>
-
-      <div class="softphone-panel__status" id="softphone-auth-status">
-        <div class="sp-spinner"></div>
-        <span id="sp-status-text">Initializing…</span>
-      </div>
-
-      <iframe
-        id="softphone"
-        allow="camera *; microphone *; autoplay *"
-        src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
-        title="Genesys Cloud Softphone"
-        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-top-navigation"
-      ></iframe>
-    </aside>
-
-  </div><!-- /layout -->
-
-  <!-- TOAST -->
-  <div class="toast" id="toast"></div>
-
-  <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
