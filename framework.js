@@ -5,8 +5,7 @@ const genesysConfig = {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    console.log("✅ Cognizant CRM Loaded");
-    console.log("Genesys Config:", genesysConfig);
+    console.log("✅ Cognizant CRM Dashboard Loaded");
 
     const iframe = document.getElementById("softphone");
 
@@ -22,10 +21,4 @@ document.addEventListener("DOMContentLoaded", () => {
             "https://apps.usw2.pure.cloud"
         );
     });
-
-    document.getElementById("learnMoreBtn")
-        .addEventListener("click", () => alert("Learn More clicked"));
-
-    document.getElementById("demoBtn")
-        .addEventListener("click", () => alert("Demo clicked"));
 });
