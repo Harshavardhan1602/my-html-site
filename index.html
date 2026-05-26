@@ -1,682 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cognizant CRM Solutions</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognizant CRM</title>
 
-/* ─── RESET ─────────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Inter',sans-serif;color:#0D1230;background:#fff;-webkit-font-smoothing:antialiased}
-a{text-decoration:none}
-button{cursor:pointer;font-family:'Inter',sans-serif}
-img{max-width:100%;height:auto;display:block}
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
-/* ─── VARIABLES ─────────────────────────────────────── */
-:root{
-  --navy:#001A5E;
-  --navy2:#002E9E;
-  --navy3:#000D33;
-  --teal:#00C2A8;
-  --teal2:#009E8A;
-  --white:#fff;
-  --off:#F5F7FC;
-  --border:#E2E6F0;
-  --txt:#0D1230;
-  --muted:#6B7280;
-  --mid:#3A3F5C;
-  --r-sm:6px;
-  --r-md:10px;
-  --r-lg:14px;
-  --r-xl:20px;
-  --sh-sm:0 1px 4px rgba(0,20,80,.07);
-  --sh-md:0 4px 18px rgba(0,20,80,.11);
-  --sh-lg:0 12px 40px rgba(0,20,80,.18);
-  --sh-xl:0 20px 60px rgba(0,20,80,.26);
-}
-
-/* ─── UTILITY BAR ───────────────────────────────────── */
-.util-bar{background:#EEF1FA;border-bottom:1px solid var(--border);padding:5px 0;font-size:12.5px}
-.util-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;justify-content:flex-end;align-items:center;gap:24px}
-.util-links{display:flex;gap:20px}
-.util-links a{color:var(--mid);font-weight:500;transition:color .18s}
-.util-links a:hover{color:var(--navy)}
-.util-lang{display:flex;align-items:center;gap:4px;color:var(--navy);font-weight:600;font-size:12px}
-
-/* ─── NAVBAR ─────────────────────────────────────────── */
-.navbar{position:sticky;top:0;z-index:300;background:#fff;border-bottom:1px solid var(--border);box-shadow:var(--sh-sm)}
-.nav-inner{max-width:1280px;margin:0 auto;padding:0 40px;height:66px;display:flex;align-items:center;gap:40px}
-
-/* Logo */
-.logo{display:flex;align-items:center;gap:9px;flex-shrink:0}
-.logo-gem{width:36px;height:36px;flex-shrink:0}
-.logo-name{font-family:'Raleway',sans-serif;font-size:21px;font-weight:800;color:var(--navy);letter-spacing:-.3px}
-
-/* Nav links */
-.nav-links{display:flex;flex:1;gap:2px}
-.nav-links a{color:var(--mid);font-size:14px;font-weight:500;padding:7px 14px;border-radius:var(--r-sm);transition:background .18s,color .18s}
-.nav-links a:hover{background:#EEF1FC;color:var(--navy)}
-
-/* Search */
-.nav-search{display:flex;align-items:center;border:1.5px solid var(--border);border-radius:var(--r-md);overflow:hidden;min-width:220px;transition:border-color .2s,box-shadow .2s}
-.nav-search:focus-within{border-color:var(--navy2);box-shadow:0 0 0 3px rgba(0,46,158,.1)}
-.nav-search input{border:none;outline:none;padding:8px 12px;font-size:13.5px;color:var(--txt);background:transparent;flex:1;font-family:'Inter',sans-serif}
-.nav-search input::placeholder{color:#A0A8C0}
-.nav-search button{background:none;border:none;padding:7px 11px;color:var(--muted);display:flex;align-items:center;transition:color .18s}
-.nav-search button:hover{color:var(--navy)}
-.nav-search button svg{width:16px;height:16px}
-
-/* ─── HERO ───────────────────────────────────────────── */
-.hero{
-  position:relative;
-  background:linear-gradient(145deg,#000C2B 0%,#001A5E 42%,#002580 70%,#002E9E 100%);
-  overflow:hidden;
-}
-
-/* Decorative layers */
-.hero-deco{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.deco-blob1{
-  position:absolute;width:520px;height:520px;border-radius:50%;
-  right:-80px;top:-140px;
-  background:radial-gradient(circle,rgba(0,194,168,.1) 0%,transparent 68%);
-  border:1px solid rgba(255,255,255,.04);
-}
-.deco-blob2{
-  position:absolute;width:320px;height:320px;border-radius:50%;
-  left:-60px;bottom:-80px;
-  background:radial-gradient(circle,rgba(0,50,160,.2) 0%,transparent 70%);
-}
-.deco-dots{
-  position:absolute;inset:0;
-  background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);
-  background-size:32px 32px;
-}
-.deco-line{
-  position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,transparent,var(--teal),transparent);
-  opacity:.4;
-}
-
-/* Hero layout */
-.hero-body{
-  max-width:1280px;margin:0 auto;padding:64px 40px 44px;
-  display:grid;grid-template-columns:1fr 360px;
-  align-items:start;gap:56px;position:relative;z-index:2;
-}
-
-/* LEFT text */
-.hero-left{color:#fff}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:7px;
-  font-size:11.5px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--teal);background:rgba(0,194,168,.12);
-  border:1px solid rgba(0,194,168,.28);padding:4px 13px;border-radius:20px;
-  margin-bottom:20px;
-}
-.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal)}
-
-.hero-h1{
-  font-family:'Raleway',sans-serif;
-  font-size:clamp(30px,3.4vw,50px);
-  font-weight:900;line-height:1.11;letter-spacing:-1px;
-  margin-bottom:20px;
-}
-.hero-h1 span{color:var(--teal)}
-
-.hero-p{
-  font-size:15px;line-height:1.75;
-  color:rgba(255,255,255,.72);max-width:500px;margin-bottom:32px;
-}
-
-/* Buttons */
-.hero-btns{display:flex;gap:14px;align-items:center;margin-bottom:44px;flex-wrap:wrap}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:7px;
-  background:var(--teal);color:#fff;border:none;
-  padding:12px 26px;border-radius:40px;
-  font-size:14.5px;font-weight:600;
-  box-shadow:0 4px 18px rgba(0,194,168,.38);
-  transition:background .2s,transform .15s,box-shadow .2s;
-}
-.btn-primary svg{width:15px;height:15px;transition:transform .2s}
-.btn-primary:hover{background:var(--teal2);transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,194,168,.42)}
-.btn-primary:hover svg{transform:translateX(3px)}
-.btn-outline{
-  background:transparent;color:#fff;
-  border:1.5px solid rgba(255,255,255,.3);
-  padding:11px 26px;border-radius:40px;
-  font-size:14.5px;font-weight:500;
-  transition:border-color .2s,background .2s;
-}
-.btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.6)}
-
-/* Stats */
-.hero-stats{display:flex;align-items:center;gap:24px}
-.stat{display:flex;flex-direction:column;gap:3px}
-.stat-n{font-family:'Raleway',sans-serif;font-size:21px;font-weight:800;color:#fff}
-.stat-l{font-size:11.5px;color:rgba(255,255,255,.5);font-weight:400}
-.stat-sep{width:1px;height:34px;background:rgba(255,255,255,.18)}
-
-/* RIGHT softphone */
-.hero-right{position:relative;z-index:5}
-
-.sp-card{
-  background:#fff;
-  border-radius:var(--r-xl);
-  box-shadow:var(--sh-xl);
-  overflow:hidden;
-  width:100%;
-  border:1px solid rgba(255,255,255,.12);
-}
-
-/* card header */
-.sp-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:11px 16px;
-  background:linear-gradient(90deg,var(--navy3) 0%,var(--navy2) 100%);
-}
-.sp-brand{display:flex;align-items:center;gap:8px;color:#fff;font-size:13px;font-weight:600}
-.sp-brand-dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
-.sp-avail{
-  display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--teal);
-  background:rgba(0,194,168,.14);border:1px solid rgba(0,194,168,.28);
-  padding:3px 9px;border-radius:12px;
-}
-.avail-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 5px var(--teal)}
-
-/* iframe container — FIXED SIZE, no overflow */
-.sp-frame-wrap{
-  width:100%;
-  height:400px;       /* fixed height — stops iframe from expanding */
-  background:#F0F4FB;
-  overflow:hidden;    /* clip anything that tries to overflow */
-  position:relative;
-}
-#softphone{
-  position:absolute;
-  top:0;left:0;
-  width:100%;
-  height:100%;
-  border:none;
-  display:block;
-  transform-origin:top left;
-}
-
-/* card footer */
-.sp-foot{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:9px 16px;background:#F8FAFF;border-top:1px solid var(--border);
-}
-.sp-ver{font-size:11px;color:var(--muted);font-weight:500}
-.sp-conn{display:flex;align-items:center;gap:5px;font-size:11px;color:#16a34a;font-weight:500}
-.conn-dot{width:7px;height:7px;border-radius:50%;background:#22c55e}
-
-/* ─── TABS STRIP ─────────────────────────────────────── */
-.tabs-strip{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.1)}
-.tabs-inner{
-  max-width:1280px;margin:0 auto;padding:0 40px;
-  display:flex;align-items:center;
-  overflow-x:auto;scrollbar-width:none;
-}
-.tabs-inner::-webkit-scrollbar{display:none}
-.tab-arrow{flex-shrink:0;margin-right:10px;opacity:.45}
-.tab-arrow svg{width:18px;height:18px;stroke:#fff}
-.tab-btn{
-  background:none;border:none;border-bottom:3px solid transparent;
-  color:rgba(255,255,255,.58);padding:16px 22px;
-  font-size:13px;font-weight:500;white-space:nowrap;
-  transition:color .18s,border-color .18s;
-}
-.tab-btn:hover{color:#fff}
-.tab-btn.active{color:#fff;border-bottom-color:var(--teal)}
-
-/* ─── INFO BAND ──────────────────────────────────────── */
-.info-band{padding:60px 0;background:#fff;border-bottom:1px solid var(--border)}
-.info-inner{max-width:860px;margin:0 auto;padding:0 40px;text-align:center}
-.info-p{
-  font-family:'Raleway',sans-serif;
-  font-size:clamp(20px,2vw,28px);
-  font-weight:600;color:var(--txt);line-height:1.55;
-}
-.info-p a{color:var(--teal2);font-weight:700;border-bottom:2px solid transparent;transition:border-color .2s}
-.info-p a:hover{border-bottom-color:var(--teal2)}
-
-/* ─── FEATURES ───────────────────────────────────────── */
-.features{background:var(--off);padding:72px 0}
-.feat-inner{max-width:1280px;margin:0 auto;padding:0 40px}
-.sec-head{text-align:center;margin-bottom:48px}
-.sec-head h2{font-family:'Raleway',sans-serif;font-size:clamp(24px,2.2vw,34px);font-weight:800;color:var(--txt);margin-bottom:10px}
-.sec-head p{font-size:15px;color:var(--muted)}
-
-.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.feat-card{
-  background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);
-  padding:28px 24px;transition:transform .2s,box-shadow .2s;
-}
-.feat-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
-.feat-icon{
-  width:48px;height:48px;border-radius:var(--r-md);
-  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
-}
-.feat-icon svg{width:22px;height:22px}
-.ic-blue{background:#EEF3FF}.ic-blue svg{stroke:#2B5CE6}
-.ic-teal{background:#E0F8F4}.ic-teal svg{stroke:#009E8A}
-.ic-purple{background:#F0EEFE}.ic-purple svg{stroke:#6C4FD8}
-.ic-green{background:#E9F7EE}.ic-green svg{stroke:#1A7F44}
-.feat-card h3{font-family:'Raleway',sans-serif;font-size:16px;font-weight:700;color:var(--txt);margin-bottom:9px}
-.feat-card p{font-size:13.5px;line-height:1.65;color:var(--muted)}
-
-/* ─── INTEGRATIONS STRIP ─────────────────────────────── */
-.integrations{padding:48px 0;background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.int-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;align-items:center;gap:40px}
-.int-label{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;flex-shrink:0}
-.int-logos{display:flex;flex:1;align-items:center;gap:36px;flex-wrap:wrap}
-.int-logo{
-  height:32px;display:flex;align-items:center;justify-content:center;
-  padding:0 14px;border:1px solid var(--border);border-radius:var(--r-md);
-  font-size:13px;font-weight:600;color:var(--mid);background:var(--off);
-  white-space:nowrap;
-}
-
-/* ─── CTA BANNER ─────────────────────────────────────── */
-.cta-banner{
-  background:linear-gradient(130deg,var(--navy3) 0%,var(--navy) 55%,#002B8A 100%);
-  padding:64px 40px;text-align:center;position:relative;overflow:hidden;
-}
-.cta-banner::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:28px 28px;
-}
-.cta-content{max-width:640px;margin:0 auto;position:relative;z-index:1}
-.cta-banner h2{font-family:'Raleway',sans-serif;font-size:clamp(24px,2.4vw,36px);font-weight:800;color:#fff;margin-bottom:14px}
-.cta-banner p{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:28px;line-height:1.65}
-.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.cta-btns .btn-primary{padding:13px 32px;font-size:15px}
-.cta-btns .btn-outline{padding:12px 32px;font-size:15px}
-
-/* ─── FOOTER ─────────────────────────────────────────── */
-.footer{background:#000D33;padding:24px 0}
-.footer-inner{
-  max-width:1280px;margin:0 auto;padding:0 40px;
-  display:flex;align-items:center;justify-content:space-between;gap:20px;
-  flex-wrap:wrap;
-}
-.footer-name{font-family:'Raleway',sans-serif;font-size:17px;font-weight:800;color:#fff}
-.footer-copy{font-size:11.5px;color:rgba(255,255,255,.38);margin-top:4px}
-.footer-nav{display:flex;gap:18px}
-.footer-nav a{font-size:13px;color:rgba(255,255,255,.45);transition:color .18s}
-.footer-nav a:hover{color:#fff}
-
-/* ─── RESPONSIVE ─────────────────────────────────────── */
-@media(max-width:1060px){
-  .feat-grid{grid-template-columns:repeat(2,1fr)}
-  .hero-body{grid-template-columns:1fr 320px;gap:36px}
-}
-@media(max-width:820px){
-  .hero-body{grid-template-columns:1fr;padding:48px 24px 36px}
-  .hero-right{max-width:380px;margin:0 auto}
-  .nav-inner,.util-inner,.tabs-inner,.feat-inner,.footer-inner{padding-left:24px;padding-right:24px}
-  .info-inner,.int-inner{padding-left:24px;padding-right:24px}
-}
-@media(max-width:580px){
-  .util-bar,.nav-search{display:none}
-  .feat-grid{grid-template-columns:1fr}
-  .hero-stats{flex-wrap:wrap;gap:16px}
-  .stat-sep{display:none}
-  .int-logos{gap:12px}
-  .int-label{display:none}
-  .footer-inner{flex-direction:column;text-align:center}
-}
-
-</style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<!-- ════════════════════════════════════════════
-     UTILITY BAR
-════════════════════════════════════════════ -->
-<div class="util-bar">
-  <div class="util-inner">
-    <div class="util-links">
-      <a href="#">Careers</a>
-      <a href="#">News</a>
-      <a href="#">Events</a>
-      <a href="#">Investors</a>
-    </div>
-    <div class="util-lang">
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" style="width:13px;height:13px"><circle cx="10" cy="10" r="8"/><path d="M10 2a14 14 0 010 16M2 10h16"/></svg>
-      PH-EN ▾
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════
-     NAVBAR
-════════════════════════════════════════════ -->
+<!-- NAVBAR -->
 <header class="navbar">
-  <div class="nav-inner">
+    <div class="logo">cognizant</div>
 
-    <!-- Logo -->
-    <a href="#" class="logo">
-      <svg class="logo-gem" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M24 3L45 14.5V33.5L24 45L3 33.5V14.5Z" fill="#0050C8"/>
-        <path d="M24 9L39 17.5V30.5L24 39L9 30.5V17.5Z" fill="#003A9B"/>
-        <path d="M24 15L33 20.5V27.5L24 33L15 27.5V20.5Z" fill="white" opacity=".92"/>
-        <path d="M20 24L24 19.5L28 24L24 28.5Z" fill="#0050C8"/>
-      </svg>
-      <span class="logo-name">cognizant</span>
-    </a>
-
-    <!-- Nav links -->
-    <nav class="nav-links">
-      <a href="#">Industries</a>
-      <a href="#">Services</a>
-      <a href="#">Insights</a>
-      <a href="#">About</a>
+    <nav class="menu">
+        <a href="#">Industries</a>
+        <a href="#">Services</a>
+        <a href="#">Insights</a>
+        <a href="#">About</a>
     </nav>
 
-    <!-- Search -->
-    <div class="nav-search">
-      <input type="text" placeholder="Search" id="searchInput" autocomplete="off">
-      <button id="searchBtn" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-      </button>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search">
     </div>
-
-  </div>
 </header>
 
-<!-- ════════════════════════════════════════════
-     HERO
-════════════════════════════════════════════ -->
+<!-- HERO SECTION -->
 <section class="hero">
 
-  <!-- decorations -->
-  <div class="hero-deco">
-    <div class="deco-blob1"></div>
-    <div class="deco-blob2"></div>
-    <div class="deco-dots"></div>
-    <div class="deco-line"></div>
-  </div>
-
-  <div class="hero-body">
-
-    <!-- LEFT -->
+    <!-- LEFT CONTENT -->
     <div class="hero-left">
-      <div class="hero-badge"><span class="badge-dot"></span>Cognizant CRM · Genesys Cloud</div>
+        <h1>
+            Harness scalable <br>
+            agentic AI networks <br>
+            <span>for unmatched efficiency</span>
+        </h1>
 
-      <h1 class="hero-h1">
-        Harness scalable<br>
-        agentic AI networks<br>
-        <span>for unmatched efficiency</span>
-      </h1>
+        <p>
+            Manage customers, leads, sales, and communication efficiently
+            with Cognizant CRM integrated with Genesys Cloud.
+        </p>
 
-      <p class="hero-p">
-        Manage customers, leads, sales, and communication efficiently
-        with Cognizant CRM Solutions integrated with Genesys Cloud.
-      </p>
-
-      <div class="hero-btns">
-        <button class="btn-primary" id="learnMoreBtn">
-          Learn More
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-        </button>
-        <button class="btn-outline" id="demoBtn">View Demo</button>
-      </div>
-
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-n">99.9%</span><span class="stat-l">Uptime SLA</span></div>
-        <div class="stat-sep"></div>
-        <div class="stat"><span class="stat-n">3× faster</span><span class="stat-l">Resolution Time</span></div>
-        <div class="stat-sep"></div>
-        <div class="stat"><span class="stat-n">500+</span><span class="stat-l">Enterprise Clients</span></div>
-      </div>
+        <div class="buttons">
+            <button id="learnMoreBtn" class="primary">Learn More</button>
+            <button id="demoBtn" class="outline">View Demo</button>
+        </div>
     </div>
 
-    <!-- RIGHT: Softphone -->
+    <!-- RIGHT SIDE SOFTPHONE -->
     <div class="hero-right">
-      <div class="sp-card">
+        <div class="softphone-card">
 
-        <!-- top bar -->
-        <div class="sp-head">
-          <div class="sp-brand">
-            <span class="sp-brand-dot"></span>
-            Genesys Cloud Softphone
-          </div>
-          <div class="sp-avail"><span class="avail-dot"></span>Available</div>
+            <div class="softphone-header">
+                Genesys Cloud Softphone
+            </div>
+
+            <div class="iframe-container">
+                <iframe 
+                    id="softphone"
+                    src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
+                    allow="camera *; microphone *; autoplay *"
+                    title="Softphone">
+                </iframe>
+            </div>
+
         </div>
-
-        <!-- iframe — fixed-size wrapper prevents blowout -->
-        <div class="sp-frame-wrap">
-          <iframe
-            id="softphone"
-            src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
-            allow="camera *; microphone *; autoplay *"
-            title="Genesys Cloud Softphone"
-            scrolling="no"
-            loading="lazy">
-          </iframe>
-        </div>
-
-        <!-- footer bar -->
-        <div class="sp-foot">
-          <span class="sp-ver">CRM v4.2 · usw2</span>
-          <span class="sp-conn"><span class="conn-dot"></span>Connected</span>
-        </div>
-
-      </div>
     </div>
-
-  </div>
-
-  <!-- Feature tabs -->
-  <div class="tabs-strip">
-    <div class="tabs-inner">
-      <div class="tab-arrow">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="6 12 10 16 14 12"/><polyline points="6 5 10 9 14 5"/>
-        </svg>
-      </div>
-      <button class="tab-btn active" data-tab="multi">Multi-agent services</button>
-      <button class="tab-btn" data-tab="minds">New minds, new markets</button>
-      <button class="tab-btn" data-tab="gen">Age of gen AI</button>
-      <button class="tab-btn" data-tab="moment">Cognizant Moment</button>
-    </div>
-  </div>
 
 </section>
 
-<!-- ════════════════════════════════════════════
-     INFO BAND
-════════════════════════════════════════════ -->
-<section class="info-band">
-  <div class="info-inner">
-    <p class="info-p">
-      Cognizant helps companies modernize <a href="#">technology</a>,
-      reimagine <a href="#">processes</a> and transform
-      <a href="#">experiences</a> so they stay ahead in a fast-changing world.
+<!-- INFO -->
+<section class="info">
+    <p>
+        Cognizant helps companies modernize technology, reimagine processes and 
+        transform experiences to stay ahead in a fast‑changing world.
     </p>
-  </div>
 </section>
 
-<!-- ════════════════════════════════════════════
-     FEATURES
-════════════════════════════════════════════ -->
-<section class="features">
-  <div class="feat-inner">
-    <div class="sec-head">
-      <h2>Why Cognizant CRM + Genesys Cloud</h2>
-      <p>Unified intelligence across every customer touchpoint</p>
-    </div>
-    <div class="feat-grid">
-
-      <div class="feat-card">
-        <div class="feat-icon ic-blue">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round">
-            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
-          </svg>
-        </div>
-        <h3>Omnichannel Routing</h3>
-        <p>Connect customers to the right agent instantly across voice, chat, email, and social channels.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-teal">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round">
-            <rect x="2" y="3" width="20" height="14" rx="2"/>
-            <path d="M8 21h8M12 17v4"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-        </div>
-        <h3>AI-Powered Agents</h3>
-        <p>Automate repetitive tasks with multi-agent AI networks that learn and adapt in real time.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
-        </div>
-        <h3>Real-time Analytics</h3>
-        <p>Live dashboards and predictive insights help managers optimise performance instantly.</p>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon ic-green">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </div>
-        <h3>Enterprise Security</h3>
-        <p>SOC2 Type II and ISO 27001 certified with end-to-end encryption at every layer.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════
-     INTEGRATIONS
-════════════════════════════════════════════ -->
-<div class="integrations">
-  <div class="int-inner">
-    <span class="int-label">Integrated with</span>
-    <div class="int-logos">
-      <span class="int-logo">Genesys Cloud</span>
-      <span class="int-logo">Salesforce</span>
-      <span class="int-logo">Microsoft 365</span>
-      <span class="int-logo">ServiceNow</span>
-      <span class="int-logo">SAP</span>
-      <span class="int-logo">AWS</span>
-      <span class="int-logo">Azure</span>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════
-     CTA BANNER
-════════════════════════════════════════════ -->
-<section class="cta-banner">
-  <div class="cta-content">
-    <h2>Ready to transform your customer experience?</h2>
-    <p>Get started with Cognizant CRM Solutions integrated with Genesys Cloud today. Schedule a live demo with our team.</p>
-    <div class="cta-btns">
-      <button class="btn-primary">
-        Request a Demo
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width:15px;height:15px">
-          <polyline points="9 18 15 12 9 6"/>
-        </svg>
-      </button>
-      <button class="btn-outline">Contact Sales</button>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════ -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <div class="footer-name">cognizant</div>
-      <div class="footer-copy">© 2025 Cognizant Technology Solutions. All rights reserved.</div>
-    </div>
-    <nav class="footer-nav">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Use</a>
-      <a href="#">Cookie Policy</a>
-      <a href="#">Contact</a>
-    </nav>
-  </div>
-</footer>
-
-<!-- ════════════════════════════════════════════
-     JAVASCRIPT
-════════════════════════════════════════════ -->
-<script>
-// ── Genesys Config ──────────────────────────────────────
-const genesysConfig = {
-  clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
-  environment: "usw2.pure.cloud"
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ Cognizant CRM Loaded");
-  console.log("⚙️ Genesys Config:", genesysConfig);
-
-  // ── Tabs ──
-  document.querySelectorAll(".tab-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    });
-  });
-
-  // ── Softphone iframe ──
-  const iframe = document.getElementById("softphone");
-  if (iframe) {
-    iframe.addEventListener("load", () => {
-      console.log("📞 Softphone loaded");
-      try {
-        iframe.contentWindow.postMessage(
-          { type: "genesys:init", clientId: genesysConfig.clientId, environment: genesysConfig.environment },
-          "https://apps." + genesysConfig.environment
-        );
-      } catch(e) {
-        console.info("ℹ️ Cross-origin (expected):", e.message);
-      }
-    });
-    window.addEventListener("message", e => {
-      if (e.origin.includes("pure.cloud")) console.log("📨 Genesys:", e.data);
-    });
-  }
-
-  // ── Search ──
-  const searchInput = document.getElementById("searchInput");
-  const searchBtn   = document.getElementById("searchBtn");
-  const doSearch = () => {
-    const q = searchInput.value.trim();
-    if (q) console.log("🔍 Search:", q);
-  };
-  searchBtn.addEventListener("click", doSearch);
-  searchInput.addEventListener("keydown", e => { if(e.key==="Enter") doSearch(); });
-
-  // ── Buttons ──
-  document.getElementById("learnMoreBtn").addEventListener("click", () => console.log("▶ Learn More"));
-  document.getElementById("demoBtn").addEventListener("click", () => console.log("▶ View Demo"));
-});
-</script>
+<!-- JS -->
+<script src="script.js"></script>
 
 </body>
 </html>
