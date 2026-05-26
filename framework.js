@@ -3,7 +3,7 @@
   const CONFIG = {
     clientId: "226182a8-bb53-435b-bc3c-2140f077768f",
     environment: "usw2.pure.cloud",
-    redirectUri: window.location.origin + window.location.pathname
+    redirectUri:https://apps.usw2.pure.cloud/crm/index.html
   };
 
   const iframe = document.getElementById("softphone");
