@@ -1,123 +1,114 @@
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
 }
 
-/* NAVBAR */
-.navbar {
+/* Layout */
+.app {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    background: white;
-    border-bottom: 1px solid #eee;
+    height: 100vh;
 }
 
-.logo {
-    font-size: 22px;
-    font-weight: 800;
-    font-family: 'Raleway', sans-serif;
-    color: #001a5e;
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background: #1f2d3d;
+    color: white;
+    text-align: center;
+    padding: 10px;
 }
 
-.menu a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #333;
+.sidebar .logo {
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-.search-box input {
-    padding: 6px 10px;
+.sidebar ul {
+    list-style: none;
+    padding: 0;
 }
 
-/* HERO */
-.hero {
+.sidebar li {
+    padding: 15px 0;
+    cursor: pointer;
+}
+
+/* Main */
+.main {
     display: flex;
-    background: linear-gradient(135deg, #001a5e, #002e9e);
-    color: white;
-    padding: 60px;
-}
-
-/* LEFT */
-.hero-left {
-    flex: 2;
-}
-
-.hero-left h1 {
-    font-size: 42px;
-    line-height: 1.2;
-}
-
-.hero-left span {
-    color: #00c2a8;
-}
-
-.hero-left p {
-    margin-top: 20px;
-    max-width: 500px;
-}
-
-.buttons {
-    margin-top: 20px;
-}
-
-.primary {
-    background: #00c2a8;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    margin-right: 10px;
-}
-
-.outline {
-    border: 1px solid white;
-    background: transparent;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 20px;
-}
-
-/* RIGHT SOFTPHONE */
-.hero-right {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.softphone-card {
-    width: 320px;
-    height: 450px;
+/* Contacts */
+.contacts {
+    width: 250px;
     background: white;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+}
+
+.contact {
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.contact.active {
+    background: #e6f0ff;
+}
+
+/* Details */
+.details {
+    flex: 1;
+    padding: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    width: 200px;
+}
+
+/* Right Panel */
+.right-panel {
+    width: 300px;
+    background: #ffffff;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+/* Info */
+.info-box {
+    margin-bottom: 15px;
+}
+
+/* Softphone */
+.softphone-box {
+    flex: 1;
+    border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .softphone-header {
     background: #001a5e;
     color: white;
-    text-align: center;
-    padding: 10px;
+    padding: 8px;
     font-size: 14px;
-}
-
-.iframe-container {
-    width: 100%;
-    height: 400px;
-    overflow: hidden;
 }
 
 #softphone {
     width: 100%;
-    height: 100%;
+    height: 350px;
     border: none;
 }
-
-/* INFO */
-.info {
-    text-align: center;
-    padding: 40px;
-    font-size: 18px;
-}
+``
