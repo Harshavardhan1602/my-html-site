@@ -2,725 +2,268 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="NexaConnect – Genesys Cloud CX integrated customer engagement platform for contact centre agents." />
-  <title>NexaConnect | Customer Engagement Platform</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
-
-  <style>
-    /* ── Design Tokens ───────────────────────────────────────────── */
-    :root {
-      --bg:          #0d0f14;
-      --surface:     #13161e;
-      --surface2:    #1a1e2a;
-      --border:      #232737;
-      --accent:      #4f7cff;
-      --accent2:     #7b5cff;
-      --success:     #22c97a;
-      --warning:     #f5a623;
-      --danger:      #ff4d6a;
-      --text:        #e8eaf0;
-      --text-muted:  #7880a0;
-      --radius:      10px;
-      --font-head:   'Syne', 'Trebuchet MS', sans-serif;
-      --font-body:   'DM Sans', 'Segoe UI', sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── Navbar ──────────────────────────────────────────────────── */
-    .navbar {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 0 28px;
-      height: 56px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .brand-icon {
-      font-size: 20px;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .brand-name {
-      font-family: var(--font-head);
-      font-weight: 800;
-      font-size: 17px;
-      letter-spacing: -0.3px;
-      color: var(--text);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 4px;
-      flex: 1;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 6px;
-      transition: color 0.2s, background 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--text); background: var(--surface2); }
-
-    /* FIX: .active style was missing from CSS */
-    .nav-links a.active {
-      color: var(--accent);
-      background: rgba(79, 124, 255, 0.12);
-      font-weight: 600;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-left: auto;
-    }
-
-    .status-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: rgba(34, 201, 122, 0.1);
-      border: 1px solid rgba(34, 201, 122, 0.25);
-      color: var(--success);
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--success);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.4; }
-    }
-
-    .avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-head);
-      font-size: 12px;
-      font-weight: 700;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    /* ── Main Layout ─────────────────────────────────────────────── */
-    .layout {
-      display: grid;
-      grid-template-columns: 220px 1fr 280px;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    /* ── Sidebar ─────────────────────────────────────────────────── */
-    .sidebar {
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      padding: 20px 16px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .sidebar-label {
-      font-family: var(--font-head);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .quick-dial {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .quick-dial li {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 10px;
-      border-radius: var(--radius);
-      color: var(--text);
-      font-size: 13px;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .quick-dial li:hover { background: var(--surface2); }
-    .dial-icon { font-size: 14px; }
-
-    .recent-calls {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .recent-calls li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .recent-calls li:last-child { border-bottom: none; }
-
-    .call-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .call-dot.inbound  { background: var(--success); }
-    .call-dot.outbound { background: var(--accent); }
-    .call-dot.missed   { background: var(--danger); }
-
-    .call-name { font-size: 13px; font-weight: 500; color: var(--text); }
-    .call-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .stat-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 10px;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-family: var(--font-head);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .stat-lbl {
-      font-size: 10px;
-      color: var(--text-muted);
-      margin-top: 3px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ── Softphone Panel ─────────────────────────────────────────── */
-    .softphone-panel {
-      display: flex;
-      flex-direction: column;
-      padding: 24px;
-      gap: 16px;
-      background: var(--bg);
-      overflow-y: auto;
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .panel-title {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .panel-icon {
-      font-size: 28px;
-      color: var(--accent);
-    }
-
-    .panel-title h2 {
-      font-family: var(--font-head);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .panel-title p {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    .panel-badges {
-      display: flex;
-      gap: 8px;
-    }
-
-    .badge {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .badge-live {
-      background: rgba(34, 201, 122, 0.1);
-      border: 1px solid rgba(34, 201, 122, 0.3);
-      color: var(--success);
-    }
-
-    .badge-region {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-    }
-
-    /* ── Iframe wrapper ──────────────────────────────────────────── */
-    .softphone-frame-wrap {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      flex: 1;
-      min-height: 520px;
-    }
-
-    .frame-glow {
-      position: absolute;
-      inset: -2px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      z-index: 0;
-      opacity: 0.35;
-      filter: blur(6px);
-    }
-
-    .softphone {
-      position: relative;
-      z-index: 1;
-      border-radius: 12px;
-      overflow: hidden;
-      height: 100%;
-      background: var(--surface);
-    }
-
-    /* FIX: iframe needs explicit height to render; width/height 100% alone is not enough */
-    .softphone iframe {
-      width: 100%;
-      height: 100%;
-      min-height: 520px;
-      border: none;
-      display: block;
-      background: var(--surface);
-    }
-
-    .panel-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: var(--text-muted);
-      padding: 8px 12px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-    }
-
-    /* ── Right Panel ─────────────────────────────────────────────── */
-    .right-panel {
-      background: var(--surface);
-      border-left: 1px solid var(--border);
-      padding: 20px 16px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .right-section { display: flex; flex-direction: column; gap: 8px; }
-
-    .contact-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px;
-    }
-
-    .contact-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #f5a623, #ff6b35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-head);
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      flex-shrink: 0;
-    }
-
-    .contact-info { flex: 1; }
-    .contact-name { font-size: 14px; font-weight: 600; color: var(--text); }
-    .contact-role { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-    .contact-tag {
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 10px;
-      font-weight: 600;
-      background: rgba(34, 201, 122, 0.12);
-      border: 1px solid rgba(34, 201, 122, 0.3);
-      color: var(--success);
-    }
-
-    /* FIX: textarea needed id, name, and proper sizing */
-    .notes-area {
-      id: "callNotes";
-      width: 100%;
-      min-height: 100px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 13px;
-      padding: 10px 12px;
-      resize: vertical;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .notes-area:focus { border-color: var(--accent); }
-    .notes-area::placeholder { color: var(--text-muted); }
-
-    .details-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .details-list li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .details-list li:last-child { border-bottom: none; }
-    .details-list li span { color: var(--text-muted); }
-    .details-list li strong { color: var(--text); font-weight: 600; }
-
-    .action-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    /* FIX: buttons need type="button" to avoid accidental form submission */
-    .action-btn {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 12px;
-      padding: 9px 10px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
-      text-align: left;
-    }
-
-    .action-btn:hover {
-      background: rgba(79, 124, 255, 0.1);
-      border-color: rgba(79, 124, 255, 0.4);
-      color: var(--accent);
-    }
-
-    /* ── Footer ──────────────────────────────────────────────────── */
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 28px;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      font-size: 11px;
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
-
-    /* ── Scrollbar ───────────────────────────────────────────────── */
-    ::-webkit-scrollbar       { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #2e3450; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cognizant CRM Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- TOP NAV -->
-  <header class="navbar">
-    <div class="nav-brand">
-      <span class="brand-icon">◈</span>
-      <span class="brand-name">NexaConnect</span>
-    </div>
-    <nav class="nav-links">
-      <a href="#">Dashboard</a>
-      <a href="#">Contacts</a>
-      <a href="#">Analytics</a>
-      <a href="#" class="active">Softphone</a>
-    </nav>
-    <div class="nav-right">
-      <div class="status-pill">
-        <span class="status-dot"></span> Agent Online
+  <!-- ── TOP NAV ─────────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="topbar__brand">
+      <div class="brand-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="12" height="12" rx="3" fill="var(--accent)"/>
+          <rect x="16" width="12" height="12" rx="3" fill="var(--accent2)"/>
+          <rect y="16" width="12" height="12" rx="3" fill="var(--accent2)"/>
+          <rect x="16" y="16" width="12" height="12" rx="3" fill="var(--accent)"/>
+        </svg>
       </div>
-      <div class="avatar">AK</div>
+      <span class="brand-name">Cognizant <em>CRM</em></span>
+    </div>
+
+    <nav class="topbar__nav">
+      <a href="#" class="nav-link active">Dashboard</a>
+      <a href="#" class="nav-link">Accounts</a>
+      <a href="#" class="nav-link">Contacts</a>
+      <a href="#" class="nav-link">Opportunities</a>
+      <a href="#" class="nav-link">Reports</a>
+    </nav>
+
+    <div class="topbar__actions">
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search CRM…" />
+      </div>
+      <button class="btn-icon" title="Notifications">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="badge">4</span>
+      </button>
+      <div class="avatar">RK</div>
     </div>
   </header>
 
-  <!-- MAIN LAYOUT -->
-  <main class="layout">
+  <!-- ── MAIN LAYOUT ──────────────────────────────────────────── -->
+  <div class="layout">
 
-    <!-- LEFT SIDEBAR -->
+    <!-- SIDEBAR -->
     <aside class="sidebar">
-      <div class="sidebar-section">
-        <p class="sidebar-label">Quick Dial</p>
-        <ul class="quick-dial">
-          <li><span class="dial-icon">📞</span> Support Queue</li>
-          <li><span class="dial-icon">📞</span> Sales Team</li>
-          <li><span class="dial-icon">📞</span> Technical Help</li>
-        </ul>
+      <div class="sidebar__section">
+        <p class="sidebar__label">Main</p>
+        <a href="#" class="sidebar__item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="sidebar__item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Contacts
+        </a>
+        <a href="#" class="sidebar__item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Accounts
+        </a>
+        <a href="#" class="sidebar__item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Pipeline
+        </a>
+        <a href="#" class="sidebar__item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Cases
+        </a>
       </div>
 
-      <div class="sidebar-section">
-        <p class="sidebar-label">Recent Calls</p>
-        <ul class="recent-calls">
-          <li>
-            <div class="call-dot inbound"></div>
-            <div>
-              <p class="call-name">Rajesh Kumar</p>
-              <p class="call-meta">Inbound · 4m 22s</p>
-            </div>
-          </li>
-          <li>
-            <div class="call-dot outbound"></div>
-            <div>
-              <p class="call-name">Priya Sharma</p>
-              <p class="call-meta">Outbound · 1m 08s</p>
-            </div>
-          </li>
-          <li>
-            <div class="call-dot missed"></div>
-            <div>
-              <p class="call-name">Ananya Singh</p>
-              <p class="call-meta">Missed · 10:42 AM</p>
-            </div>
-          </li>
-          <li>
-            <div class="call-dot inbound"></div>
-            <div>
-              <p class="call-name">Mohammed Ali</p>
-              <p class="call-meta">Inbound · 7m 50s</p>
-            </div>
-          </li>
-        </ul>
+      <div class="sidebar__section">
+        <p class="sidebar__label">Analytics</p>
+        <a href="#" class="sidebar__item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Reports
+        </a>
+        <a href="#" class="sidebar__item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Activity
+        </a>
       </div>
 
-      <div class="sidebar-section">
-        <p class="sidebar-label">Stats Today</p>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <p class="stat-num">24</p>
-            <p class="stat-lbl">Calls</p>
-          </div>
-          <div class="stat-card">
-            <p class="stat-num">3m</p>
-            <p class="stat-lbl">Avg Duration</p>
-          </div>
-          <div class="stat-card">
-            <p class="stat-num">96%</p>
-            <p class="stat-lbl">Answered</p>
-          </div>
-          <div class="stat-card">
-            <p class="stat-num">2</p>
-            <p class="stat-lbl">Missed</p>
-          </div>
-        </div>
+      <div class="sidebar__section">
+        <p class="sidebar__label">Tools</p>
+        <a href="#" class="sidebar__item" id="softphone-toggle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.34 2 2 0 0 1 3.6 1.14h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.64 16z"/></svg>
+          Softphone
+          <span class="softphone-status" id="softphone-status-dot"></span>
+        </a>
+        <a href="#" class="sidebar__item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+        <a href="#" class="sidebar__item" id="settings-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </a>
       </div>
     </aside>
 
-    <!-- CENTER: SOFTPHONE -->
-    <section class="softphone-panel">
-      <div class="panel-header">
-        <div class="panel-title">
-          <span class="panel-icon">☎</span>
-          <div>
-            <h2>Genesys Cloud Softphone</h2>
-            <p>Integrated Communication Hub</p>
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+      <!-- KPI STRIP -->
+      <section class="kpi-strip">
+        <div class="kpi-card">
+          <span class="kpi-label">Total Accounts</span>
+          <span class="kpi-value">2,847</span>
+          <span class="kpi-delta up">+12% this month</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Open Opportunities</span>
+          <span class="kpi-value">$4.2M</span>
+          <span class="kpi-delta up">+8.3% vs last Q</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Active Cases</span>
+          <span class="kpi-value">183</span>
+          <span class="kpi-delta down">-5 since yesterday</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Calls Today</span>
+          <span class="kpi-value" id="calls-today">0</span>
+          <span class="kpi-delta neutral">via Genesys Cloud</span>
+        </div>
+      </section>
+
+      <!-- MIDDLE ROW -->
+      <div class="content-grid">
+
+        <!-- RECENT CONTACTS TABLE -->
+        <section class="card contacts-card">
+          <div class="card-header">
+            <h2>Recent Contacts</h2>
+            <button class="btn-sm">+ New Contact</button>
           </div>
+          <table class="crm-table">
+            <thead>
+              <tr><th>Name</th><th>Company</th><th>Stage</th><th>Value</th><th>Last Contact</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="contact-avatar">SM</span> Sarah Mitchell</td>
+                <td>TechNova Inc.</td>
+                <td><span class="badge-stage qualify">Qualifying</span></td>
+                <td>$128,000</td>
+                <td>Today, 10:34 AM</td>
+              </tr>
+              <tr>
+                <td><span class="contact-avatar teal">JP</span> James Park</td>
+                <td>Zenith Systems</td>
+                <td><span class="badge-stage propose">Proposal</span></td>
+                <td>$345,000</td>
+                <td>Yesterday</td>
+              </tr>
+              <tr>
+                <td><span class="contact-avatar amber">AL</span> Aisha Lawrence</td>
+                <td>Orbit Digital</td>
+                <td><span class="badge-stage close">Closing</span></td>
+                <td>$87,500</td>
+                <td>May 23</td>
+              </tr>
+              <tr>
+                <td><span class="contact-avatar red">RC</span> Rahul Chopra</td>
+                <td>InfraCore Ltd.</td>
+                <td><span class="badge-stage qualify">Qualifying</span></td>
+                <td>$210,000</td>
+                <td>May 22</td>
+              </tr>
+              <tr>
+                <td><span class="contact-avatar green">EW</span> Emma Watson</td>
+                <td>SkyBridge Co.</td>
+                <td><span class="badge-stage won">Won</span></td>
+                <td>$490,000</td>
+                <td>May 20</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- ACTIVITY FEED -->
+        <section class="card activity-card">
+          <div class="card-header">
+            <h2>Activity Feed</h2>
+            <span class="live-indicator"><span></span>Live</span>
+          </div>
+          <ul class="activity-list" id="activity-feed">
+            <li class="activity-item">
+              <div class="activity-icon call">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.34 2 2 0 0 1 3.6 1.14h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.64 16z"/></svg>
+              </div>
+              <div class="activity-body">
+                <p>Inbound call from <strong>Sarah Mitchell</strong></p>
+                <span>10:34 AM · 4m 12s</span>
+              </div>
+            </li>
+            <li class="activity-item">
+              <div class="activity-icon email">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="activity-body">
+                <p>Email sent to <strong>James Park</strong></p>
+                <span>9:51 AM</span>
+              </div>
+            </li>
+            <li class="activity-item">
+              <div class="activity-icon note">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="activity-body">
+                <p>Note added on <strong>Orbit Digital</strong></p>
+                <span>9:22 AM</span>
+              </div>
+            </li>
+            <li class="activity-item">
+              <div class="activity-icon deal">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              </div>
+              <div class="activity-body">
+                <p>Deal closed — <strong>SkyBridge Co.</strong> $490K</p>
+                <span>Yesterday, 4:18 PM</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+      </div><!-- /content-grid -->
+
+    </main><!-- /main -->
+
+    <!-- ── GENESYS SOFTPHONE PANEL ──────────────────────────── -->
+    <aside class="softphone-panel" id="softphone-panel">
+      <div class="softphone-panel__header">
+        <div class="sp-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.34 2 2 0 0 1 3.6 1.14h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.64 16z"/></svg>
+          Genesys Cloud Softphone
         </div>
-        <div class="panel-badges">
-          <span class="badge badge-live">● Live</span>
-          <span class="badge badge-region">Region: USW2</span>
-        </div>
+        <button class="sp-close" id="softphone-close" title="Collapse">✕</button>
       </div>
 
-      <!--
-        FIX 1 (preserved): crm param is "framework-oauth" not "framework-local-secure".
-                "framework-local-secure" blocks the OAuth popup flow entirely;
-                "framework-oauth" is the correct CRM integration mode for popup auth.
-
-        FIX 2 (preserved): allow="autoplay" alongside camera/microphone.
-                Genesys softphone plays audio (ringtones, in-call audio) via the
-                Web Audio API, which requires the autoplay permission on the iframe.
-                Without it the browser silently blocks audio in many Chromium builds.
-
-        FIX 3 (new): Added sandbox attribute with minimum required permissions.
-                Restricts the iframe to same-origin scripts and popups only,
-                preventing potential clickjacking or script injection from the embedded page.
-
-        FIX 4 (new): Added explicit width/height attributes as fallback for browsers
-                that don't honour CSS height on iframes.
-      -->
-      <div class="softphone-frame-wrap">
-        <div class="frame-glow"></div>
-        <div class="softphone">
-         <iframe 
-          id="softphone"
-          allow="camera *; microphone *; autoplay *"
-          src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
-          title="Genesys Cloud Softphone"
-></iframe>
-        </div>
+      <div class="softphone-panel__status" id="softphone-auth-status">
+        <div class="sp-spinner"></div>
+        <span id="sp-status-text">Initializing…</span>
       </div>
 
-      <div class="panel-footer">
-        <span>🔒 Secured via OAuth 2.0 · Genesys Cloud CX</span>
-        <!-- FIX: clock now has a fallback text; JS below will overwrite it -->
-        <span id="clock">--:--:--</span>
-      </div>
-    </section>
-
-    <!-- RIGHT PANEL -->
-    <aside class="right-panel">
-      <div class="contact-card">
-        <div class="contact-avatar">RK</div>
-        <div class="contact-info">
-          <p class="contact-name">Rajesh Kumar</p>
-          <p class="contact-role">Enterprise Client</p>
-        </div>
-        <span class="contact-tag">Active</span>
-      </div>
-
-      <div class="right-section">
-        <p class="sidebar-label">Call Notes</p>
-        <!-- FIX: added id and name attributes -->
-        <textarea
-          class="notes-area"
-          id="callNotes"
-          name="callNotes"
-          placeholder="Type notes about the current call..."
-        ></textarea>
-      </div>
-
-      <div class="right-section">
-        <p class="sidebar-label">Customer Details</p>
-        <ul class="details-list">
-          <li><span>Account</span><strong>#ENT-20489</strong></li>
-          <li><span>Plan</span><strong>Enterprise Pro</strong></li>
-          <li><span>Since</span><strong>Mar 2021</strong></li>
-          <li><span>Calls</span><strong>38 total</strong></li>
-          <li><span>CSAT</span><strong>4.8 / 5.0</strong></li>
-        </ul>
-      </div>
-
-      <div class="right-section">
-        <p class="sidebar-label">Quick Actions</p>
-        <div class="action-buttons">
-          <!-- FIX: all buttons now have type="button" to prevent accidental form submission -->
-          <button type="button" class="action-btn">📋 Log Call</button>
-          <button type="button" class="action-btn">📧 Send Email</button>
-          <button type="button" class="action-btn">🔁 Transfer</button>
-          <button type="button" class="action-btn">📝 Create Ticket</button>
-        </div>
-      </div>
+      <iframe
+        id="softphone"
+        allow="camera *; microphone *; autoplay *"
+        src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
+        title="Genesys Cloud Softphone"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-top-navigation"
+      ></iframe>
     </aside>
-  </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <span>© 2026 NexaConnect · Powered by Genesys Cloud CX</span>
-    <span>Agent: Arjun Kumar &nbsp;|&nbsp; Queue: Support-General &nbsp;|&nbsp; Wrap-up: 30s</span>
-  </footer>
+  </div><!-- /layout -->
 
-  <script>
-    /* ── Clock (was in missing app.js – now inlined) ─────────────── */
-    function updateClock() {
-      const now = new Date();
-      const hh  = String(now.getHours()).padStart(2, '0');
-      const mm  = String(now.getMinutes()).padStart(2, '0');
-      const ss  = String(now.getSeconds()).padStart(2, '0');
-      const el  = document.getElementById('clock');
-      if (el) el.textContent = `${hh}:${mm}:${ss}`;
-    }
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
