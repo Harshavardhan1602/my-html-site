@@ -10,7 +10,6 @@
    Corporate IT Services CRM — Pure CSS, no frameworks
    ============================================================ */
 
-/* ── CSS Variables ── */
 :root {
   --primary:       #002952;
   --primary-mid:   #003d7a;
@@ -29,45 +28,35 @@
   --green-light:   #dcfce7;
   --amber:         #d97706;
   --amber-light:   #fef3c7;
-
   --bg:            #f0f4f9;
   --bg-card:       #ffffff;
   --bg-sidebar:    #002952;
   --border:        #dde4ee;
   --border-strong: #b8c6d9;
-
   --text-primary:  #0f1f38;
   --text-secondary:#4a5e7a;
   --text-muted:    #8097b4;
   --text-on-dark:  #ffffff;
   --text-on-dark-muted: rgba(255,255,255,0.55);
-
   --sidebar-width: 260px;
   --sidebar-collapsed: 72px;
   --topbar-height: 68px;
-
   --radius-sm:  6px;
   --radius-md:  10px;
   --radius-lg:  16px;
   --radius-xl:  24px;
-
   --shadow-sm:  0 1px 4px rgba(0,41,82,0.08);
   --shadow-md:  0 4px 16px rgba(0,41,82,0.10);
   --shadow-lg:  0 8px 32px rgba(0,41,82,0.14);
   --shadow-xl:  0 20px 60px rgba(0,41,82,0.20);
-
   --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.38s cubic-bezier(0.4, 0, 0.2, 1);
-
   --font-body: 'Segoe UI', 'Helvetica Neue', Arial, system-ui, sans-serif;
   --font-mono: 'Consolas', 'SF Mono', 'Courier New', monospace;
 }
 
-/* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { font-size: 16px; scroll-behavior: smooth; }
-
 body {
   font-family: var(--font-body);
   background: var(--bg);
@@ -77,16 +66,13 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-
 img, svg { display: block; }
 button { cursor: pointer; font-family: inherit; border: none; background: none; }
 input, select, textarea { font-family: inherit; }
 ul { list-style: none; }
 a { text-decoration: none; color: inherit; }
 
-/* ============================================================
-   SIDEBAR
-   ============================================================ */
+/* ── SIDEBAR ── */
 .sidebar {
   width: var(--sidebar-width);
   min-height: 100vh;
@@ -100,12 +86,7 @@ a { text-decoration: none; color: inherit; }
   overflow: hidden;
   box-shadow: 4px 0 24px rgba(0,0,0,0.18);
 }
-
-.sidebar.collapsed {
-  width: var(--sidebar-collapsed);
-}
-
-/* Sidebar Header */
+.sidebar.collapsed { width: var(--sidebar-collapsed); }
 .sidebar-header {
   display: flex;
   align-items: center;
@@ -115,1315 +96,523 @@ a { text-decoration: none; color: inherit; }
   min-height: var(--topbar-height);
   flex-shrink: 0;
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  overflow: hidden;
-  flex: 1;
-}
-
+.logo { display: flex; align-items: center; gap: 12px; overflow: hidden; flex: 1; }
 .logo-mark {
-  width: 34px;
-  height: 34px;
+  width: 34px; height: 34px;
   background: var(--accent);
   border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-  box-shadow: 0 2px 8px rgba(0,102,204,0.4);
-}
-
-.logo-letter {
-  color: white;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 17px;
-  line-height: 1;
-}
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  white-space: nowrap;
-  overflow: hidden;
-  transition: opacity var(--transition), width var(--transition);
-}
-
-.logo-name {
-  color: white;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  line-height: 1.2;
-}
-
-.logo-tagline {
-  color: var(--text-on-dark-muted);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-.sidebar.collapsed .logo-text { opacity: 0; width: 0; }
-
-.sidebar-toggle {
-  width: 28px; height: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-  border-radius: 6px;
-  transition: background var(--transition);
-  padding: 4px;
-}
-.sidebar-toggle:hover { background: rgba(255,255,255,0.1); }
-.sidebar-toggle span {
-  display: block;
-  width: 18px; height: 2px;
-  background: var(--text-on-dark-muted);
-  border-radius: 2px;
-  transition: all var(--transition);
-}
-.sidebar.collapsed .sidebar-toggle span:nth-child(2) { width: 12px; }
-
-/* Sidebar Nav */
-.sidebar-nav {
-  flex: 1;
-  padding: 16px 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none;
-}
-.sidebar-nav::-webkit-scrollbar { display: none; }
-.sidebar-nav ul { display: flex; flex-direction: column; gap: 2px; }
-
-.nav-divider {
-  height: 1px;
-  background: rgba(255,255,255,0.08);
-  margin: 12px 8px;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: var(--radius-md);
-  color: var(--text-on-dark-muted);
-  font-size: 14px;
-  font-weight: 500;
-  transition: all var(--transition);
-  white-space: nowrap;
-  width: 100%;
-  text-align: left;
-  position: relative;
-  overflow: hidden;
-}
-
-.nav-item::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 50%;
-  transform: translateY(-50%);
-  width: 3px; height: 0;
-  background: var(--accent);
-  border-radius: 0 3px 3px 0;
-  transition: height var(--transition);
-}
-
-.nav-item:hover {
-  color: white;
-  background: rgba(255,255,255,0.08);
-}
-
-.nav-item.active {
-  color: white;
-  background: rgba(0,102,204,0.25);
-}
-.nav-item.active::before { height: 60%; }
-
-.nav-icon {
-  width: 20px; height: 20px;
-  flex-shrink: 0;
-  transition: transform var(--transition);
-}
-.nav-item:hover .nav-icon { transform: translateX(2px); }
-
-.nav-item span {
-  transition: opacity var(--transition), width var(--transition);
-}
-.sidebar.collapsed .nav-item span {
-  opacity: 0;
-  width: 0;
-  overflow: hidden;
-}
-.sidebar.collapsed .nav-item { justify-content: center; padding: 10px; }
-.sidebar.collapsed .nav-item::before { display: none; }
-
-/* Sidebar User */
-.sidebar-user {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 16px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.user-avatar {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #0042a0);
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: opacity var(--transition), width var(--transition);
-  flex: 1;
-}
-
-.user-name {
-  color: white;
-  font-size: 13px;
-  font-weight: 600;
-  white-space: nowrap;
-  line-height: 1.3;
-}
-
-.user-role {
-  color: var(--text-on-dark-muted);
-  font-size: 11px;
-  white-space: nowrap;
-}
-
-.user-menu-btn {
-  width: 24px; height: 24px;
-  color: var(--text-on-dark-muted);
-  border-radius: 4px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,102,204,0.4);
+}
+.logo-letter { color: white; font-family: var(--font-mono); font-weight: 700; font-size: 17px; line-height: 1; }
+.logo-text { display: flex; flex-direction: column; white-space: nowrap; overflow: hidden; transition: opacity var(--transition), width var(--transition); }
+.logo-name { color: white; font-size: 15px; font-weight: 700; letter-spacing: 0.3px; line-height: 1.2; }
+.logo-tagline { color: var(--text-on-dark-muted); font-size: 11px; font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; }
+.sidebar.collapsed .logo-text { opacity: 0; width: 0; }
+.sidebar-toggle {
+  width: 28px; height: 28px;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  gap: 4px; flex-shrink: 0; border-radius: 6px; transition: background var(--transition); padding: 4px;
+}
+.sidebar-toggle:hover { background: rgba(255,255,255,0.1); }
+.sidebar-toggle span { display: block; width: 18px; height: 2px; background: var(--text-on-dark-muted); border-radius: 2px; transition: all var(--transition); }
+.sidebar.collapsed .sidebar-toggle span:nth-child(2) { width: 12px; }
+.sidebar-nav { flex: 1; padding: 16px 10px; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+.sidebar-nav::-webkit-scrollbar { display: none; }
+.sidebar-nav ul { display: flex; flex-direction: column; gap: 2px; }
+.nav-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 12px 8px; }
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px; border-radius: var(--radius-md);
+  color: var(--text-on-dark-muted); font-size: 14px; font-weight: 500;
+  transition: all var(--transition); white-space: nowrap; width: 100%; text-align: left;
+  position: relative; overflow: hidden;
+}
+.nav-item::before {
+  content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 0; background: var(--accent); border-radius: 0 3px 3px 0;
+  transition: height var(--transition);
+}
+.nav-item:hover { color: white; background: rgba(255,255,255,0.08); }
+.nav-item.active { color: white; background: rgba(0,102,204,0.25); }
+.nav-item.active::before { height: 60%; }
+.nav-icon { width: 20px; height: 20px; flex-shrink: 0; transition: transform var(--transition); }
+.nav-item:hover .nav-icon { transform: translateX(2px); }
+.nav-item span { transition: opacity var(--transition), width var(--transition); }
+.sidebar.collapsed .nav-item span { opacity: 0; width: 0; overflow: hidden; }
+.sidebar.collapsed .nav-item { justify-content: center; padding: 10px; }
+.sidebar.collapsed .nav-item::before { display: none; }
+.sidebar-user {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; border-top: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0; overflow: hidden;
+}
+.user-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #0042a0);
+  color: white; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; letter-spacing: 0.5px; box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
+}
+.user-info { display: flex; flex-direction: column; overflow: hidden; transition: opacity var(--transition), width var(--transition); flex: 1; }
+.user-name { color: white; font-size: 13px; font-weight: 600; white-space: nowrap; line-height: 1.3; }
+.user-role { color: var(--text-on-dark-muted); font-size: 11px; white-space: nowrap; }
+.user-menu-btn {
+  width: 24px; height: 24px; color: var(--text-on-dark-muted); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   transition: color var(--transition), background var(--transition);
 }
 .user-menu-btn:hover { color: white; background: rgba(255,255,255,0.1); }
 .user-menu-btn svg { width: 16px; height: 16px; }
-
-.sidebar.collapsed .user-info,
-.sidebar.collapsed .user-menu-btn { opacity: 0; width: 0; overflow: hidden; }
+.sidebar.collapsed .user-info, .sidebar.collapsed .user-menu-btn { opacity: 0; width: 0; overflow: hidden; }
 .sidebar.collapsed .sidebar-user { justify-content: center; }
 
-/* ============================================================
-   MAIN CONTENT
-   ============================================================ */
-.main-content {
-  margin-left: var(--sidebar-width);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  transition: margin-left var(--transition-slow);
-}
-
+/* ── MAIN CONTENT ── */
+.main-content { margin-left: var(--sidebar-width); flex: 1; display: flex; flex-direction: column; min-height: 100vh; transition: margin-left var(--transition-slow); }
 body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
 
-/* ── Top Bar ── */
+/* ── TOP BAR ── */
 .topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 50;
+  background: var(--bg-card); border-bottom: 1px solid var(--border);
   height: var(--topbar-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
-  gap: 16px;
-  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px; gap: 16px; box-shadow: var(--shadow-sm);
 }
-
 .topbar-left { display: flex; align-items: center; gap: 16px; }
-
-.mobile-menu-btn {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  padding: 6px;
-  border-radius: 8px;
-  transition: background var(--transition);
-}
+.mobile-menu-btn { display: none; flex-direction: column; gap: 5px; padding: 6px; border-radius: 8px; transition: background var(--transition); }
 .mobile-menu-btn:hover { background: var(--bg); }
-.mobile-menu-btn span {
-  display: block;
-  width: 20px; height: 2px;
-  background: var(--text-secondary);
-  border-radius: 2px;
-}
-
-.breadcrumb {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-
+.mobile-menu-btn span { display: block; width: 20px; height: 2px; background: var(--text-secondary); border-radius: 2px; }
+.breadcrumb { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.8px; }
 .topbar-right { display: flex; align-items: center; gap: 12px; }
-
 .search-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 30px;
-  padding: 8px 16px;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 30px; padding: 8px 16px;
   transition: border-color var(--transition), box-shadow var(--transition);
 }
-.search-bar:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-light);
-}
+.search-bar:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
 .search-bar svg { width: 15px; height: 15px; color: var(--text-muted); flex-shrink: 0; }
-.search-bar input {
-  border: none;
-  background: none;
-  font-size: 13.5px;
-  color: var(--text-primary);
-  outline: none;
-  width: 200px;
-}
+.search-bar input { border: none; background: none; font-size: 13.5px; color: var(--text-primary); outline: none; width: 200px; }
 .search-bar input::placeholder { color: var(--text-muted); }
-
 .icon-btn {
-  width: 38px; height: 38px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  color: var(--text-secondary);
-  transition: all var(--transition);
-  position: relative;
+  width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; color: var(--text-secondary); transition: all var(--transition); position: relative;
 }
 .icon-btn:hover { background: var(--bg); color: var(--accent); }
 .icon-btn svg { width: 20px; height: 20px; }
-
 .badge {
-  position: absolute;
-  top: 4px; right: 4px;
-  width: 16px; height: 16px;
-  background: var(--red);
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  border-radius: 50%;
+  position: absolute; top: 4px; right: 4px;
+  width: 16px; height: 16px; background: var(--red); color: white;
+  font-size: 10px; font-weight: 700; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  border: 2px solid white;
-  pointer-events: none;
+  border: 2px solid white; pointer-events: none;
 }
-
 .topbar-avatar {
-  width: 36px; height: 36px;
-  border-radius: 50%;
+  width: 36px; height: 36px; border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), #0042a0);
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
+  color: white; font-size: 12px; font-weight: 700;
   display: flex; align-items: center; justify-content: center;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  box-shadow: 0 0 0 2px var(--accent-light);
+  letter-spacing: 0.5px; cursor: pointer; box-shadow: 0 0 0 2px var(--accent-light);
   transition: box-shadow var(--transition);
 }
 .topbar-avatar:hover { box-shadow: 0 0 0 3px var(--accent); }
 
-/* ── Content Sections ── */
-.content-section {
-  display: none;
-  padding: 28px;
-  animation: fadeIn 0.3s ease;
-  flex: 1;
-}
+/* ── CONTENT SECTIONS ── */
+.content-section { display: none; padding: 28px; animation: fadeIn 0.3s ease; flex: 1; }
 .content-section.active { display: block; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Section Header */
-.section-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 28px;
-  flex-wrap: wrap;
-}
-
-.section-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.2;
-  letter-spacing: -0.3px;
-}
-
-.section-subtitle {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-
-.section-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.date-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 30px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  white-space: nowrap;
-}
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.section-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+.section-title { font-size: 24px; font-weight: 700; color: var(--text-primary); line-height: 1.2; letter-spacing: -0.3px; }
+.section-subtitle { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+.section-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.date-chip { display: flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 30px; font-size: 13px; font-weight: 500; color: var(--text-secondary); white-space: nowrap; }
 .date-chip svg { width: 14px; height: 14px; }
 
-/* ============================================================
-   DASHBOARD — METRIC CARDS
-   ============================================================ */
-.metrics-grid {
+/* ── METRIC CARDS ── */
+/* ── DASHBOARD NEW LAYOUT ──
+   Left column: 3 compact metric cards stacked + pipeline + top clients
+   Right column: Genesys softphone iframe (tall, fixed)
+*/
+.dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 300px;
   gap: 18px;
-  margin-bottom: 24px;
+  align-items: start;
+}
+.dashboard-left  { display: flex; flex-direction: column; gap: 18px; }
+.dashboard-right {
+  position: sticky;
+  top: calc(var(--topbar-height) + 16px);
 }
 
+/* 3 compact metric cards in a row */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
 .metric-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 22px 22px 16px;
+  border-radius: var(--radius-md);
+  padding: 14px 16px 12px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 12px;
   position: relative;
   overflow: hidden;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: transform var(--transition), box-shadow var(--transition);
   cursor: default;
 }
-.metric-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity var(--transition);
-}
 .metric-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
-.metric-card:hover::after { opacity: 1; }
-
 .metric-icon-wrap {
-  width: 44px; height: 44px;
-  border-radius: var(--radius-md);
+  width: 38px; height: 38px;
+  border-radius: var(--radius-sm);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.metric-icon-wrap svg { width: 22px; height: 22px; }
+.metric-icon-wrap svg { width: 18px; height: 18px; }
 .metric-icon--blue  { background: var(--accent-light); color: var(--accent); }
 .metric-icon--teal  { background: var(--teal-light); color: var(--teal); }
 .metric-icon--gold  { background: var(--gold-light); color: var(--gold); }
-.metric-icon--red   { background: var(--red-light); color: var(--red); }
-
-.metric-body { display: flex; flex-direction: column; gap: 2px; }
-
-.metric-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-
-.metric-value {
-  font-family: var(--font-mono);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.1;
-  letter-spacing: -0.5px;
-}
-
-.metric-change {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 12px;
-  font-weight: 500;
-}
-.metric-change svg { width: 12px; height: 12px; }
+.metric-body { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; }
+.metric-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.metric-value { font-family: var(--font-mono); font-size: 22px; font-weight: 700; color: var(--text-primary); line-height: 1.1; }
+.metric-change { display: flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 500; }
+.metric-change svg { width: 11px; height: 11px; }
 .metric-change.positive { color: var(--green); }
 .metric-change.negative { color: var(--red); }
+/* Remove sparkline — not needed in compact layout */
+.metric-sparkline { display: none; }
 
-.metric-sparkline {
-  position: absolute;
-  right: 0; bottom: 0;
-  width: 90px; height: 40px;
-  opacity: 0.5;
-  pointer-events: none;
-}
-.metric-sparkline svg { width: 100%; height: 100%; }
-
-/* ============================================================
-   DASHBOARD — LOWER ROW
-   ============================================================ */
+/* Chart + activity row (inside left column) */
 .dashboard-lower {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 300px;
   gap: 18px;
-  margin-bottom: 24px;
+}
+.status-row {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 18px;
 }
 
-/* Chart Card */
-.chart-card,
-.activity-card,
-.status-card,
-.top-clients-card {
+/* ── GENESYS SOFTPHONE PANEL (right column, inline in dashboard) ── */
+.dash-softphone-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 22px;
-  transition: box-shadow var(--transition);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  height: 480px;          /* fixed height — fits viewport without scroll */
 }
-.chart-card:hover,
-.activity-card:hover { box-shadow: var(--shadow-md); }
-
-.card-header {
+.dash-softphone-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  padding: 10px 14px;
+  background: var(--primary);
+  flex-shrink: 0;
+  height: 44px;
 }
+.dash-softphone-title {
+  display: flex; align-items: center; gap: 8px;
+  color: #fff; font-size: 12.5px; font-weight: 700;
+}
+.dash-softphone-title svg { width: 15px; height: 15px; flex-shrink: 0; }
+.dash-sp-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #9ca3af; flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+  transition: background 0.3s;
+}
+.dash-sp-dot.connecting { background: #fbbf24; animation: sp-dot-blink 1s infinite; }
+.dash-sp-dot.connected  { background: #4ade80; box-shadow: 0 0 0 2px rgba(74,222,128,0.3); }
+@keyframes sp-dot-blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.1px;
+.dash-softphone-body {
+  position: relative;
+  flex: 1;               /* fills remaining 436px */
+  overflow: hidden;
 }
+.dash-softphone-body iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: #fff;
+}
+.dash-sp-loader {
+  position: absolute; inset: 0;
+  background: #f0f4f9;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px; z-index: 2;
+  transition: opacity 0.5s ease;
+}
+.dash-sp-loader.gone {
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+}
+.dash-sp-spinner {
+  width: 32px; height: 32px;
+  border: 3px solid #dde4ee; border-top-color: #ff4f1f;
+  border-radius: 50%; animation: sp-spin2 0.8s linear infinite;
+}
+@keyframes sp-spin2 { to { transform: rotate(360deg); } }
+.dash-sp-loader p { font-size: 12px; color: #4a5e7a; text-align: center; line-height: 1.5; padding: 0 16px; }
 
-.chart-tabs {
-  display: flex;
-  gap: 2px;
-  background: var(--bg);
-  border-radius: 8px;
-  padding: 3px;
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.card-title { font-size: 15px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.1px; }
+
+/* chart + activity + pipeline cards */
+.chart-card, .activity-card, .status-card, .top-clients-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 22px; transition: box-shadow var(--transition);
 }
-.chart-tab {
-  padding: 4px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 6px;
-  color: var(--text-muted);
-  transition: all var(--transition);
-}
+.chart-card:hover, .activity-card:hover { box-shadow: var(--shadow-md); }
+.chart-tabs { display: flex; gap: 2px; background: var(--bg); border-radius: 8px; padding: 3px; }
+.chart-tab { padding: 4px 10px; font-size: 12px; font-weight: 600; border-radius: 6px; color: var(--text-muted); transition: all var(--transition); }
 .chart-tab:hover { color: var(--text-primary); }
 .chart-tab.active { background: var(--bg-card); color: var(--accent); box-shadow: var(--shadow-sm); }
-
 .chart-area { position: relative; }
-
-.bar-chart {
-  width: 100%;
-  height: auto;
-  max-height: 200px;
-}
-
-.chart-label {
-  font-family: var(--font-body);
-  font-size: 9px;
-  fill: var(--text-muted);
-}
-
-.bar-rect {
-  transition: opacity var(--transition);
-}
+.bar-chart { width: 100%; height: auto; max-height: 200px; }
+.chart-label { font-family: var(--font-body); font-size: 9px; fill: var(--text-muted); }
+.bar-rect { transition: opacity var(--transition); }
 .bar-rect:hover { opacity: 1 !important; }
-
-.chart-legend {
-  display: flex;
-  gap: 16px;
-  margin-top: 12px;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-.legend-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.legend-dot--line {
-  background: transparent;
-  border: 2px dashed var(--primary);
-  opacity: 0.5;
-}
-
-/* Activity Card */
-.text-btn {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent);
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background var(--transition);
-}
+.chart-legend { display: flex; gap: 16px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-dot--line { background: transparent; border: 2px dashed var(--primary); opacity: 0.5; }
+.text-btn { font-size: 12px; font-weight: 600; color: var(--accent); padding: 4px 8px; border-radius: 6px; transition: background var(--transition); }
 .text-btn:hover { background: var(--accent-light); }
-
 .activity-list { display: flex; flex-direction: column; gap: 4px; }
-
-.activity-item {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 10px 8px;
-  border-radius: var(--radius-md);
-  transition: background var(--transition);
-}
+.activity-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 8px; border-radius: var(--radius-md); transition: background var(--transition); }
 .activity-item:hover { background: var(--bg); }
-
-.activity-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  margin-top: 5px;
-  flex-shrink: 0;
-}
+.activity-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
 .activity-dot--green  { background: var(--green); box-shadow: 0 0 0 3px var(--green-light); }
 .activity-dot--blue   { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
 .activity-dot--amber  { background: var(--amber); box-shadow: 0 0 0 3px var(--amber-light); }
 .activity-dot--purple { background: var(--purple); box-shadow: 0 0 0 3px var(--purple-light); }
 .activity-dot--red    { background: var(--red); box-shadow: 0 0 0 3px var(--red-light); }
-
 .activity-content { flex: 1; }
-.activity-text {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
+.activity-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
 .activity-text strong { color: var(--text-primary); font-weight: 600; }
 .activity-time { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: block; }
 
-/* ============================================================
-   DASHBOARD — STATUS ROW
-   ============================================================ */
-.status-row {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 18px;
-}
-
-/* Pipeline bars */
+/* ── STATUS ROW ── */
 .pipeline-bars { display: flex; flex-direction: column; gap: 16px; }
-
-.pipeline-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.pipeline-label {
-  width: 100px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  flex-shrink: 0;
-}
-
-.pipeline-track {
-  flex: 1;
-  height: 8px;
-  background: var(--bg);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.pipeline-fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 1s cubic-bezier(0.4,0,0.2,1);
-}
+.pipeline-item { display: flex; align-items: center; gap: 12px; }
+.pipeline-label { width: 100px; font-size: 13px; font-weight: 500; color: var(--text-secondary); flex-shrink: 0; }
+.pipeline-track { flex: 1; height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+.pipeline-fill { height: 100%; border-radius: 4px; transition: width 1s cubic-bezier(0.4,0,0.2,1); }
 .pipeline-fill--discovery { background: var(--accent); }
 .pipeline-fill--dev       { background: var(--teal); }
 .pipeline-fill--test      { background: var(--amber); }
 .pipeline-fill--delivered { background: var(--green); }
-
-.pipeline-count {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-primary);
-  width: 28px;
-  text-align: right;
-  flex-shrink: 0;
-}
-
-/* Top Clients */
+.pipeline-count { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--text-primary); width: 28px; text-align: right; flex-shrink: 0; }
 .top-clients-list { display: flex; flex-direction: column; gap: 4px; }
-.top-client-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 8px;
-  border-radius: var(--radius-md);
-  transition: background var(--transition);
-}
+.top-client-item { display: flex; align-items: center; gap: 12px; padding: 10px 8px; border-radius: var(--radius-md); transition: background var(--transition); }
 .top-client-item:hover { background: var(--bg); }
-
-.client-rank {
-  width: 24px; height: 24px;
-  background: var(--accent-light);
-  color: var(--accent);
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
+.client-rank { width: 24px; height: 24px; background: var(--accent-light); color: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-family: var(--font-mono); font-weight: 700; flex-shrink: 0; }
 .client-info-mini { flex: 1; }
 .client-name-mini { font-size: 13px; font-weight: 600; color: var(--text-primary); display: block; }
 .client-sector { font-size: 11px; color: var(--text-muted); }
+.client-revenue-mini { font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--text-primary); flex-shrink: 0; }
 
-.client-revenue-mini {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-primary);
-  flex-shrink: 0;
-}
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 18px;
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 600;
-  transition: all var(--transition);
-  white-space: nowrap;
-  letter-spacing: 0.1px;
-}
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; transition: all var(--transition); white-space: nowrap; letter-spacing: 0.1px; }
 .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-.btn-primary {
-  background: var(--accent);
-  color: white;
-  box-shadow: 0 2px 8px rgba(0,102,204,0.25);
-}
-.btn-primary:hover {
-  background: var(--accent-hover);
-  box-shadow: 0 4px 16px rgba(0,102,204,0.35);
-  transform: translateY(-1px);
-}
+.btn-primary { background: var(--accent); color: white; box-shadow: 0 2px 8px rgba(0,102,204,0.25); }
+.btn-primary:hover { background: var(--accent-hover); box-shadow: 0 4px 16px rgba(0,102,204,0.35); transform: translateY(-1px); }
 .btn-primary:active { transform: translateY(0); }
-
-.btn-secondary {
-  background: var(--bg);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
-}
+.btn-secondary { background: var(--bg); color: var(--text-secondary); border: 1px solid var(--border); }
 .btn-secondary:hover { background: var(--border); color: var(--text-primary); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
-}
+.btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
 .btn-ghost:hover { background: var(--bg); color: var(--text-primary); }
 
-/* ============================================================
-   CLIENT TABLE
-   ============================================================ */
-.table-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-
-.table-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 18px 22px;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-}
-
-.table-search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 14px;
-  flex: 1;
-  max-width: 360px;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
+/* ── CLIENT TABLE ── */
+.table-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+.table-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.table-search { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; flex: 1; max-width: 360px; transition: border-color var(--transition), box-shadow var(--transition); }
 .table-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
 .table-search svg { width: 15px; height: 15px; color: var(--text-muted); flex-shrink: 0; }
-.table-search input {
-  border: none; background: none;
-  font-size: 13.5px;
-  color: var(--text-primary);
-  outline: none;
-  width: 100%;
-}
+.table-search input { border: none; background: none; font-size: 13.5px; color: var(--text-primary); outline: none; width: 100%; }
 .table-search input::placeholder { color: var(--text-muted); }
-
-.table-filters select {
-  padding: 8px 14px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 13.5px;
-  color: var(--text-secondary);
-  background: var(--bg-card);
-  cursor: pointer;
-  outline: none;
-  transition: border-color var(--transition);
-}
+.table-filters select { padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 13.5px; color: var(--text-secondary); background: var(--bg-card); cursor: pointer; outline: none; transition: border-color var(--transition); }
 .table-filters select:focus { border-color: var(--accent); }
-
-.table-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 680px;
-}
-
-.data-table th {
-  padding: 12px 16px;
-  text-align: left;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap;
-}
-
-.data-table th.sortable {
-  cursor: pointer;
-  user-select: none;
-  transition: color var(--transition);
-}
+.table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.data-table { width: 100%; border-collapse: collapse; min-width: 680px; }
+.data-table th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.7px; background: var(--bg); border-bottom: 1px solid var(--border); white-space: nowrap; }
+.data-table th.sortable { cursor: pointer; user-select: none; transition: color var(--transition); }
 .data-table th.sortable:hover { color: var(--accent); }
 .data-table th.sortable svg { width: 12px; height: 12px; display: inline; vertical-align: middle; margin-left: 4px; }
-
 .th-check { width: 44px; }
-
-.data-table td {
-  padding: 14px 16px;
-  font-size: 14px;
-  color: var(--text-primary);
-  border-bottom: 1px solid var(--border);
-  vertical-align: middle;
-  transition: background var(--transition);
-}
-
+.data-table td { padding: 14px 16px; font-size: 14px; color: var(--text-primary); border-bottom: 1px solid var(--border); vertical-align: middle; transition: background var(--transition); }
 .data-table tr:last-child td { border-bottom: none; }
 .data-table tbody tr:hover td { background: var(--bg); }
-
-.client-name-cell {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.client-avatar-sm {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
-  letter-spacing: 0.5px;
-}
+.client-name-cell { display: flex; align-items: center; gap: 10px; }
+.client-avatar-sm { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; letter-spacing: 0.5px; }
 .client-full-name { font-weight: 600; color: var(--text-primary); font-size: 14px; }
 .client-email { font-size: 12px; color: var(--text-muted); }
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: capitalize;
-  white-space: nowrap;
-}
-.status-badge::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
+.status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: capitalize; white-space: nowrap; }
+.status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .status-badge.active { background: var(--green-light); color: var(--green); }
 .status-badge.active::before { background: var(--green); }
-
 .status-badge.lead { background: var(--accent-light); color: var(--accent); }
 .status-badge.lead::before { background: var(--accent); }
-
 .status-badge.inactive { background: var(--border); color: var(--text-muted); }
 .status-badge.inactive::before { background: var(--text-muted); }
-
-.action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 12px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  background: var(--bg-card);
-  transition: all var(--transition);
-}
-.action-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-light);
-}
-
-.table-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 22px;
-  border-top: 1px solid var(--border);
-  background: var(--bg);
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
+.action-btn { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border: 1px solid var(--border); border-radius: 7px; font-size: 12px; font-weight: 600; color: var(--text-secondary); background: var(--bg-card); transition: all var(--transition); }
+.action-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+.table-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; border-top: 1px solid var(--border); background: var(--bg); flex-wrap: wrap; gap: 10px; }
 .table-count { font-size: 13px; color: var(--text-muted); }
-
 .pagination { display: flex; gap: 4px; }
-.page-btn {
-  width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 7px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  transition: all var(--transition);
-}
+.page-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 7px; font-size: 13px; font-weight: 600; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border); transition: all var(--transition); }
 .page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
 .page-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-/* ============================================================
-   KANBAN BOARD
-   ============================================================ */
-.kanban-board {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  align-items: start;
-}
-
-.kanban-col {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 16px;
-  min-height: 400px;
-}
-
-.kanban-col-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--border);
-}
+/* ── KANBAN BOARD ── */
+.kanban-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; align-items: start; }
+.kanban-col { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; min-height: 400px; }
+.kanban-col-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
 .kanban-col[data-stage="discovery"]   .kanban-col-header { border-color: var(--accent); }
 .kanban-col[data-stage="development"] .kanban-col-header { border-color: var(--teal); }
 .kanban-col[data-stage="testing"]     .kanban-col-header { border-color: var(--amber); }
 .kanban-col[data-stage="delivered"]   .kanban-col-header { border-color: var(--green); }
-
-.kanban-col-title {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+.kanban-col-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 .kanban-col[data-stage="discovery"]   .kanban-col-title { color: var(--accent); }
 .kanban-col[data-stage="development"] .kanban-col-title { color: var(--teal); }
 .kanban-col[data-stage="testing"]     .kanban-col-title { color: var(--amber); }
 .kanban-col[data-stage="delivered"]   .kanban-col-title { color: var(--green); }
-
-.kanban-count {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 2px 8px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-secondary);
-}
-
+.kanban-count { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2px 8px; font-size: 12px; font-weight: 700; color: var(--text-secondary); }
 .kanban-cards { display: flex; flex-direction: column; gap: 10px; }
-
-.kanban-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 14px;
-  cursor: pointer;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-.kanban-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  border-radius: 3px 0 0 3px;
-}
+.kanban-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; cursor: pointer; transition: all var(--transition); position: relative; overflow: hidden; }
+.kanban-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 3px 0 0 3px; }
 .kanban-col[data-stage="discovery"]   .kanban-card::before { background: var(--accent); }
 .kanban-col[data-stage="development"] .kanban-card::before { background: var(--teal); }
 .kanban-col[data-stage="testing"]     .kanban-card::before { background: var(--amber); }
 .kanban-col[data-stage="delivered"]   .kanban-card::before { background: var(--green); }
-
-.kanban-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-strong);
-}
-
-.kanban-card-title {
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-
-.kanban-card-client {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-}
-
-.kanban-card-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.kanban-priority {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 10px;
-}
+.kanban-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.kanban-card-title { font-size: 13.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; line-height: 1.4; }
+.kanban-card-client { font-size: 12px; color: var(--text-secondary); margin-bottom: 10px; }
+.kanban-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.kanban-priority { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
 .priority-high   { background: var(--red-light); color: var(--red); }
 .priority-medium { background: var(--gold-light); color: var(--gold); }
 .priority-low    { background: var(--green-light); color: var(--green); }
-
-.kanban-due {
-  font-size: 11px;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
+.kanban-due { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 3px; }
 .kanban-due svg { width: 11px; height: 11px; }
-
-.kanban-assignees {
-  display: flex;
-  gap: -4px;
-}
-.kanban-assignee {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  border: 2px solid var(--bg-card);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px;
-  font-weight: 700;
-  color: white;
-  margin-left: -4px;
-}
+.kanban-assignees { display: flex; gap: -4px; }
+.kanban-assignee { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: white; margin-left: -4px; }
 .kanban-assignee:first-child { margin-left: 0; }
 
-/* ============================================================
-   PLACEHOLDER PAGES
-   ============================================================ */
-.placeholder-card {
-  background: var(--bg-card);
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--radius-xl);
-  padding: 80px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  text-align: center;
-  color: var(--text-muted);
-}
+/* ── PLACEHOLDER PAGES ── */
+.placeholder-card { background: var(--bg-card); border: 1px dashed var(--border-strong); border-radius: var(--radius-xl); padding: 80px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; color: var(--text-muted); }
 .placeholder-card svg { opacity: 0.4; }
 .placeholder-card h3 { font-size: 18px; font-weight: 700; color: var(--text-secondary); }
 .placeholder-card p { font-size: 14px; color: var(--text-muted); max-width: 320px; }
 
-/* ============================================================
-   MODAL
-   ============================================================ */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,20,50,0.5);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--transition);
-}
-
-.modal-overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal {
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  width: 100%;
-  max-width: 580px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: var(--shadow-xl);
-  transform: translateY(24px) scale(0.97);
-  transition: transform var(--transition-slow);
-  scrollbar-width: thin;
-}
-
-.modal-overlay.open .modal {
-  transform: translateY(0) scale(1);
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 28px 20px;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  background: var(--bg-card);
-  z-index: 1;
-}
-
+/* ── MODAL ── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,20,50,0.5); backdrop-filter: blur(6px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity var(--transition); }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(--bg-card); border-radius: var(--radius-xl); width: 100%; max-width: 580px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-xl); transform: translateY(24px) scale(0.97); transition: transform var(--transition-slow); scrollbar-width: thin; }
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 28px 20px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg-card); z-index: 1; }
 .modal-title { font-size: 18px; font-weight: 700; color: var(--text-primary); }
-
-.modal-close {
-  width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 8px;
-  color: var(--text-muted);
-  transition: all var(--transition);
-}
+.modal-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: var(--text-muted); transition: all var(--transition); }
 .modal-close:hover { background: var(--red-light); color: var(--red); }
 .modal-close svg { width: 16px; height: 16px; }
-
 .modal-form { padding: 24px 28px 28px; }
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 16px;
-}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
 .form-group:last-of-type { margin-bottom: 0; }
-
-.form-group label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
+.form-group label { font-size: 13px; font-weight: 600; color: var(--text-primary); }
 .required { color: var(--red); }
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 10px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  color: var(--text-primary);
-  background: var(--bg-card);
-  outline: none;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.form-group input::placeholder,
-.form-group textarea::placeholder { color: var(--text-muted); }
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-light);
-}
-.form-group input.error,
-.form-group select.error { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-light); }
+.form-group input, .form-group select, .form-group textarea { padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-md); font-size: 14px; color: var(--text-primary); background: var(--bg-card); outline: none; transition: border-color var(--transition), box-shadow var(--transition); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+.form-group input.error, .form-group select.error { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-light); }
 .form-group textarea { resize: vertical; min-height: 80px; }
+.field-error { font-size: 12px; color: var(--red); min-height: 16px; display: block; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
 
-.field-error {
-  font-size: 12px;
-  color: var(--red);
-  min-height: 16px;
-  display: block;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border);
-}
-
-/* ============================================================
-   TOAST
-   ============================================================ */
-.toast {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--primary);
-  color: white;
-  padding: 13px 20px;
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: var(--shadow-lg);
-  transform: translateY(80px);
-  opacity: 0;
-  transition: transform var(--transition-slow), opacity var(--transition-slow);
-  max-width: 340px;
-}
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 28px; right: 28px; z-index: 2000; display: flex; align-items: center; gap: 10px; background: var(--primary); color: white; padding: 13px 20px; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; box-shadow: var(--shadow-lg); transform: translateY(80px); opacity: 0; transition: transform var(--transition-slow), opacity var(--transition-slow); max-width: 340px; }
 .toast.show { transform: translateY(0); opacity: 1; }
 .toast-icon { width: 18px; height: 18px; color: #4ade80; flex-shrink: 0; }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+/* ── SOFTPHONE SECTION ── */
+.softphone-layout { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; height: calc(100vh - var(--topbar-height) - 140px); max-height: 620px; }
+.softphone-frame-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; height: 100%; }
+.softphone-frame-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: var(--primary); color: white; }
+.softphone-frame-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; }
+.softphone-frame-title svg { width: 18px; height: 18px; flex-shrink: 0; }
+.softphone-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #9ca3af; flex-shrink: 0; transition: background 0.3s ease; box-shadow: 0 0 0 2px rgba(255,255,255,0.2); }
+.softphone-status-dot.connected { background: #4ade80; box-shadow: 0 0 0 2px rgba(74,222,128,0.3); }
+.softphone-status-dot.connecting { background: #fbbf24; box-shadow: 0 0 0 2px rgba(251,191,36,0.3); animation: pulse-dot 1s infinite; }
+@keyframes pulse-dot { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+#softphone { width: 100%; flex: 1; min-height: 0; border: none; display: block; background: #f8fafc; }
+.softphone-info-panel { display: flex; flex-direction: column; gap: 12px; height: 100%; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; }
+.genesys-info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; }
+.genesys-config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.genesys-config-item { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 8px 12px; }
+.genesys-config-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; display: block; margin-bottom: 4px; }
+.genesys-config-value { font-size: 13px; font-weight: 600; color: var(--text-primary); word-break: break-all; }
+.genesys-config-value.mono { font-family: var(--font-mono); font-size: 11px; color: var(--accent); }
+.softphone-status-banner { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; background: var(--accent-light); color: var(--accent); border: 1px solid rgba(0,102,204,0.2); }
+.softphone-status-banner svg { width: 18px; height: 18px; flex-shrink: 0; }
+.genesys-tips-list { display: flex; flex-direction: column; gap: 8px; margin-top: 2px; }
+.genesys-tip { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+.tip-num { width: 22px; height: 22px; background: var(--accent-light); color: var(--accent); border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.genesys-logo-badge { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #ff4f1f, #e63300); color: white; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 14px; }
+.genesys-logo-badge svg { width: 16px; height: 16px; }
+.call-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.call-ctrl-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 12px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: all var(--transition); }
+.call-ctrl-btn svg { width: 20px; height: 20px; }
+.call-ctrl-btn:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+.call-ctrl-btn.danger:hover { background: var(--red-light); color: var(--red); border-color: var(--red); }
+
+
+/* ── RESPONSIVE ── */
 @media (max-width: 1280px) {
-  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .dashboard-grid { grid-template-columns: 1fr 300px; }
+  .metrics-grid { grid-template-columns: repeat(3, 1fr); }
   .kanban-board { grid-template-columns: repeat(2, 1fr); }
 }
-
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .dashboard-right { position: static; }
+  .dash-softphone-card { height: 420px; }
+  .metrics-grid { grid-template-columns: repeat(3, 1fr); }
   .dashboard-lower { grid-template-columns: 1fr; }
   .status-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 1024px) {
   :root { --sidebar-width: 72px; }
-  .logo-text,
-  .nav-item span,
-  .user-info,
-  .user-menu-btn { display: none; }
+  .logo-text, .nav-item span, .user-info, .user-menu-btn { display: none; }
   .nav-item { justify-content: center; padding: 10px; }
   .nav-item::before { display: none; }
   .sidebar-user { justify-content: center; }
   .sidebar-toggle { display: none; }
 }
-
 @media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-    width: var(--sidebar-width) !important;
-  }
-  body.mobile-open .sidebar {
-    transform: translateX(0);
-    width: 260px !important;
-  }
-  body.mobile-open .logo-text,
-  body.mobile-open .nav-item span,
-  body.mobile-open .user-info,
-  body.mobile-open .user-menu-btn { display: flex; }
+  .sidebar { transform: translateX(-100%); width: var(--sidebar-width) !important; }
+  body.mobile-open .sidebar { transform: translateX(0); width: 260px !important; }
+  body.mobile-open .logo-text, body.mobile-open .nav-item span,
+  body.mobile-open .user-info, body.mobile-open .user-menu-btn { display: flex; }
   body.mobile-open .nav-item { justify-content: flex-start; padding: 10px 12px; }
-
   .main-content { margin-left: 0 !important; }
   .mobile-menu-btn { display: flex; }
   .search-bar { display: none; }
@@ -1433,266 +622,26 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
   .section-header { flex-direction: column; align-items: flex-start; }
   .kanban-board { grid-template-columns: 1fr; }
   .topbar { padding: 0 16px; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .dashboard-lower { grid-template-columns: 1fr; }
+  .status-row { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 480px) {
   .metrics-grid { grid-template-columns: 1fr; }
+
   .table-toolbar { flex-direction: column; align-items: stretch; }
   .table-search { max-width: 100%; }
 }
 
-/* ============================================================
-   SCROLLBAR
-   ============================================================ */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 
-/* ── Focus visible accessibility ── */
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-
-/* ============================================================
-   GENESYS SOFTPHONE SECTION
-   ============================================================ */
-.softphone-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 16px;
-  align-items: start;
-  height: calc(100vh - var(--topbar-height) - 140px);
-  max-height: 620px;
-}
-
-.softphone-frame-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.softphone-frame-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 18px;
-  background: var(--primary);
-  color: white;
-}
-
-.softphone-frame-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.softphone-frame-title svg {
-  width: 18px; height: 18px;
-  flex-shrink: 0;
-}
-
-.softphone-status-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #9ca3af;
-  flex-shrink: 0;
-  transition: background 0.3s ease;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
-}
-.softphone-status-dot.connected { background: #4ade80; box-shadow: 0 0 0 2px rgba(74,222,128,0.3); }
-.softphone-status-dot.connecting { background: #fbbf24; box-shadow: 0 0 0 2px rgba(251,191,36,0.3); animation: pulse-dot 1s infinite; }
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
-}
-
-#softphone {
-  width: 100%;
-  flex: 1;
-  min-height: 0;
-  border: none;
-  display: block;
-  background: #f8fafc;
-}
-
-.softphone-info-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  height: 100%;
-  overflow-y: auto;
-  padding-right: 4px;
-  scrollbar-width: thin;
-}
-
-.genesys-info-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 14px 16px;
-}
-
-.genesys-info-card .card-title {
-  margin-bottom: 10px;
-}
-
-.genesys-config-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 0;
-}
-
-.genesys-config-item {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 8px 12px;
-}
-
-.genesys-config-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.genesys-config-value {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  word-break: break-all;
-}
-
-.genesys-config-value.mono {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--accent);
-}
-
-.softphone-status-banner {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: var(--radius-md);
-  font-size: 13px;
-  font-weight: 500;
-  background: var(--accent-light);
-  color: var(--accent);
-  border: 1px solid rgba(0,102,204,0.2);
-}
-.softphone-status-banner svg {
-  width: 18px; height: 18px; flex-shrink: 0;
-}
-
-.genesys-tips-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 2px;
-}
-
-.genesys-tip {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.4;
-}
-
-.tip-num {
-  width: 22px; height: 22px;
-  background: var(--accent-light);
-  color: var(--accent);
-  border-radius: 50%;
-  font-size: 11px;
-  font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.genesys-logo-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #ff4f1f, #e63300);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  margin-bottom: 14px;
-}
-
-.genesys-logo-badge svg {
-  width: 16px; height: 16px;
-}
-
-.call-controls {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.call-ctrl-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 10px 8px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.call-ctrl-btn svg { width: 20px; height: 20px; }
-.call-ctrl-btn:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
-.call-ctrl-btn.danger:hover { background: var(--red-light); color: var(--red); border-color: var(--red); }
-
-@media (max-width: 1100px) {
-  .softphone-layout { grid-template-columns: 1fr; }
-  .genesys-config-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 768px) {
-  #softphone { min-height: 400px; }
-  .call-controls { grid-template-columns: repeat(4, 1fr); }
-}
-
-
-.content-section--compact {
-  padding: 16px 28px 0;
-}
-.content-section--compact .section-header {
-  margin-bottom: 14px;
-}
-.content-section--compact .section-title {
-  font-size: 20px;
-}
-
+.content-section--compact { padding: 16px 28px 0; }
+.content-section--compact .section-header { margin-bottom: 14px; }
+.content-section--compact .section-title { font-size: 20px; }
   </style>
 </head>
 <body>
@@ -1702,7 +651,6 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
     <div class="sidebar-header">
       <div class="logo">
         <div class="logo-mark">
-          <span class="logo-hex"></span>
           <span class="logo-letter">C</span>
         </div>
         <div class="logo-text">
@@ -1771,14 +719,6 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
             <span>Analytics</span>
           </button>
         </li>
-        <li>
-          <button class="nav-item" data-section="softphone">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.47 2 2 0 0 1 3.56 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6.29 6.29l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-            </svg>
-            <span>Softphone</span>
-          </button>
-        </li>
       </ul>
 
       <div class="nav-divider"></div>
@@ -1797,10 +737,10 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
     </nav>
 
     <div class="sidebar-user">
-      <div class="user-avatar">AK</div>
+      <div class="user-avatar">RK</div>
       <div class="user-info">
-        <span class="user-name">Arjun Kumar</span>
-        <span class="user-role">Senior Manager</span>
+        <span class="user-name">Rajath Kumar</span>
+        <span class="user-role">Manager</span>
       </div>
       <button class="user-menu-btn" aria-label="User menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1837,7 +777,7 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
           </svg>
           <span class="badge">3</span>
         </button>
-        <div class="topbar-avatar">AK</div>
+        <div class="topbar-avatar">RK</div>
       </div>
     </header>
 
@@ -1845,346 +785,204 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
     <section class="content-section active" id="section-dashboard">
       <div class="section-header">
         <div>
-          <h1 class="section-title">Good Morning, Arjun 👋</h1>
+          <h1 class="section-title">Good Morning, Rajath 👋</h1>
           <p class="section-subtitle">Here's what's happening across your portfolio today.</p>
         </div>
         <div class="section-actions">
           <span class="date-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
             </svg>
             <span id="currentDate"></span>
           </span>
         </div>
       </div>
 
-      <!-- Metric Cards -->
-      <div class="metrics-grid">
-        <article class="metric-card" data-trend="up">
-          <div class="metric-icon-wrap metric-icon--blue">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <div class="metric-body">
-            <span class="metric-label">Total Clients</span>
-            <span class="metric-value" id="metricClients">248</span>
-            <span class="metric-change positive">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-              +12 this month
-            </span>
-          </div>
-          <div class="metric-sparkline">
-            <svg viewBox="0 0 80 32" fill="none">
-              <polyline points="0,28 16,22 32,18 48,12 64,8 80,4" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <polyline points="0,28 16,22 32,18 48,12 64,8 80,4 80,32 0,32" fill="url(#grad1)" opacity="0.2"/>
-              <defs>
-                <linearGradient id="grad1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="var(--accent)"/>
-                  <stop offset="100%" stop-color="transparent"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </article>
+      <!-- NEW DASHBOARD LAYOUT: left col (metrics + chart + activity + pipeline) | right col (Genesys softphone) -->
+      <div class="dashboard-grid">
 
-        <article class="metric-card" data-trend="up">
-          <div class="metric-icon-wrap metric-icon--teal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-          </div>
-          <div class="metric-body">
-            <span class="metric-label">Active Projects</span>
-            <span class="metric-value">64</span>
-            <span class="metric-change positive">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-              +5 new sprints
-            </span>
-          </div>
-          <div class="metric-sparkline">
-            <svg viewBox="0 0 80 32" fill="none">
-              <polyline points="0,24 16,20 32,14 48,16 64,10 80,6" stroke="#0d9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </article>
+        <!-- ── LEFT COLUMN ── -->
+        <div class="dashboard-left">
 
-        <article class="metric-card" data-trend="up">
-          <div class="metric-icon-wrap metric-icon--gold">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-          </div>
-          <div class="metric-body">
-            <span class="metric-label">Revenue (YTD)</span>
-            <span class="metric-value">$4.2M</span>
-            <span class="metric-change positive">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-              +18.4% YoY
-            </span>
-          </div>
-          <div class="metric-sparkline">
-            <svg viewBox="0 0 80 32" fill="none">
-              <polyline points="0,28 16,24 32,20 48,14 64,10 80,4" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </article>
+          <!-- 3 Compact Metric Cards -->
+          <div class="metrics-grid">
+            <article class="metric-card">
+              <div class="metric-icon-wrap metric-icon--blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <div class="metric-body">
+                <span class="metric-label">Total Clients</span>
+                <span class="metric-value" id="metricClients">248</span>
+                <span class="metric-change positive">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  +12 this month
+                </span>
+              </div>
+            </article>
 
-        <article class="metric-card" data-trend="down">
-          <div class="metric-icon-wrap metric-icon--red">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"/>
-            </svg>
-          </div>
-          <div class="metric-body">
-            <span class="metric-label">Pending Tickets</span>
-            <span class="metric-value">37</span>
-            <span class="metric-change negative">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-              +7 critical
-            </span>
-          </div>
-          <div class="metric-sparkline">
-            <svg viewBox="0 0 80 32" fill="none">
-              <polyline points="0,8 16,12 32,10 48,16 64,20 80,24" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        </article>
-      </div>
+            <article class="metric-card">
+              <div class="metric-icon-wrap metric-icon--teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <div class="metric-body">
+                <span class="metric-label">Active Projects</span>
+                <span class="metric-value">64</span>
+                <span class="metric-change positive">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  +5 new sprints
+                </span>
+              </div>
+            </article>
 
-      <!-- Chart + Activity Row -->
-      <div class="dashboard-lower">
-        <div class="chart-card">
-          <div class="card-header">
-            <h2 class="card-title">Revenue Performance</h2>
-            <div class="chart-tabs">
-              <button class="chart-tab active">6M</button>
-              <button class="chart-tab">YTD</button>
-              <button class="chart-tab">1Y</button>
+            <article class="metric-card">
+              <div class="metric-icon-wrap metric-icon--gold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              </div>
+              <div class="metric-body">
+                <span class="metric-label">Revenue (YTD)</span>
+                <span class="metric-value">$4.2M</span>
+                <span class="metric-change positive">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  +18.4% YoY
+                </span>
+              </div>
+            </article>
+          </div>
+
+          <!-- Chart + Activity -->
+          <div class="dashboard-lower">
+            <div class="chart-card">
+              <div class="card-header">
+                <h2 class="card-title">Revenue Performance</h2>
+                <div class="chart-tabs">
+                  <button class="chart-tab active">6M</button>
+                  <button class="chart-tab">YTD</button>
+                  <button class="chart-tab">1Y</button>
+                </div>
+              </div>
+              <div class="chart-area">
+                <svg class="bar-chart" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet">
+                  <line x1="0" y1="160" x2="600" y2="160" stroke="var(--border)" stroke-width="1"/>
+                  <line x1="0" y1="120" x2="600" y2="120" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>
+                  <line x1="0" y1="80"  x2="600" y2="80"  stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>
+                  <line x1="0" y1="40"  x2="600" y2="40"  stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>
+                  <text x="0" y="163" class="chart-label">$0</text>
+                  <text x="0" y="123" class="chart-label">$1M</text>
+                  <text x="0" y="83"  class="chart-label">$2M</text>
+                  <text x="0" y="43"  class="chart-label">$3M</text>
+                  <g transform="translate(40,0)">
+                    <rect class="bar-rect" x="10"  y="110" width="52" height="50"  rx="4" fill="var(--accent)" opacity="0.70"/>
+                    <text x="36"  y="178" class="chart-label" text-anchor="middle">Feb</text>
+                    <rect class="bar-rect" x="88"  y="90"  width="52" height="70"  rx="4" fill="var(--accent)" opacity="0.75"/>
+                    <text x="114" y="178" class="chart-label" text-anchor="middle">Mar</text>
+                    <rect class="bar-rect" x="166" y="70"  width="52" height="90"  rx="4" fill="var(--accent)" opacity="0.82"/>
+                    <text x="192" y="178" class="chart-label" text-anchor="middle">Apr</text>
+                    <rect class="bar-rect" x="244" y="55"  width="52" height="105" rx="4" fill="var(--accent)" opacity="0.88"/>
+                    <text x="270" y="178" class="chart-label" text-anchor="middle">May</text>
+                    <rect class="bar-rect" x="322" y="40"  width="52" height="120" rx="4" fill="var(--accent)" opacity="0.92"/>
+                    <text x="348" y="178" class="chart-label" text-anchor="middle">Jun</text>
+                    <rect class="bar-rect" x="400" y="20"  width="52" height="140" rx="4" fill="var(--accent)"/>
+                    <text x="426" y="178" class="chart-label" text-anchor="middle" font-weight="600">Jul</text>
+                  </g>
+                  <polyline points="76,110 154,90 232,70 310,55 388,40 466,20" fill="none" stroke="var(--primary)" stroke-width="2" stroke-dasharray="5,3" transform="translate(40,0)" opacity="0.5"/>
+                </svg>
+                <div class="chart-legend">
+                  <span class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Revenue</span>
+                  <span class="legend-item"><span class="legend-dot legend-dot--line"></span>Trend</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="activity-card">
+              <div class="card-header"><h2 class="card-title">Recent Activity</h2><button class="text-btn">View all</button></div>
+              <ul class="activity-list">
+                <li class="activity-item"><div class="activity-dot activity-dot--green"></div><div class="activity-content"><p class="activity-text"><strong>Project Apex</strong> moved to Testing phase</p><span class="activity-time">2 min ago</span></div></li>
+                <li class="activity-item"><div class="activity-dot activity-dot--blue"></div><div class="activity-content"><p class="activity-text"><strong>TechNova Inc.</strong> contract renewed — $480K</p><span class="activity-time">1 hr ago</span></div></li>
+                <li class="activity-item"><div class="activity-dot activity-dot--amber"></div><div class="activity-content"><p class="activity-text">Ticket <strong>#TK-2041</strong> escalated to P1</p><span class="activity-time">3 hrs ago</span></div></li>
+                <li class="activity-item"><div class="activity-dot activity-dot--purple"></div><div class="activity-content"><p class="activity-text"><strong>Meridian Group</strong> added as new lead</p><span class="activity-time">5 hrs ago</span></div></li>
+                <li class="activity-item"><div class="activity-dot activity-dot--red"></div><div class="activity-content"><p class="activity-text"><strong>CloudSync v3.1</strong> deployment delayed</p><span class="activity-time">Yesterday</span></div></li>
+                <li class="activity-item"><div class="activity-dot activity-dot--green"></div><div class="activity-content"><p class="activity-text"><strong>DataBridge Pro</strong> delivered successfully</p><span class="activity-time">Yesterday</span></div></li>
+              </ul>
             </div>
           </div>
-          <div class="chart-area" id="chartArea">
-            <svg class="bar-chart" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet">
-              <!-- Grid lines -->
-              <line x1="0" y1="160" x2="600" y2="160" stroke="var(--border)" stroke-width="1"/>
-              <line x1="0" y1="120" x2="600" y2="120" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>
-              <line x1="0" y1="80" x2="600" y2="80" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>
-              <line x1="0" y1="40" x2="600" y2="40" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>
 
-              <!-- Y-axis labels -->
-              <text x="0" y="163" class="chart-label">$0</text>
-              <text x="0" y="123" class="chart-label">$1M</text>
-              <text x="0" y="83" class="chart-label">$2M</text>
-              <text x="0" y="43" class="chart-label">$3M</text>
-
-              <!-- Bars group, starting after label area -->
-              <g transform="translate(40, 0)">
-                <!-- Feb -->
-                <rect class="bar-rect" x="10" y="110" width="52" height="50" rx="4" fill="var(--accent)" opacity="0.7"/>
-                <rect class="bar-rect bar-highlight" x="10" y="110" width="52" height="50" rx="4" fill="var(--accent)" opacity="0"/>
-                <text x="36" y="178" class="chart-label" text-anchor="middle">Feb</text>
-
-                <!-- Mar -->
-                <rect class="bar-rect" x="88" y="90" width="52" height="70" rx="4" fill="var(--accent)" opacity="0.75"/>
-                <text x="114" y="178" class="chart-label" text-anchor="middle">Mar</text>
-
-                <!-- Apr -->
-                <rect class="bar-rect" x="166" y="70" width="52" height="90" rx="4" fill="var(--accent)" opacity="0.82"/>
-                <text x="192" y="178" class="chart-label" text-anchor="middle">Apr</text>
-
-                <!-- May -->
-                <rect class="bar-rect" x="244" y="55" width="52" height="105" rx="4" fill="var(--accent)" opacity="0.88"/>
-                <text x="270" y="178" class="chart-label" text-anchor="middle">May</text>
-
-                <!-- Jun -->
-                <rect class="bar-rect" x="322" y="40" width="52" height="120" rx="4" fill="var(--accent)" opacity="0.92"/>
-                <text x="348" y="178" class="chart-label" text-anchor="middle">Jun</text>
-
-                <!-- Jul - current, full accent -->
-                <rect class="bar-rect" x="400" y="20" width="52" height="140" rx="4" fill="var(--accent)"/>
-                <text x="426" y="178" class="chart-label" text-anchor="middle" font-weight="600">Jul</text>
-              </g>
-
-              <!-- Trend line -->
-              <polyline points="76,110 154,90 232,70 310,55 388,40 466,20" fill="none" stroke="var(--primary)" stroke-width="2" stroke-dasharray="5,3" transform="translate(40,0)" opacity="0.5"/>
-            </svg>
-
-            <div class="chart-legend">
-              <span class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>Revenue</span>
-              <span class="legend-item"><span class="legend-dot legend-dot--line"></span>Trend</span>
+          <!-- Pipeline + Top Clients -->
+          <div class="status-row">
+            <div class="status-card">
+              <div class="card-header"><h2 class="card-title">Project Pipeline Overview</h2><button class="text-btn" id="goToProjects">See Kanban →</button></div>
+              <div class="pipeline-bars">
+                <div class="pipeline-item"><span class="pipeline-label">Discovery</span><div class="pipeline-track"><div class="pipeline-fill pipeline-fill--discovery" style="width:30%"></div></div><span class="pipeline-count">8</span></div>
+                <div class="pipeline-item"><span class="pipeline-label">Development</span><div class="pipeline-track"><div class="pipeline-fill pipeline-fill--dev" style="width:55%"></div></div><span class="pipeline-count">21</span></div>
+                <div class="pipeline-item"><span class="pipeline-label">Testing</span><div class="pipeline-track"><div class="pipeline-fill pipeline-fill--test" style="width:40%"></div></div><span class="pipeline-count">14</span></div>
+                <div class="pipeline-item"><span class="pipeline-label">Delivered</span><div class="pipeline-track"><div class="pipeline-fill pipeline-fill--delivered" style="width:85%"></div></div><span class="pipeline-count">21</span></div>
+              </div>
+            </div>
+            <div class="top-clients-card">
+              <div class="card-header"><h2 class="card-title">Top Clients</h2></div>
+              <ul class="top-clients-list">
+                <li class="top-client-item"><div class="client-rank">1</div><div class="client-info-mini"><span class="client-name-mini">TechNova Inc.</span><span class="client-sector">Cloud Services</span></div><div class="client-revenue-mini">$1.2M</div></li>
+                <li class="top-client-item"><div class="client-rank">2</div><div class="client-info-mini"><span class="client-name-mini">Meridian Group</span><span class="client-sector">Cybersecurity</span></div><div class="client-revenue-mini">$890K</div></li>
+                <li class="top-client-item"><div class="client-rank">3</div><div class="client-info-mini"><span class="client-name-mini">Orbis Finance</span><span class="client-sector">FinTech</span></div><div class="client-revenue-mini">$760K</div></li>
+                <li class="top-client-item"><div class="client-rank">4</div><div class="client-info-mini"><span class="client-name-mini">Stratogen Corp</span><span class="client-sector">AI &amp; Analytics</span></div><div class="client-revenue-mini">$540K</div></li>
+              </ul>
             </div>
           </div>
-        </div>
 
-        <div class="activity-card">
-          <div class="card-header">
-            <h2 class="card-title">Recent Activity</h2>
-            <button class="text-btn">View all</button>
-          </div>
-          <ul class="activity-list">
-            <li class="activity-item">
-              <div class="activity-dot activity-dot--green"></div>
-              <div class="activity-content">
-                <p class="activity-text"><strong>Project Apex</strong> moved to Testing phase</p>
-                <span class="activity-time">2 min ago</span>
-              </div>
-            </li>
-            <li class="activity-item">
-              <div class="activity-dot activity-dot--blue"></div>
-              <div class="activity-content">
-                <p class="activity-text"><strong>TechNova Inc.</strong> contract renewed — $480K</p>
-                <span class="activity-time">1 hr ago</span>
-              </div>
-            </li>
-            <li class="activity-item">
-              <div class="activity-dot activity-dot--amber"></div>
-              <div class="activity-content">
-                <p class="activity-text">Ticket <strong>#TK-2041</strong> escalated to P1</p>
-                <span class="activity-time">3 hrs ago</span>
-              </div>
-            </li>
-            <li class="activity-item">
-              <div class="activity-dot activity-dot--purple"></div>
-              <div class="activity-content">
-                <p class="activity-text"><strong>Meridian Group</strong> added as new lead</p>
-                <span class="activity-time">5 hrs ago</span>
-              </div>
-            </li>
-            <li class="activity-item">
-              <div class="activity-dot activity-dot--red"></div>
-              <div class="activity-content">
-                <p class="activity-text"><strong>CloudSync v3.1</strong> deployment delayed</p>
-                <span class="activity-time">Yesterday</span>
-              </div>
-            </li>
-            <li class="activity-item">
-              <div class="activity-dot activity-dot--green"></div>
-              <div class="activity-content">
-                <p class="activity-text"><strong>DataBridge Pro</strong> delivered successfully</p>
-                <span class="activity-time">Yesterday</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+        </div><!-- end .dashboard-left -->
 
-      <!-- Project Status Row -->
-      <div class="status-row">
-        <div class="status-card">
-          <div class="card-header">
-            <h2 class="card-title">Project Pipeline Overview</h2>
-            <button class="text-btn" id="goToProjects">See Kanban →</button>
-          </div>
-          <div class="pipeline-bars">
-            <div class="pipeline-item">
-              <span class="pipeline-label">Discovery</span>
-              <div class="pipeline-track">
-                <div class="pipeline-fill pipeline-fill--discovery" style="width: 30%"></div>
+        <!-- ── RIGHT COLUMN: Genesys Softphone ── -->
+        <div class="dashboard-right">
+          <div class="dash-softphone-card">
+            <div class="dash-softphone-header">
+              <div class="dash-softphone-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.47 2 2 0 0 1 3.56 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78a16 16 0 0 0 6.29 6.29l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                Genesys Cloud Softphone
               </div>
-              <span class="pipeline-count">8</span>
+              <div class="dash-sp-dot connecting" id="dashSpDot"></div>
             </div>
-            <div class="pipeline-item">
-              <span class="pipeline-label">Development</span>
-              <div class="pipeline-track">
-                <div class="pipeline-fill pipeline-fill--dev" style="width: 55%"></div>
+            <div class="dash-softphone-body">
+              <!-- Loader: hidden after 2.5s by JS regardless -->
+              <div class="dash-sp-loader" id="dashSpLoader">
+                <div class="dash-sp-spinner"></div>
+                <p style="font-size:12px;color:#4a5e7a;text-align:center;line-height:1.6;padding:0 12px">
+                  Connecting to Genesys Cloud…<br>
+                  <small style="color:#8097b4">Sign in when the login screen appears.</small>
+                </p>
               </div>
-              <span class="pipeline-count">21</span>
-            </div>
-            <div class="pipeline-item">
-              <span class="pipeline-label">Testing</span>
-              <div class="pipeline-track">
-                <div class="pipeline-fill pipeline-fill--test" style="width: 40%"></div>
-              </div>
-              <span class="pipeline-count">14</span>
-            </div>
-            <div class="pipeline-item">
-              <span class="pipeline-label">Delivered</span>
-              <div class="pipeline-track">
-                <div class="pipeline-fill pipeline-fill--delivered" style="width: 85%"></div>
-              </div>
-              <span class="pipeline-count">21</span>
+              <!-- Genesys iframe — src set by script.js on load -->
+              <iframe
+                id="dashSoftphone"
+                src=""
+                allow="camera *; microphone *; autoplay *; clipboard-write *; fullscreen *; payment *; microphone; camera"
+                allowfullscreen
+                title="Genesys Cloud Softphone">
+              </iframe>
             </div>
           </div>
-        </div>
+        </div><!-- end .dashboard-right -->
 
-        <div class="top-clients-card">
-          <div class="card-header">
-            <h2 class="card-title">Top Clients</h2>
-          </div>
-          <ul class="top-clients-list">
-            <li class="top-client-item">
-              <div class="client-rank">1</div>
-              <div class="client-info-mini">
-                <span class="client-name-mini">TechNova Inc.</span>
-                <span class="client-sector">Cloud Services</span>
-              </div>
-              <div class="client-revenue-mini">$1.2M</div>
-            </li>
-            <li class="top-client-item">
-              <div class="client-rank">2</div>
-              <div class="client-info-mini">
-                <span class="client-name-mini">Meridian Group</span>
-                <span class="client-sector">Cybersecurity</span>
-              </div>
-              <div class="client-revenue-mini">$890K</div>
-            </li>
-            <li class="top-client-item">
-              <div class="client-rank">3</div>
-              <div class="client-info-mini">
-                <span class="client-name-mini">Orbis Finance</span>
-                <span class="client-sector">FinTech</span>
-              </div>
-              <div class="client-revenue-mini">$760K</div>
-            </li>
-            <li class="top-client-item">
-              <div class="client-rank">4</div>
-              <div class="client-info-mini">
-                <span class="client-name-mini">Stratogen Corp</span>
-                <span class="client-sector">AI & Analytics</span>
-              </div>
-              <div class="client-revenue-mini">$540K</div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== CLIENTS SECTION ===== -->
+      </div><!-- end .dashboard-grid -->
+    </section><!-- end #section-dashboard -->
     <section class="content-section" id="section-clients">
       <div class="section-header">
-        <div>
-          <h1 class="section-title">Client Management</h1>
-          <p class="section-subtitle">Manage your enterprise client relationships and pipeline.</p>
-        </div>
-        <div class="section-actions">
-          <button class="btn btn-primary" id="openAddClient">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Add Client
-          </button>
-        </div>
+        <div><h1 class="section-title">Client Management</h1><p class="section-subtitle">Manage your enterprise client relationships and pipeline.</p></div>
+        <div class="section-actions"><button class="btn btn-primary" id="openAddClient"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Client</button></div>
       </div>
-
       <div class="table-card">
         <div class="table-toolbar">
-          <div class="table-search">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input type="text" id="clientSearch" placeholder="Filter clients…" aria-label="Search clients"/>
-          </div>
-          <div class="table-filters">
-            <select id="statusFilter" aria-label="Filter by status">
-              <option value="">All Statuses</option>
-              <option value="active">Active</option>
-              <option value="lead">Lead</option>
-              <option value="inactive">Inactive</option>
-            </select>
-          </div>
+          <div class="table-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="clientSearch" placeholder="Filter clients…" aria-label="Search clients"/></div>
+          <div class="table-filters"><select id="statusFilter" aria-label="Filter by status"><option value="">All Statuses</option><option value="active">Active</option><option value="lead">Lead</option><option value="inactive">Inactive</option></select></div>
         </div>
-
         <div class="table-wrapper">
           <table class="data-table" id="clientTable">
             <thead>
@@ -2192,25 +990,15 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
                 <th class="th-check"><input type="checkbox" aria-label="Select all"/></th>
                 <th class="sortable" data-col="name">Client Name <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></th>
                 <th class="sortable" data-col="company">Company <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></th>
-                <th>Sector</th>
-                <th>Status</th>
-                <th>Joined</th>
-                <th>Actions</th>
+                <th>Sector</th><th>Status</th><th>Joined</th><th>Actions</th>
               </tr>
             </thead>
-            <tbody id="clientTableBody">
-              <!-- Rows injected by JS -->
-            </tbody>
+            <tbody id="clientTableBody"></tbody>
           </table>
         </div>
         <div class="table-footer">
           <span class="table-count" id="tableCount">Showing 10 of 10 clients</span>
-          <div class="pagination">
-            <button class="page-btn" disabled>←</button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">→</button>
-          </div>
+          <div class="pagination"><button class="page-btn" disabled>←</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">→</button></div>
         </div>
       </div>
     </section>
@@ -2218,87 +1006,32 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
     <!-- ===== PROJECTS SECTION ===== -->
     <section class="content-section" id="section-projects">
       <div class="section-header">
-        <div>
-          <h1 class="section-title">Project Tracker</h1>
-          <p class="section-subtitle">Visualise and manage your IT project delivery pipeline.</p>
-        </div>
+        <div><h1 class="section-title">Project Tracker</h1><p class="section-subtitle">Visualise and manage your IT project delivery pipeline.</p></div>
         <div class="section-actions">
-          <button class="btn btn-secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            List View
-          </button>
-          <button class="btn btn-primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            New Project
-          </button>
+          <button class="btn btn-secondary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>List View</button>
+          <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Project</button>
         </div>
       </div>
-
-      <div class="kanban-board" id="kanbanBoard">
-        <!-- Columns injected by JS -->
-      </div>
+      <div class="kanban-board" id="kanbanBoard"></div>
     </section>
 
-    <!-- ===== TICKETS SECTION ===== -->
+    <!-- ===== TICKETS ===== -->
     <section class="content-section" id="section-tickets">
-      <div class="section-header">
-        <div>
-          <h1 class="section-title">Support Tickets</h1>
-          <p class="section-subtitle">Track and resolve client support requests.</p>
-        </div>
-      </div>
-      <div class="placeholder-card">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
-          <path d="M32 8 L56 20 L56 44 L32 56 L8 44 L8 20 Z" opacity="0.3"/>
-          <circle cx="32" cy="32" r="8"/>
-          <line x1="32" y1="20" x2="32" y2="16"/>
-          <line x1="32" y1="48" x2="32" y2="44"/>
-          <line x1="20" y1="32" x2="16" y2="32"/>
-          <line x1="48" y1="32" x2="44" y2="32"/>
-        </svg>
-        <h3>Tickets Module</h3>
-        <p>Full ticket management with SLA tracking coming in v2.0</p>
-      </div>
+      <div class="section-header"><div><h1 class="section-title">Support Tickets</h1><p class="section-subtitle">Track and resolve client support requests.</p></div></div>
+      <div class="placeholder-card"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64"><path d="M32 8 L56 20 L56 44 L32 56 L8 44 L8 20 Z" opacity="0.3"/><circle cx="32" cy="32" r="8"/><line x1="32" y1="20" x2="32" y2="16"/><line x1="32" y1="48" x2="32" y2="44"/><line x1="20" y1="32" x2="16" y2="32"/><line x1="48" y1="32" x2="44" y2="32"/></svg><h3>Tickets Module</h3><p>Full ticket management with SLA tracking coming in v2.0</p></div>
     </section>
 
-    <!-- ===== ANALYTICS SECTION ===== -->
+    <!-- ===== ANALYTICS ===== -->
     <section class="content-section" id="section-analytics">
-      <div class="section-header">
-        <div>
-          <h1 class="section-title">Analytics</h1>
-          <p class="section-subtitle">Deep-dive performance insights across your portfolio.</p>
-        </div>
-      </div>
-      <div class="placeholder-card">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
-          <line x1="8" y1="56" x2="56" y2="56"/>
-          <rect x="12" y="36" width="10" height="20" rx="2" opacity="0.4"/>
-          <rect x="27" y="24" width="10" height="32" rx="2" opacity="0.6"/>
-          <rect x="42" y="12" width="10" height="44" rx="2"/>
-        </svg>
-        <h3>Analytics Module</h3>
-        <p>Advanced reporting dashboards and export tools coming in v2.0</p>
-      </div>
+      <div class="section-header"><div><h1 class="section-title">Analytics</h1><p class="section-subtitle">Deep-dive performance insights across your portfolio.</p></div></div>
+      <div class="placeholder-card"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64"><line x1="8" y1="56" x2="56" y2="56"/><rect x="12" y="36" width="10" height="20" rx="2" opacity="0.4"/><rect x="27" y="24" width="10" height="32" rx="2" opacity="0.6"/><rect x="42" y="12" width="10" height="44" rx="2"/></svg><h3>Analytics Module</h3><p>Advanced reporting dashboards and export tools coming in v2.0</p></div>
     </section>
 
-    <!-- ===== SETTINGS SECTION ===== -->
+    <!-- ===== SETTINGS ===== -->
     <section class="content-section" id="section-settings">
-      <div class="section-header">
-        <div>
-          <h1 class="section-title">Settings</h1>
-          <p class="section-subtitle">Configure your workspace preferences.</p>
-        </div>
-      </div>
-      <div class="placeholder-card">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
-          <circle cx="32" cy="32" r="8"/>
-          <path d="M32 4 L36 12 L44 8 L44 16 L52 16 L48 24 L56 28 L48 32 L52 40 L44 40 L44 48 L36 44 L32 52 L28 44 L20 48 L20 40 L12 40 L16 32 L8 28 L16 24 L12 16 L20 16 L20 8 L28 12 Z" opacity="0.3"/>
-        </svg>
-        <h3>Settings Module</h3>
-        <p>User management, integrations and org settings coming in v2.0</p>
-      </div>
+      <div class="section-header"><div><h1 class="section-title">Settings</h1><p class="section-subtitle">Configure your workspace preferences.</p></div></div>
+      <div class="placeholder-card"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64"><circle cx="32" cy="32" r="8"/><path d="M32 4 L36 12 L44 8 L44 16 L52 16 L48 24 L56 28 L48 32 L52 40 L44 40 L44 48 L36 44 L32 52 L28 44 L20 48 L20 40 L12 40 L16 32 L8 28 L16 24 L12 16 L20 16 L20 8 L28 12 Z" opacity="0.3"/></svg><h3>Settings Module</h3><p>User management, integrations and org settings coming in v2.0</p></div>
     </section>
-
 
     <!-- ===== SOFTPHONE SECTION ===== -->
     <section class="content-section content-section--compact" id="section-softphone">
@@ -2309,18 +1042,13 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
         </div>
         <div class="section-actions">
           <div id="spStatusBanner" class="softphone-status-banner">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span id="spStatusText">Initialising Genesys Cloud connection…</span>
           </div>
         </div>
       </div>
 
       <div class="softphone-layout">
-
-        <!-- Left: Embedded iframe -->
         <div class="softphone-frame-card">
           <div class="softphone-frame-header">
             <div class="softphone-frame-title">
@@ -2335,114 +1063,58 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
             id="softphone"
             allow="camera *; microphone *; autoplay *; clipboard-write *"
             allowfullscreen
-            src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html"
+            src=""
             title="Genesys Cloud Softphone">
           </iframe>
         </div>
 
-        <!-- Right: Info & controls -->
         <div class="softphone-info-panel">
-
-          <!-- Connection config -->
           <div class="genesys-info-card">
             <div class="card-header" style="margin-bottom:14px">
               <h2 class="card-title">Connection Details</h2>
               <span class="genesys-logo-badge">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 Genesys Cloud
               </span>
             </div>
             <div class="genesys-config-grid">
-              <div class="genesys-config-item">
-                <span class="genesys-config-label">Region</span>
-                <span class="genesys-config-value">US West 2</span>
-              </div>
-              <div class="genesys-config-item">
-                <span class="genesys-config-label">Environment</span>
-                <span class="genesys-config-value">usw2.pure.cloud</span>
-              </div>
-              <div class="genesys-config-item" style="grid-column: 1 / -1">
-                <span class="genesys-config-label">Client ID</span>
-                <span class="genesys-config-value mono">226182a8-bb53-435b-bc3c-2140f077768f</span>
-              </div>
-              <div class="genesys-config-item" style="grid-column: 1 / -1">
-                <span class="genesys-config-label">Iframe URL</span>
-                <span class="genesys-config-value mono" style="font-size:10px">https://apps.usw2.pure.cloud/crm/embeddableFramework.html</span>
-              </div>
+              <div class="genesys-config-item"><span class="genesys-config-label">Region</span><span class="genesys-config-value">US West 2</span></div>
+              <div class="genesys-config-item"><span class="genesys-config-label">Environment</span><span class="genesys-config-value">usw2.pure.cloud</span></div>
+              <div class="genesys-config-item" style="grid-column:1/-1"><span class="genesys-config-label">Client ID</span><span class="genesys-config-value mono">226182a8-bb53-435b-bc3c-2140f077768f</span></div>
+              <div class="genesys-config-item" style="grid-column:1/-1"><span class="genesys-config-label">Iframe URL</span><span class="genesys-config-value mono" style="font-size:10px">https://apps.usw2.pure.cloud/crm/embeddableFramework.html</span></div>
             </div>
           </div>
 
-          <!-- Quick call controls hint -->
           <div class="genesys-info-card">
-            <div class="card-header">
-              <h2 class="card-title">Quick Controls</h2>
-            </div>
+            <div class="card-header"><h2 class="card-title">Quick Controls</h2></div>
             <div class="call-controls">
               <button class="call-ctrl-btn" onclick="document.getElementById('softphone').contentWindow.postMessage({type:'mute'},'*')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="1" y1="1" x2="23" y2="23"/>
-                  <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/>
-                  <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/>
-                  <line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
-                </svg>
-                Mute
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>Mute
               </button>
               <button class="call-ctrl-btn" onclick="document.getElementById('softphone').contentWindow.postMessage({type:'hold'},'*')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>
-                </svg>
-                Hold
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>Hold
               </button>
               <button class="call-ctrl-btn" onclick="document.getElementById('softphone').contentWindow.postMessage({type:'transfer'},'*')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="17 1 21 5 17 9"/>
-                  <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
-                  <polyline points="7 23 3 19 7 15"/>
-                  <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
-                </svg>
-                Transfer
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>Transfer
               </button>
               <button class="call-ctrl-btn danger" onclick="document.getElementById('softphone').contentWindow.postMessage({type:'endCall'},'*')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.34 1.85.573 2.81.7a2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 1.59 3.47 2 2 0 0 1 3.56 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78"/>
-                  <line x1="23" y1="1" x2="1" y2="23"/>
-                </svg>
-                End Call
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.34 1.85.573 2.81.7a2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 1.59 3.47 2 2 0 0 1 3.56 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.78"/><line x1="23" y1="1" x2="1" y2="23"/></svg>End Call
               </button>
             </div>
           </div>
 
-          <!-- Setup tips -->
           <div class="genesys-info-card">
-            <div class="card-header">
-              <h2 class="card-title">Setup Checklist</h2>
-            </div>
+            <div class="card-header"><h2 class="card-title">Setup Checklist</h2></div>
             <div class="genesys-tips-list">
-              <div class="genesys-tip">
-                <span class="tip-num">1</span>
-                <span>When the softphone loads, <strong>sign in</strong> with your Genesys Cloud credentials (org: usw2.pure.cloud).</span>
-              </div>
-              <div class="genesys-tip">
-                <span class="tip-num">2</span>
-                <span><strong>Allow microphone access</strong> when the browser prompts — required for voice calls.</span>
-              </div>
-              <div class="genesys-tip">
-                <span class="tip-num">3</span>
-                <span>Your Genesys admin must add <strong>https://harshavardhan1602.github.io</strong> to the <em>Authorized redirect URIs</em> for Client ID <code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:4px">226182a8…768f</code>.</span>
-              </div>
-              <div class="genesys-tip">
-                <span class="tip-num">4</span>
-                <span>In Genesys Admin → Integrations → Embeddable Framework, ensure <strong>Client ID</strong> and <strong>allowed origins</strong> include this site's URL.</span>
-              </div>
+              <div class="genesys-tip"><span class="tip-num">1</span><span>Click the <strong>phone icon</strong> at the bottom-right corner to open the softphone popup.</span></div>
+              <div class="genesys-tip"><span class="tip-num">2</span><span>Sign in with your Genesys Cloud credentials (org: usw2.pure.cloud).</span></div>
+              <div class="genesys-tip"><span class="tip-num">3</span><span><strong>Allow microphone access</strong> when the browser prompts.</span></div>
+              <div class="genesys-tip"><span class="tip-num">4</span><span>Your Genesys admin must add <strong>https://harshavardhan1602.github.io</strong> to the Authorized redirect URIs for Client ID <code style="font-size:11px;background:var(--bg);padding:2px 5px;border-radius:4px">226182a8…768f</code>.</span></div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
   </main>
 
   <!-- ===== ADD CLIENT MODAL ===== -->
@@ -2451,856 +1123,38 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
       <div class="modal-header">
         <h2 class="modal-title" id="modalTitle">Add New Client</h2>
         <button class="modal-close" id="modalClose" aria-label="Close modal">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
       <form class="modal-form" id="addClientForm" novalidate>
         <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First Name <span class="required">*</span></label>
-            <input type="text" id="firstName" name="firstName" placeholder="e.g. Ravi" autocomplete="given-name"/>
-            <span class="field-error" id="firstNameError"></span>
-          </div>
-          <div class="form-group">
-            <label for="lastName">Last Name <span class="required">*</span></label>
-            <input type="text" id="lastName" name="lastName" placeholder="e.g. Shankar" autocomplete="family-name"/>
-            <span class="field-error" id="lastNameError"></span>
-          </div>
+          <div class="form-group"><label for="firstName">First Name <span class="required">*</span></label><input type="text" id="firstName" name="firstName" placeholder="e.g. Ravi" autocomplete="given-name"/><span class="field-error" id="firstNameError"></span></div>
+          <div class="form-group"><label for="lastName">Last Name <span class="required">*</span></label><input type="text" id="lastName" name="lastName" placeholder="e.g. Shankar" autocomplete="family-name"/><span class="field-error" id="lastNameError"></span></div>
         </div>
-        <div class="form-group">
-          <label for="companyName">Company <span class="required">*</span></label>
-          <input type="text" id="companyName" name="companyName" placeholder="e.g. Vertex Technologies" autocomplete="organization"/>
-          <span class="field-error" id="companyNameError"></span>
+        <div class="form-group"><label for="companyName">Company <span class="required">*</span></label><input type="text" id="companyName" name="companyName" placeholder="e.g. Vertex Technologies" autocomplete="organization"/><span class="field-error" id="companyNameError"></span></div>
+        <div class="form-row">
+          <div class="form-group"><label for="email">Email Address <span class="required">*</span></label><input type="email" id="email" name="email" placeholder="contact@company.com" autocomplete="email"/><span class="field-error" id="emailError"></span></div>
+          <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel"/></div>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label for="email">Email Address <span class="required">*</span></label>
-            <input type="email" id="email" name="email" placeholder="contact@company.com" autocomplete="email"/>
-            <span class="field-error" id="emailError"></span>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel"/>
-          </div>
+          <div class="form-group"><label for="sector">Sector <span class="required">*</span></label><select id="sector" name="sector"><option value="">Select a sector</option><option>Cloud Services</option><option>Cybersecurity</option><option>FinTech</option><option>AI &amp; Analytics</option><option>Healthcare IT</option><option>ERP &amp; SAP</option><option>Digital Transformation</option><option>Other</option></select><span class="field-error" id="sectorError"></span></div>
+          <div class="form-group"><label for="clientStatus">Status <span class="required">*</span></label><select id="clientStatus" name="clientStatus"><option value="">Select status</option><option value="active">Active</option><option value="lead">Lead</option><option value="inactive">Inactive</option></select><span class="field-error" id="clientStatusError"></span></div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="sector">Sector <span class="required">*</span></label>
-            <select id="sector" name="sector">
-              <option value="">Select a sector</option>
-              <option>Cloud Services</option>
-              <option>Cybersecurity</option>
-              <option>FinTech</option>
-              <option>AI & Analytics</option>
-              <option>Healthcare IT</option>
-              <option>ERP & SAP</option>
-              <option>Digital Transformation</option>
-              <option>Other</option>
-            </select>
-            <span class="field-error" id="sectorError"></span>
-          </div>
-          <div class="form-group">
-            <label for="clientStatus">Status <span class="required">*</span></label>
-            <select id="clientStatus" name="clientStatus">
-              <option value="">Select status</option>
-              <option value="active">Active</option>
-              <option value="lead">Lead</option>
-              <option value="inactive">Inactive</option>
-            </select>
-            <span class="field-error" id="clientStatusError"></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="notes">Notes</label>
-          <textarea id="notes" name="notes" rows="3" placeholder="Add any relevant notes about this client…"></textarea>
-        </div>
+        <div class="form-group"><label for="notes">Notes</label><textarea id="notes" name="notes" rows="3" placeholder="Add any relevant notes about this client…"></textarea></div>
         <div class="modal-actions">
           <button type="button" class="btn btn-ghost" id="cancelModal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="submitClient">
-            <span class="btn-text">Save Client</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </button>
+          <button type="submit" class="btn btn-primary"><span class="btn-text">Save Client</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- Toast -->
   <div class="toast" id="toast" role="alert" aria-live="polite">
     <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
     <span class="toast-msg" id="toastMsg"></span>
   </div>
 
-  <script>
-/* ============================================================
-   Cognizant CRM — script.js
-   Vanilla JS — No dependencies
-   ============================================================ */
-
-'use strict';
-
-/* ─────────────────────────────────────────────
-   DATA
-───────────────────────────────────────────── */
-
-const AVATAR_COLORS = [
-  ['#e8f1fb','#0066cc'], ['#e0f7f6','#0d9488'], ['#fef3c7','#d97706'],
-  ['#fee2e2','#dc2626'], ['#ede9fe','#7c3aed'], ['#dcfce7','#16a34a'],
-  ['#fce7f3','#db2777'], ['#fff7ed','#ea580c']
-];
-
-let clientData = [
-  { id: 1,  firstName: 'Priya',    lastName: 'Nair',       company: 'TechNova Inc.',     sector: 'Cloud Services',        status: 'active',   joined: '2022-03-14', email: 'p.nair@technova.io' },
-  { id: 2,  firstName: 'Rajan',    lastName: 'Mehta',      company: 'Orbis Finance',     sector: 'FinTech',               status: 'active',   joined: '2021-11-02', email: 'r.mehta@orbis.com' },
-  { id: 3,  firstName: 'Sunita',   lastName: 'Kapoor',     company: 'Stratogen Corp',    sector: 'AI & Analytics',        status: 'active',   joined: '2023-01-18', email: 's.kapoor@stratogen.ai' },
-  { id: 4,  firstName: 'Vikram',   lastName: 'Sharma',     company: 'Meridian Group',    sector: 'Cybersecurity',         status: 'lead',     joined: '2024-05-07', email: 'v.sharma@meridian.co' },
-  { id: 5,  firstName: 'Ananya',   lastName: 'Bose',       company: 'HealthPulse IT',    sector: 'Healthcare IT',         status: 'active',   joined: '2022-09-30', email: 'a.bose@healthpulse.in' },
-  { id: 6,  firstName: 'Deepak',   lastName: 'Iyer',       company: 'FusionSAP',         sector: 'ERP & SAP',             status: 'inactive', joined: '2020-06-25', email: 'd.iyer@fusionsap.net' },
-  { id: 7,  firstName: 'Kavitha',  lastName: 'Reddy',      company: 'CloudNine Systems', sector: 'Cloud Services',        status: 'lead',     joined: '2024-07-11', email: 'k.reddy@cloudnine.io' },
-  { id: 8,  firstName: 'Arjun',    lastName: 'Pillai',     company: 'DataBridge Corp',   sector: 'AI & Analytics',        status: 'active',   joined: '2023-04-22', email: 'a.pillai@databridge.com' },
-  { id: 9,  firstName: 'Meena',    lastName: 'Krishnan',   company: 'SecureAxis',        sector: 'Cybersecurity',         status: 'inactive', joined: '2019-12-10', email: 'm.krishnan@secureaxis.io' },
-  { id: 10, firstName: 'Rohit',    lastName: 'Gupta',      company: 'NexGen Digital',    sector: 'Digital Transformation',status: 'lead',     joined: '2024-09-01', email: 'r.gupta@nexgen.io' }
-];
-
-let nextClientId = clientData.length + 1;
-
-const KANBAN_DATA = {
-  discovery: [
-    { id: 'k1',  title: 'ERP Migration Assessment',    client: 'FusionSAP',          priority: 'high',   due: 'Aug 10', assignees: ['PS','KR'] },
-    { id: 'k2',  title: 'AI Readiness Audit',          client: 'Stratogen Corp',     priority: 'medium', due: 'Aug 20', assignees: ['AB'] },
-    { id: 'k3',  title: 'Network Architecture Review', client: 'SecureAxis',         priority: 'low',    due: 'Sep 01', assignees: ['DI','VK'] },
-    { id: 'k4',  title: 'Cloud Cost Optimisation',     client: 'CloudNine Systems',  priority: 'medium', due: 'Sep 15', assignees: ['KR'] }
-  ],
-  development: [
-    { id: 'k5',  title: 'DataBridge API Layer v2',     client: 'DataBridge Corp',    priority: 'high',   due: 'Jul 28', assignees: ['AP','MK'] },
-    { id: 'k6',  title: 'HealthPulse Patient Portal',  client: 'HealthPulse IT',     priority: 'high',   due: 'Aug 05', assignees: ['AB','PS'] },
-    { id: 'k7',  title: 'CloudSync Integration',       client: 'TechNova Inc.',      priority: 'medium', due: 'Aug 18', assignees: ['RM'] },
-    { id: 'k8',  title: 'Fraud Detection ML Model',    client: 'Orbis Finance',      priority: 'high',   due: 'Aug 22', assignees: ['DI','KR','VK'] },
-    { id: 'k9',  title: 'Compliance Dashboard',        client: 'Meridian Group',     priority: 'medium', due: 'Sep 08', assignees: ['AB'] }
-  ],
-  testing: [
-    { id: 'k10', title: 'Security Patch Suite v4',     client: 'SecureAxis',         priority: 'high',   due: 'Jul 25', assignees: ['PS'] },
-    { id: 'k11', title: 'NexGen Web Platform',         client: 'NexGen Digital',     priority: 'medium', due: 'Jul 30', assignees: ['MK','RM'] },
-    { id: 'k12', title: 'Project Apex Analytics',      client: 'Stratogen Corp',     priority: 'medium', due: 'Aug 04', assignees: ['AB','DI'] },
-    { id: 'k13', title: 'Mobile CRM App',              client: 'TechNova Inc.',      priority: 'low',    due: 'Aug 12', assignees: ['KR'] }
-  ],
-  delivered: [
-    { id: 'k14', title: 'SAP S/4HANA Upgrade',         client: 'FusionSAP',         priority: 'high',   due: 'Jun 30', assignees: ['DI'] },
-    { id: 'k15', title: 'Zero Trust Architecture',     client: 'Meridian Group',     priority: 'high',   due: 'Jun 25', assignees: ['VK','PS'] },
-    { id: 'k16', title: 'Predictive Analytics PoC',    client: 'DataBridge Corp',    priority: 'low',    due: 'Jun 15', assignees: ['AP'] },
-    { id: 'k17', title: 'Multi-Cloud Strategy Plan',   client: 'CloudNine Systems',  priority: 'medium', due: 'Jun 10', assignees: ['RM','KR'] },
-    { id: 'k18', title: 'Digital Onboarding Suite',    client: 'NexGen Digital',     priority: 'medium', due: 'May 28', assignees: ['AB'] }
-  ]
-};
-
-/* ─────────────────────────────────────────────
-   UTILITIES
-───────────────────────────────────────────── */
-
-function getInitials(first, last) {
-  return ((first?.[0] || '') + (last?.[0] || '')).toUpperCase();
-}
-
-function getAvatarStyle(str) {
-  let hash = 0;
-  for (const c of str) hash = ((hash << 5) - hash) + c.charCodeAt(0);
-  const [bg, color] = AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
-  return `background:${bg};color:${color}`;
-}
-
-function formatDate(isoStr) {
-  const d = new Date(isoStr);
-  return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-}
-
-function escapeHtml(str) {
-  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-  return String(str).replace(/[&<>"']/g, m => map[m]);
-}
-
-/* ─────────────────────────────────────────────
-   DATE IN TOPBAR
-───────────────────────────────────────────── */
-(function setCurrentDate() {
-  const el = document.getElementById('currentDate');
-  if (!el) return;
-  el.textContent = new Date().toLocaleDateString('en-IN', {
-    weekday: 'short', day: 'numeric', month: 'long', year: 'numeric'
-  });
-})();
-
-/* ─────────────────────────────────────────────
-   SIDEBAR TOGGLE
-───────────────────────────────────────────── */
-const sidebar        = document.getElementById('sidebar');
-const mainContent    = document.getElementById('mainContent');
-const sidebarToggle  = document.getElementById('sidebarToggle');
-const mobileMenuBtn  = document.getElementById('mobileMenuBtn');
-
-function isMobile() { return window.innerWidth < 769; }
-
-sidebarToggle.addEventListener('click', () => {
-  if (isMobile()) return;
-  sidebar.classList.toggle('collapsed');
-  document.body.classList.toggle('sidebar-collapsed');
-});
-
-mobileMenuBtn.addEventListener('click', () => {
-  document.body.classList.toggle('mobile-open');
-});
-
-// Close mobile sidebar on overlay click
-document.addEventListener('click', (e) => {
-  if (isMobile() && document.body.classList.contains('mobile-open')) {
-    if (!sidebar.contains(e.target) && e.target !== mobileMenuBtn) {
-      document.body.classList.remove('mobile-open');
-    }
-  }
-});
-
-/* ─────────────────────────────────────────────
-   SECTION NAVIGATION
-───────────────────────────────────────────── */
-const navItems        = document.querySelectorAll('.nav-item[data-section]');
-const sections        = document.querySelectorAll('.content-section');
-const breadcrumbText  = document.getElementById('breadcrumbText');
-
-const SECTION_LABELS = {
-  dashboard: 'Dashboard',
-  clients:   'Clients',
-  projects:  'Projects',
-  tickets:   'Support Tickets',
-  analytics: 'Analytics',
-  settings:  'Settings',
-  softphone: 'Genesys Softphone'
-};
-
-function switchSection(sectionId) {
-  // Hide all sections
-  sections.forEach(s => s.classList.remove('active'));
-  navItems.forEach(n => n.classList.remove('active'));
-
-  // Show target
-  const target = document.getElementById(`section-${sectionId}`);
-  if (target) target.classList.add('active');
-
-  // Highlight nav
-  const navItem = document.querySelector(`.nav-item[data-section="${sectionId}"]`);
-  if (navItem) navItem.classList.add('active');
-
-  // Breadcrumb
-  if (breadcrumbText) {
-    breadcrumbText.textContent = SECTION_LABELS[sectionId] || sectionId;
-  }
-
-  // Lazy-render
-  if (sectionId === 'clients') renderClientTable();
-  if (sectionId === 'projects') renderKanban();
-
-  // Close mobile sidebar
-  if (isMobile()) document.body.classList.remove('mobile-open');
-
-  // Scroll to top
-  mainContent.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-navItems.forEach(item => {
-  item.addEventListener('click', () => {
-    switchSection(item.dataset.section);
-  });
-});
-
-// Dashboard "See Kanban" link
-document.getElementById('goToProjects').addEventListener('click', () => {
-  switchSection('projects');
-});
-
-// Chart tabs (cosmetic)
-document.querySelectorAll('.chart-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-  });
-});
-
-/* ─────────────────────────────────────────────
-   CLIENT TABLE
-───────────────────────────────────────────── */
-let filteredClients  = [...clientData];
-let searchTerm       = '';
-let filterStatus     = '';
-
-function renderClientTable() {
-  const tbody = document.getElementById('clientTableBody');
-  const countEl = document.getElementById('tableCount');
-  if (!tbody) return;
-
-  // Apply filters
-  filteredClients = clientData.filter(c => {
-    const fullName = `${c.firstName} ${c.lastName}`.toLowerCase();
-    const matchSearch =
-      !searchTerm ||
-      fullName.includes(searchTerm) ||
-      c.company.toLowerCase().includes(searchTerm) ||
-      c.email.toLowerCase().includes(searchTerm) ||
-      c.sector.toLowerCase().includes(searchTerm);
-    const matchStatus = !filterStatus || c.status === filterStatus;
-    return matchSearch && matchStatus;
-  });
-
-  // Render rows
-  if (filteredClients.length === 0) {
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);font-size:14px;">
-          No clients found matching your criteria.
-        </td>
-      </tr>`;
-  } else {
-    tbody.innerHTML = filteredClients.map(c => buildClientRow(c)).join('');
-  }
-
-  // Count
-  if (countEl) {
-    countEl.textContent = `Showing ${filteredClients.length} of ${clientData.length} client${clientData.length !== 1 ? 's' : ''}`;
-  }
-
-  // Attach row action buttons
-  tbody.querySelectorAll('.action-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const id = Number(btn.dataset.id);
-      handleClientAction(id, btn);
-    });
-  });
-}
-
-function buildClientRow(c) {
-  const initials  = getInitials(c.firstName, c.lastName);
-  const avatarStyle = getAvatarStyle(c.company);
-  const statusClass = escapeHtml(c.status);
-  const statusLabel = c.status.charAt(0).toUpperCase() + c.status.slice(1);
-
-  return `
-    <tr data-client-id="${c.id}">
-      <td class="th-check"><input type="checkbox" aria-label="Select ${escapeHtml(c.firstName)}"/></td>
-      <td>
-        <div class="client-name-cell">
-          <div class="client-avatar-sm" style="${avatarStyle}">${escapeHtml(initials)}</div>
-          <div>
-            <div class="client-full-name">${escapeHtml(c.firstName)} ${escapeHtml(c.lastName)}</div>
-            <div class="client-email">${escapeHtml(c.email)}</div>
-          </div>
-        </div>
-      </td>
-      <td>${escapeHtml(c.company)}</td>
-      <td style="color:var(--text-secondary);font-size:13px">${escapeHtml(c.sector)}</td>
-      <td><span class="status-badge ${statusClass}">${escapeHtml(statusLabel)}</span></td>
-      <td style="font-size:13px;color:var(--text-secondary)">${formatDate(c.joined)}</td>
-      <td>
-        <button class="action-btn" data-id="${c.id}" aria-label="View ${escapeHtml(c.firstName)} ${escapeHtml(c.lastName)}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          View
-        </button>
-      </td>
-    </tr>`;
-}
-
-function handleClientAction(id, btn) {
-  const client = clientData.find(c => c.id === id);
-  if (!client) return;
-  showToast(`Viewing ${client.firstName} ${client.lastName} — ${client.company}`);
-}
-
-// Filtering
-document.getElementById('clientSearch').addEventListener('input', (e) => {
-  searchTerm = e.target.value.trim().toLowerCase();
-  renderClientTable();
-});
-
-document.getElementById('statusFilter').addEventListener('change', (e) => {
-  filterStatus = e.target.value;
-  renderClientTable();
-});
-
-/* ─────────────────────────────────────────────
-   KANBAN BOARD
-───────────────────────────────────────────── */
-const STAGE_LABELS = {
-  discovery:   'Discovery',
-  development: 'Development',
-  testing:     'Testing',
-  delivered:   'Delivered'
-};
-
-function renderKanban() {
-  const board = document.getElementById('kanbanBoard');
-  if (!board || board.dataset.rendered === 'true') return;
-
-  board.innerHTML = Object.entries(KANBAN_DATA).map(([stage, cards]) => `
-    <div class="kanban-col" data-stage="${stage}">
-      <div class="kanban-col-header">
-        <span class="kanban-col-title">${STAGE_LABELS[stage]}</span>
-        <span class="kanban-count">${cards.length}</span>
-      </div>
-      <div class="kanban-cards">
-        ${cards.map(card => buildKanbanCard(card)).join('')}
-      </div>
-    </div>
-  `).join('');
-
-  board.dataset.rendered = 'true';
-
-  // Card click handler
-  board.querySelectorAll('.kanban-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const title = card.querySelector('.kanban-card-title')?.textContent;
-      const client = card.querySelector('.kanban-card-client')?.textContent;
-      showToast(`Opened: ${title} (${client?.replace('Client: ', '')})`);
-    });
-  });
-}
-
-function buildKanbanCard(card) {
-  const priorityClass = `priority-${card.priority}`;
-  const priorityLabel = card.priority.charAt(0).toUpperCase() + card.priority.slice(1);
-  const avatarsHtml = card.assignees.slice(0, 3).map((a, i) => {
-    const style = getAvatarStyle(a);
-    return `<div class="kanban-assignee" style="${style}" title="${a}">${escapeHtml(a)}</div>`;
-  }).join('');
-
-  return `
-    <article class="kanban-card" tabindex="0" role="button" aria-label="${escapeHtml(card.title)}">
-      <div class="kanban-card-title">${escapeHtml(card.title)}</div>
-      <div class="kanban-card-client">Client: ${escapeHtml(card.client)}</div>
-      <div class="kanban-card-meta">
-        <span class="kanban-priority ${priorityClass}">${escapeHtml(priorityLabel)}</span>
-        <span class="kanban-due">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-            <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-          ${escapeHtml(card.due)}
-        </span>
-        <div class="kanban-assignees">${avatarsHtml}</div>
-      </div>
-    </article>`;
-}
-
-// Allow keyboard activation on kanban cards
-document.getElementById('kanbanBoard').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    if (e.target.classList.contains('kanban-card')) {
-      e.preventDefault();
-      e.target.click();
-    }
-  }
-});
-
-/* ─────────────────────────────────────────────
-   ADD CLIENT MODAL
-───────────────────────────────────────────── */
-const modalOverlay   = document.getElementById('modalOverlay');
-const addClientForm  = document.getElementById('addClientForm');
-const openAddClient  = document.getElementById('openAddClient');
-const modalClose     = document.getElementById('modalClose');
-const cancelModal    = document.getElementById('cancelModal');
-
-function openModal() {
-  modalOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  // Focus first input
-  setTimeout(() => {
-    const firstInput = addClientForm.querySelector('input, select, textarea');
-    if (firstInput) firstInput.focus();
-  }, 80);
-}
-
-function closeModal() {
-  modalOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-  resetForm();
-}
-
-function resetForm() {
-  addClientForm.reset();
-  // Clear all error states
-  addClientForm.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
-  addClientForm.querySelectorAll('.field-error').forEach(el => (el.textContent = ''));
-}
-
-openAddClient.addEventListener('click', openModal);
-modalClose.addEventListener('click', closeModal);
-cancelModal.addEventListener('click', closeModal);
-
-// Close on overlay click
-modalOverlay.addEventListener('click', (e) => {
-  if (e.target === modalOverlay) closeModal();
-});
-
-// Close on Escape
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
-});
-
-/* ─────────────────────────────────────────────
-   FORM VALIDATION & SUBMISSION
-───────────────────────────────────────────── */
-const VALIDATORS = {
-  firstName: {
-    el: () => document.getElementById('firstName'),
-    errEl: () => document.getElementById('firstNameError'),
-    validate(val) {
-      if (!val.trim()) return 'First name is required.';
-      if (val.trim().length < 2) return 'Must be at least 2 characters.';
-      return null;
-    }
-  },
-  lastName: {
-    el: () => document.getElementById('lastName'),
-    errEl: () => document.getElementById('lastNameError'),
-    validate(val) {
-      if (!val.trim()) return 'Last name is required.';
-      if (val.trim().length < 2) return 'Must be at least 2 characters.';
-      return null;
-    }
-  },
-  companyName: {
-    el: () => document.getElementById('companyName'),
-    errEl: () => document.getElementById('companyNameError'),
-    validate(val) {
-      if (!val.trim()) return 'Company name is required.';
-      if (val.trim().length < 2) return 'Must be at least 2 characters.';
-      return null;
-    }
-  },
-  email: {
-    el: () => document.getElementById('email'),
-    errEl: () => document.getElementById('emailError'),
-    validate(val) {
-      if (!val.trim()) return 'Email address is required.';
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!re.test(val.trim())) return 'Enter a valid email address.';
-      return null;
-    }
-  },
-  sector: {
-    el: () => document.getElementById('sector'),
-    errEl: () => document.getElementById('sectorError'),
-    validate(val) {
-      if (!val) return 'Please select a sector.';
-      return null;
-    }
-  },
-  clientStatus: {
-    el: () => document.getElementById('clientStatus'),
-    errEl: () => document.getElementById('clientStatusError'),
-    validate(val) {
-      if (!val) return 'Please select a status.';
-      return null;
-    }
-  }
-};
-
-function validateField(key) {
-  const def   = VALIDATORS[key];
-  const input = def.el();
-  const errEl = def.errEl();
-  const error = def.validate(input.value);
-
-  if (error) {
-    input.classList.add('error');
-    errEl.textContent = error;
-    return false;
-  } else {
-    input.classList.remove('error');
-    errEl.textContent = '';
-    return true;
-  }
-}
-
-// Live validation (on blur for each field)
-Object.keys(VALIDATORS).forEach(key => {
-  const input = VALIDATORS[key].el();
-  if (input) {
-    input.addEventListener('blur', () => validateField(key));
-    input.addEventListener('input', () => {
-      if (input.classList.contains('error')) validateField(key);
-    });
-  }
-});
-
-addClientForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  // Validate all fields
-  let isValid = true;
-  Object.keys(VALIDATORS).forEach(key => {
-    if (!validateField(key)) isValid = false;
-  });
-
-  if (!isValid) return;
-
-  // Build new client object
-  const today = new Date().toISOString().split('T')[0];
-  const newClient = {
-    id:        nextClientId++,
-    firstName: document.getElementById('firstName').value.trim(),
-    lastName:  document.getElementById('lastName').value.trim(),
-    company:   document.getElementById('companyName').value.trim(),
-    email:     document.getElementById('email').value.trim().toLowerCase(),
-    sector:    document.getElementById('sector').value,
-    status:    document.getElementById('clientStatus').value,
-    joined:    today
-  };
-
-  // Prepend to data array
-  clientData.unshift(newClient);
-
-  // Animate new row into table
-  renderClientTable();
-  highlightNewRow(newClient.id);
-
-  // Update metric card count
-  updateMetricCount('metricClients', clientData.length);
-
-  // Close modal and notify
-  closeModal();
-  showToast(`${newClient.firstName} ${newClient.lastName} added successfully!`);
-});
-
-function highlightNewRow(id) {
-  const row = document.querySelector(`tr[data-client-id="${id}"]`);
-  if (!row) return;
-  row.style.animation = 'none';
-  row.style.background = 'var(--accent-light)';
-  row.style.transition = 'background 1.2s ease';
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      row.style.background = '';
-    });
-  });
-}
-
-function updateMetricCount(elId, count) {
-  const el = document.getElementById(elId);
-  if (!el) return;
-  el.textContent = count;
-  el.style.transform = 'scale(1.15)';
-  el.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
-  setTimeout(() => { el.style.transform = 'scale(1)'; }, 320);
-}
-
-/* ─────────────────────────────────────────────
-   TOAST NOTIFICATION
-───────────────────────────────────────────── */
-let toastTimer = null;
-
-function showToast(message, duration = 3200) {
-  const toast   = document.getElementById('toast');
-  const toastMsg = document.getElementById('toastMsg');
-  if (!toast || !toastMsg) return;
-
-  toastMsg.textContent = message;
-  toast.classList.add('show');
-
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    toast.classList.remove('show');
-  }, duration);
-}
-
-/* ─────────────────────────────────────────────
-   PIPELINE BAR ANIMATION (intersection observer)
-───────────────────────────────────────────── */
-function animatePipelineBars() {
-  const fills = document.querySelectorAll('.pipeline-fill');
-  if (!fills.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const width = el.style.width;
-        el.style.width = '0%';
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            el.style.width = width;
-          });
-        });
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  fills.forEach(f => observer.observe(f));
-}
-
-/* ─────────────────────────────────────────────
-   METRIC CARD COUNTER ANIMATION
-───────────────────────────────────────────── */
-function animateCounters() {
-  const metricValues = document.querySelectorAll('.metric-value');
-
-  metricValues.forEach(el => {
-    const rawText = el.textContent.trim();
-    const prefix  = rawText.match(/^[^\d]*/)?.[0] || '';
-    const suffix  = rawText.match(/[^\d.]+$/)?.[0] || '';
-    const numStr  = rawText.replace(prefix, '').replace(suffix, '');
-
-    if (!numStr || isNaN(numStr)) return;
-
-    const target   = parseFloat(numStr);
-    const isDecimal = numStr.includes('.');
-    const duration = 1000;
-    const steps    = 40;
-    const stepTime = duration / steps;
-    let current    = 0;
-    let step       = 0;
-
-    const interval = setInterval(() => {
-      step++;
-      // ease out cubic
-      const t = step / steps;
-      const ease = 1 - Math.pow(1 - t, 3);
-      current = target * ease;
-
-      if (isDecimal) {
-        el.textContent = prefix + current.toFixed(1) + suffix;
-      } else {
-        el.textContent = prefix + Math.round(current) + suffix;
-      }
-
-      if (step >= steps) {
-        clearInterval(interval);
-        el.textContent = rawText; // ensure exact
-      }
-    }, stepTime);
-  });
-}
-
-/* ─────────────────────────────────────────────
-   INITIALISE
-───────────────────────────────────────────── */
-(function init() {
-  // Initial section is dashboard — already active in HTML
-  // Render client table on first nav to Clients
-  // Render kanban on first nav to Projects
-
-  // Animate pipeline bars once dashboard is visible
-  animatePipelineBars();
-  animateCounters();
-
-  // Trigger pipeline bars on section switch
-  const origSwitch = switchSection;
-  window.switchSection = function(id) {
-    origSwitch(id);
-    if (id === 'dashboard') {
-      setTimeout(animatePipelineBars, 100);
-    }
-  };
-
-  // Already rendered client table if navigated via URL hash (optional)
-  const hash = window.location.hash.replace('#', '');
-  if (hash && SECTION_LABELS[hash]) {
-    switchSection(hash);
-  }
-})();
-
-
-
-/* ─────────────────────────────────────────────
-   GENESYS CLOUD SOFTPHONE INIT
-───────────────────────────────────────────── */
-(function initGenesys() {
-  var GENESYS_CONFIG = {
-    clientIds: {
-      'usw2.pure.cloud': '226182a8-bb53-435b-bc3c-2140f077768f'
-    },
-    region: 'usw2.pure.cloud',
-    iframeUrl: 'https://apps.usw2.pure.cloud/crm/embeddableFramework.html'
-  };
-
-  var spDot       = document.getElementById('spDot');
-  var spStatusText = document.getElementById('spStatusText');
-  var spBanner     = document.getElementById('spStatusBanner');
-  var iframe       = document.getElementById('softphone');
-
-  function setStatus(state, msg) {
-    if (!spDot || !spStatusText) return;
-    spDot.className = 'softphone-status-dot ' + state;
-    spStatusText.textContent = msg;
-    if (spBanner) {
-      spBanner.style.background = state === 'connected'
-        ? 'var(--green-light)'   : state === 'connecting'
-        ? 'var(--gold-light)'    : 'var(--accent-light)';
-      spBanner.style.color = state === 'connected'
-        ? 'var(--green)'         : state === 'connecting'
-        ? 'var(--gold)'          : 'var(--accent)';
-      spBanner.style.borderColor = state === 'connected'
-        ? 'rgba(22,163,74,0.25)' : state === 'connecting'
-        ? 'rgba(217,119,6,0.25)' : 'rgba(0,102,204,0.2)';
-    }
-  }
-
-  // Listen for postMessage events from the Genesys iframe
-  window.addEventListener('message', function(event) {
-    // Only trust messages from pure.cloud
-    if (!event.origin || !event.origin.includes('pure.cloud')) return;
-
-    var data = event.data || {};
-    var type = typeof data === 'string' ? data : (data.type || data.action || '');
-
-    if (type === 'purecloud-cti-ready' || type === 'ready' || type === 'authenticated') {
-      setStatus('connected', 'Genesys Cloud connected — Ready to take calls');
-    } else if (type === 'call-started' || type === 'call.start') {
-      setStatus('connected', 'Active call in progress…');
-      showToast('Incoming/outgoing call started');
-    } else if (type === 'call-ended' || type === 'call.end') {
-      setStatus('connected', 'Call ended — Genesys Cloud ready');
-      showToast('Call ended');
-    } else if (type === 'error' || type === 'auth-error') {
-      setStatus('', 'Authentication required — please sign in to Genesys Cloud');
-    }
-  });
-
-  // Set connecting state when softphone section is opened
-  var origSwitch = window.switchSection || function(){};
-  window.switchSection = function(sectionId) {
-    origSwitch(sectionId);
-    if (sectionId === 'softphone') {
-      setStatus('connecting', 'Loading Genesys Cloud softphone…');
-      // Give iframe time to communicate readiness
-      setTimeout(function() {
-        if (spDot && spDot.classList.contains('connecting')) {
-          setStatus('connecting', 'Waiting for Genesys login — sign in inside the softphone panel');
-        }
-      }, 5000);
-    }
-  };
-
-  // Iframe load event
-  if (iframe) {
-    iframe.addEventListener('load', function() {
-      setStatus('connecting', 'Softphone loaded — please sign in with your Genesys credentials');
-      // Send config to iframe after load
-      try {
-        iframe.contentWindow.postMessage({
-          type: 'purecloud-cti-config',
-          clientId: GENESYS_CONFIG.clientIds[GENESYS_CONFIG.region],
-          region: GENESYS_CONFIG.region
-        }, 'https://apps.usw2.pure.cloud');
-      } catch(e) {
-        // Cross-origin; iframe manages its own auth flow
-      }
-    });
-  }
-})();
-
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
