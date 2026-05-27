@@ -680,16 +680,23 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
 /* ============================================================
    GENESYS SOFTPHONE SECTION
    ============================================================ */
-.softphone-layout { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; height: calc(100vh - var(--topbar-height) - 140px); max-height: 620px; }
-.softphone-frame-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; height: 100%; }
-.softphone-frame-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: var(--primary); color: white; }
+.softphone-layout { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
+.softphone-frame-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; height: 600px; }
+.softphone-frame-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: var(--primary); color: white; height: 52px; flex-shrink: 0; }
 .softphone-frame-title { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; }
 .softphone-frame-title svg { width: 18px; height: 18px; flex-shrink: 0; }
 .softphone-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #9ca3af; flex-shrink: 0; transition: background 0.3s ease; box-shadow: 0 0 0 2px rgba(255,255,255,0.2); }
 .softphone-status-dot.connected  { background: #4ade80; box-shadow: 0 0 0 2px rgba(74,222,128,0.3); }
 .softphone-status-dot.connecting { background: #fbbf24; box-shadow: 0 0 0 2px rgba(251,191,36,0.3); animation: pulse-dot 1s infinite; }
 @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.4} }
-#softphone { width: 100%; flex: 1; min-height: 0; border: none; display: block; background: #f8fafc; }
+#softphone {
+  width: 100%;
+  height: 548px;    /* explicit pixel height — flex:1 alone gives 0px */
+  border: none;
+  display: block;
+  background: #f8fafc;
+  flex-shrink: 0;
+}
 .softphone-info-panel { display: flex; flex-direction: column; gap: 12px; height: 100%; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; }
 .genesys-info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; }
 .genesys-info-card .card-title { margin-bottom: 10px; }
@@ -1084,7 +1091,14 @@ body.sidebar-collapsed .main-content { margin-left: var(--sidebar-collapsed); }
             </div>
             <div id="spDot" class="softphone-status-dot connecting"></div>
           </div>
-          <iframe id="softphone" allow="camera *; microphone *; autoplay *; clipboard-write *" allowfullscreen src="https://apps.usw2.pure.cloud/crm/embeddableFramework.html" title="Genesys Cloud Softphone"></iframe>
+          <iframe
+            id="softphone"
+            src=""
+            allow="camera *; microphone *; autoplay *; clipboard-write *; fullscreen *; payment *; display-capture *"
+            allowfullscreen
+            allowpaymentrequest
+            title="Genesys Cloud Softphone">
+          </iframe>
         </div>
         <div class="softphone-info-panel">
           <div class="genesys-info-card">
