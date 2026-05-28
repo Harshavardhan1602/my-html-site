@@ -46,11 +46,11 @@ const KANBAN_DATA = {
     { id:'k13', title:'Mobile CRM App',           client:'TechNova Inc.',  priority:'low',    due:'Aug 12', assignees:['KR'] }
   ],
   delivered: [
-    { id:'k14', title:'SAP S/4HANA Upgrade',       client:'FusionSAP',         priority:'high',   due:'Jun 30', assignees:['DI'] },
-    { id:'k15', title:'Zero Trust Architecture',   client:'Meridian Group',    priority:'high',   due:'Jun 25', assignees:['VK','PS'] },
-    { id:'k16', title:'Predictive Analytics PoC',  client:'DataBridge Corp',   priority:'low',    due:'Jun 15', assignees:['AP'] },
+    { id:'k14', title:'SAP S/4HANA Upgrade',       client:'FusionSAP',        priority:'high',   due:'Jun 30', assignees:['DI'] },
+    { id:'k15', title:'Zero Trust Architecture',   client:'Meridian Group',   priority:'high',   due:'Jun 25', assignees:['VK','PS'] },
+    { id:'k16', title:'Predictive Analytics PoC',  client:'DataBridge Corp',  priority:'low',    due:'Jun 15', assignees:['AP'] },
     { id:'k17', title:'Multi-Cloud Strategy Plan', client:'CloudNine Systems', priority:'medium', due:'Jun 10', assignees:['RM','KR'] },
-    { id:'k18', title:'Digital Onboarding Suite',  client:'NexGen Digital',    priority:'medium', due:'May 28', assignees:['AB'] }
+    { id:'k18', title:'Digital Onboarding Suite',  client:'NexGen Digital',   priority:'medium', due:'May 28', assignees:['AB'] }
   ]
 };
 
@@ -62,7 +62,7 @@ function getAvatarStyle(str) {
   let hash = 0;
   for (const c of str) hash = ((hash << 5) - hash) + c.charCodeAt(0);
   const [bg, color] = AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
-  return 'background:' + bg + ';color:' + color;
+  return `background:${bg};color:${color}`;
 }
 function formatDate(isoStr) {
   return new Date(isoStr).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
@@ -78,7 +78,7 @@ function escapeHtml(str) {
   if (el) el.textContent = new Date().toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'long', year:'numeric' });
 })();
 
-/* ── SIDEBAR ── */
+/* ── SIDEBAR TOGGLE ── */
 const sidebar       = document.getElementById('sidebar');
 const mainContent   = document.getElementById('mainContent');
 const sidebarToggle = document.getElementById('sidebarToggle');
@@ -86,15 +86,13 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 
 function isMobile() { return window.innerWidth < 769; }
 
-sidebarToggle.addEventListener('click', function() {
+sidebarToggle.addEventListener('click', () => {
   if (isMobile()) return;
   sidebar.classList.toggle('collapsed');
   document.body.classList.toggle('sidebar-collapsed');
 });
-mobileMenuBtn.addEventListener('click', function() {
-  document.body.classList.toggle('mobile-open');
-});
-document.addEventListener('click', function(e) {
+mobileMenuBtn.addEventListener('click', () => { document.body.classList.toggle('mobile-open'); });
+document.addEventListener('click', (e) => {
   if (isMobile() && document.body.classList.contains('mobile-open')) {
     if (!sidebar.contains(e.target) && e.target !== mobileMenuBtn) {
       document.body.classList.remove('mobile-open');
@@ -103,21 +101,21 @@ document.addEventListener('click', function(e) {
 });
 
 /* ── SECTION NAVIGATION ── */
-const navItems       = document.querySelectorAll('.nav-item[data-section]');
-const sections       = document.querySelectorAll('.content-section');
+const navItems      = document.querySelectorAll('.nav-item[data-section]');
+const sections      = document.querySelectorAll('.content-section');
 const breadcrumbText = document.getElementById('breadcrumbText');
 
 const SECTION_LABELS = {
   dashboard:'Dashboard', clients:'Clients', projects:'Projects',
-  tickets:'Support Tickets', analytics:'Analytics', settings:'Settings'
+  tickets:'Support Tickets', analytics:'Analytics', settings:'Settings', softphone:'Genesys Softphone'
 };
 
 function switchSection(sectionId) {
-  sections.forEach(function(s) { s.classList.remove('active'); });
-  navItems.forEach(function(n) { n.classList.remove('active'); });
-  var target = document.getElementById('section-' + sectionId);
+  sections.forEach(s => s.classList.remove('active'));
+  navItems.forEach(n => n.classList.remove('active'));
+  const target = document.getElementById('section-' + sectionId);
   if (target) target.classList.add('active');
-  var navItem = document.querySelector('.nav-item[data-section="' + sectionId + '"]');
+  const navItem = document.querySelector('.nav-item[data-section="' + sectionId + '"]');
   if (navItem) navItem.classList.add('active');
   if (breadcrumbText) breadcrumbText.textContent = SECTION_LABELS[sectionId] || sectionId;
   if (sectionId === 'clients')  renderClientTable();
@@ -126,31 +124,27 @@ function switchSection(sectionId) {
   mainContent.scrollTo({ top:0, behavior:'smooth' });
 }
 
-navItems.forEach(function(item) {
-  item.addEventListener('click', function() { switchSection(item.dataset.section); });
-});
-
-document.getElementById('goToProjects').addEventListener('click', function() { switchSection('projects'); });
-
-document.querySelectorAll('.chart-tab').forEach(function(tab) {
-  tab.addEventListener('click', function() {
-    document.querySelectorAll('.chart-tab').forEach(function(t) { t.classList.remove('active'); });
+navItems.forEach(item => { item.addEventListener('click', () => switchSection(item.dataset.section)); });
+document.getElementById('goToProjects').addEventListener('click', () => switchSection('projects'));
+document.querySelectorAll('.chart-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
   });
 });
 
 /* ── CLIENT TABLE ── */
-var filteredClients = clientData.slice();
-var searchTerm  = '';
-var filterStatus = '';
+let filteredClients = [...clientData];
+let searchTerm = '';
+let filterStatus = '';
 
 function renderClientTable() {
-  var tbody   = document.getElementById('clientTableBody');
-  var countEl = document.getElementById('tableCount');
+  const tbody = document.getElementById('clientTableBody');
+  const countEl = document.getElementById('tableCount');
   if (!tbody) return;
-  filteredClients = clientData.filter(function(c) {
-    var fullName = (c.firstName + ' ' + c.lastName).toLowerCase();
-    var matchSearch = !searchTerm || fullName.includes(searchTerm) ||
+  filteredClients = clientData.filter(c => {
+    const fullName = (c.firstName + ' ' + c.lastName).toLowerCase();
+    const matchSearch = !searchTerm || fullName.includes(searchTerm) ||
       c.company.toLowerCase().includes(searchTerm) ||
       c.email.toLowerCase().includes(searchTerm) ||
       c.sector.toLowerCase().includes(searchTerm);
@@ -158,17 +152,17 @@ function renderClientTable() {
   });
   tbody.innerHTML = filteredClients.length === 0
     ? '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted);font-size:14px;">No clients found.</td></tr>'
-    : filteredClients.map(buildClientRow).join('');
+    : filteredClients.map(c => buildClientRow(c)).join('');
   if (countEl) countEl.textContent = 'Showing ' + filteredClients.length + ' of ' + clientData.length + ' clients';
-  tbody.querySelectorAll('.action-btn').forEach(function(btn) {
-    btn.addEventListener('click', function(e) { e.stopPropagation(); handleClientAction(Number(btn.dataset.id)); });
+  tbody.querySelectorAll('.action-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => { e.stopPropagation(); handleClientAction(Number(btn.dataset.id)); });
   });
 }
 
 function buildClientRow(c) {
-  var initials    = getInitials(c.firstName, c.lastName);
-  var avatarStyle = getAvatarStyle(c.company);
-  var statusLabel = c.status.charAt(0).toUpperCase() + c.status.slice(1);
+  const initials = getInitials(c.firstName, c.lastName);
+  const avatarStyle = getAvatarStyle(c.company);
+  const statusLabel = c.status.charAt(0).toUpperCase() + c.status.slice(1);
   return '<tr data-client-id="' + c.id + '">' +
     '<td class="th-check"><input type="checkbox"/></td>' +
     '<td><div class="client-name-cell"><div class="client-avatar-sm" style="' + avatarStyle + '">' + escapeHtml(initials) + '</div>' +
@@ -183,45 +177,40 @@ function buildClientRow(c) {
 }
 
 function handleClientAction(id) {
-  var c = clientData.find(function(x) { return x.id === id; });
+  const c = clientData.find(x => x.id === id);
   if (c) showToast('Viewing ' + c.firstName + ' ' + c.lastName + ' — ' + c.company);
 }
 
-document.getElementById('clientSearch').addEventListener('input', function(e) {
-  searchTerm = e.target.value.trim().toLowerCase(); renderClientTable();
-});
-document.getElementById('statusFilter').addEventListener('change', function(e) {
-  filterStatus = e.target.value; renderClientTable();
-});
+document.getElementById('clientSearch').addEventListener('input', (e) => { searchTerm = e.target.value.trim().toLowerCase(); renderClientTable(); });
+document.getElementById('statusFilter').addEventListener('change', (e) => { filterStatus = e.target.value; renderClientTable(); });
 
-/* ── KANBAN ── */
-var STAGE_LABELS = { discovery:'Discovery', development:'Development', testing:'Testing', delivered:'Delivered' };
+/* ── KANBAN BOARD ── */
+const STAGE_LABELS = { discovery:'Discovery', development:'Development', testing:'Testing', delivered:'Delivered' };
 
 function renderKanban() {
-  var board = document.getElementById('kanbanBoard');
+  const board = document.getElementById('kanbanBoard');
   if (!board || board.dataset.rendered === 'true') return;
-  board.innerHTML = Object.entries(KANBAN_DATA).map(function(entry) {
-    var stage = entry[0], cards = entry[1];
-    return '<div class="kanban-col" data-stage="' + stage + '">' +
-      '<div class="kanban-col-header"><span class="kanban-col-title">' + STAGE_LABELS[stage] + '</span>' +
-      '<span class="kanban-count">' + cards.length + '</span></div>' +
-      '<div class="kanban-cards">' + cards.map(buildKanbanCard).join('') + '</div></div>';
-  }).join('');
+  board.innerHTML = Object.entries(KANBAN_DATA).map(([stage, cards]) =>
+    '<div class="kanban-col" data-stage="' + stage + '">' +
+    '<div class="kanban-col-header"><span class="kanban-col-title">' + STAGE_LABELS[stage] + '</span>' +
+    '<span class="kanban-count">' + cards.length + '</span></div>' +
+    '<div class="kanban-cards">' + cards.map(buildKanbanCard).join('') + '</div></div>'
+  ).join('');
   board.dataset.rendered = 'true';
-  board.querySelectorAll('.kanban-card').forEach(function(card) {
-    card.addEventListener('click', function() {
-      var title  = card.querySelector('.kanban-card-title') ? card.querySelector('.kanban-card-title').textContent : '';
-      var client = card.querySelector('.kanban-card-client') ? card.querySelector('.kanban-card-client').textContent : '';
-      showToast('Opened: ' + title + ' (' + client.replace('Client: ', '') + ')');
+  board.querySelectorAll('.kanban-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const title = card.querySelector('.kanban-card-title')?.textContent;
+      const client = card.querySelector('.kanban-card-client')?.textContent;
+      showToast('Opened: ' + title + ' (' + (client || '').replace('Client: ', '') + ')');
     });
   });
 }
 
 function buildKanbanCard(card) {
-  var priorityLabel = card.priority.charAt(0).toUpperCase() + card.priority.slice(1);
-  var avatarsHtml   = card.assignees.slice(0,3).map(function(a) {
-    return '<div class="kanban-assignee" style="' + getAvatarStyle(a) + '" title="' + a + '">' + escapeHtml(a) + '</div>';
-  }).join('');
+  const priorityLabel = card.priority.charAt(0).toUpperCase() + card.priority.slice(1);
+  const avatarsHtml = card.assignees.slice(0,3).map(a =>
+    '<div class="kanban-assignee" style="' + getAvatarStyle(a) + '" title="' + a + '">' + escapeHtml(a) + '</div>'
+  ).join('');
   return '<article class="kanban-card" tabindex="0" role="button">' +
     '<div class="kanban-card-title">' + escapeHtml(card.title) + '</div>' +
     '<div class="kanban-card-client">Client: ' + escapeHtml(card.client) + '</div>' +
@@ -231,68 +220,68 @@ function buildKanbanCard(card) {
     '<div class="kanban-assignees">' + avatarsHtml + '</div></div></article>';
 }
 
-document.getElementById('kanbanBoard').addEventListener('keydown', function(e) {
+document.getElementById('kanbanBoard').addEventListener('keydown', (e) => {
   if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('kanban-card')) {
     e.preventDefault(); e.target.click();
   }
 });
 
 /* ── ADD CLIENT MODAL ── */
-var modalOverlay  = document.getElementById('modalOverlay');
-var addClientForm = document.getElementById('addClientForm');
-var openAddClient = document.getElementById('openAddClient');
-var modalClose    = document.getElementById('modalClose');
-var cancelModal   = document.getElementById('cancelModal');
+const modalOverlay  = document.getElementById('modalOverlay');
+const addClientForm = document.getElementById('addClientForm');
+const openAddClient = document.getElementById('openAddClient');
+const modalClose    = document.getElementById('modalClose');
+const cancelModal   = document.getElementById('cancelModal');
 
 function openModal() {
   modalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
-  setTimeout(function() { var f = addClientForm.querySelector('input,select,textarea'); if(f) f.focus(); }, 80);
+  setTimeout(() => { const f = addClientForm.querySelector('input,select,textarea'); if(f) f.focus(); }, 80);
 }
 function closeModal() {
   modalOverlay.classList.remove('open');
   document.body.style.overflow = '';
   addClientForm.reset();
-  addClientForm.querySelectorAll('.error').forEach(function(el) { el.classList.remove('error'); });
-  addClientForm.querySelectorAll('.field-error').forEach(function(el) { el.textContent = ''; });
+  addClientForm.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+  addClientForm.querySelectorAll('.field-error').forEach(el => { el.textContent = ''; });
 }
 
 openAddClient.addEventListener('click', openModal);
 modalClose.addEventListener('click', closeModal);
 cancelModal.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', function(e) { if (e.target === modalOverlay) closeModal(); });
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal(); });
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal(); });
 
 /* ── FORM VALIDATION ── */
-var VALIDATORS = {
-  firstName:    { el:function(){return document.getElementById('firstName');},    err:function(){return document.getElementById('firstNameError');},    validate:function(v){ if(!v.trim()) return 'First name is required.'; if(v.trim().length<2) return 'At least 2 characters.'; return null; } },
-  lastName:     { el:function(){return document.getElementById('lastName');},     err:function(){return document.getElementById('lastNameError');},     validate:function(v){ if(!v.trim()) return 'Last name is required.'; if(v.trim().length<2) return 'At least 2 characters.'; return null; } },
-  companyName:  { el:function(){return document.getElementById('companyName');},  err:function(){return document.getElementById('companyNameError');},  validate:function(v){ if(!v.trim()) return 'Company is required.'; return null; } },
-  email:        { el:function(){return document.getElementById('email');},        err:function(){return document.getElementById('emailError');},        validate:function(v){ if(!v.trim()) return 'Email is required.'; if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) return 'Enter a valid email.'; return null; } },
-  sector:       { el:function(){return document.getElementById('sector');},       err:function(){return document.getElementById('sectorError');},       validate:function(v){ if(!v) return 'Select a sector.'; return null; } },
-  clientStatus: { el:function(){return document.getElementById('clientStatus');}, err:function(){return document.getElementById('clientStatusError');}, validate:function(v){ if(!v) return 'Select a status.'; return null; } }
+const VALIDATORS = {
+  firstName:    { el:()=>document.getElementById('firstName'),    err:()=>document.getElementById('firstNameError'),    validate(v){ if(!v.trim()) return 'First name is required.'; if(v.trim().length<2) return 'At least 2 characters.'; return null; } },
+  lastName:     { el:()=>document.getElementById('lastName'),     err:()=>document.getElementById('lastNameError'),     validate(v){ if(!v.trim()) return 'Last name is required.'; if(v.trim().length<2) return 'At least 2 characters.'; return null; } },
+  companyName:  { el:()=>document.getElementById('companyName'),  err:()=>document.getElementById('companyNameError'),  validate(v){ if(!v.trim()) return 'Company is required.'; return null; } },
+  email:        { el:()=>document.getElementById('email'),        err:()=>document.getElementById('emailError'),        validate(v){ if(!v.trim()) return 'Email is required.'; if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) return 'Enter a valid email.'; return null; } },
+  sector:       { el:()=>document.getElementById('sector'),       err:()=>document.getElementById('sectorError'),       validate(v){ if(!v) return 'Select a sector.'; return null; } },
+  clientStatus: { el:()=>document.getElementById('clientStatus'), err:()=>document.getElementById('clientStatusError'), validate(v){ if(!v) return 'Select a status.'; return null; } }
 };
 
 function validateField(key) {
-  var def = VALIDATORS[key], input = def.el(), errEl = def.err(), error = def.validate(input.value);
+  const def = VALIDATORS[key], input = def.el(), errEl = def.err(), error = def.validate(input.value);
   if (error) { input.classList.add('error'); errEl.textContent = error; return false; }
   input.classList.remove('error'); errEl.textContent = ''; return true;
 }
 
-Object.keys(VALIDATORS).forEach(function(key) {
-  var input = VALIDATORS[key].el();
+Object.keys(VALIDATORS).forEach(key => {
+  const input = VALIDATORS[key].el();
   if (input) {
-    input.addEventListener('blur', function() { validateField(key); });
-    input.addEventListener('input', function() { if (input.classList.contains('error')) validateField(key); });
+    input.addEventListener('blur', () => validateField(key));
+    input.addEventListener('input', () => { if (input.classList.contains('error')) validateField(key); });
   }
 });
 
-addClientForm.addEventListener('submit', function(e) {
+addClientForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  var isValid = true;
-  Object.keys(VALIDATORS).forEach(function(k) { if (!validateField(k)) isValid = false; });
+  let isValid = true;
+  Object.keys(VALIDATORS).forEach(k => { if (!validateField(k)) isValid = false; });
   if (!isValid) return;
-  var newClient = {
+  const newClient = {
     id: nextClientId++,
     firstName: document.getElementById('firstName').value.trim(),
     lastName:  document.getElementById('lastName').value.trim(),
@@ -304,66 +293,65 @@ addClientForm.addEventListener('submit', function(e) {
   };
   clientData.unshift(newClient);
   renderClientTable();
-  var row = document.querySelector('tr[data-client-id="' + newClient.id + '"]');
+  const row = document.querySelector('tr[data-client-id="' + newClient.id + '"]');
   if (row) {
-    row.style.background  = 'var(--accent-light)';
-    row.style.transition  = 'background 1.2s ease';
-    requestAnimationFrame(function() { requestAnimationFrame(function() { row.style.background = ''; }); });
+    row.style.background = 'var(--accent-light)';
+    row.style.transition = 'background 1.2s ease';
+    requestAnimationFrame(() => requestAnimationFrame(() => { row.style.background = ''; }));
   }
-  var metEl = document.getElementById('metricClients');
+  const metEl = document.getElementById('metricClients');
   if (metEl) {
-    metEl.textContent     = clientData.length;
-    metEl.style.transform = 'scale(1.15)';
-    metEl.style.transition = 'transform 0.3s';
-    setTimeout(function() { metEl.style.transform = 'scale(1)'; }, 320);
+    metEl.textContent = clientData.length;
+    metEl.style.transform = 'scale(1.15)'; metEl.style.transition = 'transform 0.3s';
+    setTimeout(() => { metEl.style.transform = 'scale(1)'; }, 320);
   }
   closeModal();
   showToast(newClient.firstName + ' ' + newClient.lastName + ' added successfully!');
 });
 
 /* ── TOAST ── */
-var toastTimer = null;
+let toastTimer = null;
 function showToast(message, duration) {
   duration = duration || 3200;
-  var toast    = document.getElementById('toast');
-  var toastMsg = document.getElementById('toastMsg');
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toastMsg');
   if (!toast || !toastMsg) return;
   toastMsg.textContent = message;
   toast.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(function() { toast.classList.remove('show'); }, duration);
+  toastTimer = setTimeout(() => { toast.classList.remove('show'); }, duration);
 }
 
 /* ── PIPELINE BAR ANIMATION ── */
 function animatePipelineBars() {
-  var fills = document.querySelectorAll('.pipeline-fill');
+  const fills = document.querySelectorAll('.pipeline-fill');
   if (!fills.length) return;
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
-        var el = entry.target, w = el.style.width;
+        const el = entry.target, w = el.style.width;
         el.style.width = '0%';
-        requestAnimationFrame(function() { requestAnimationFrame(function() { el.style.width = w; }); });
+        requestAnimationFrame(() => requestAnimationFrame(() => { el.style.width = w; }));
         observer.unobserve(el);
       }
     });
   }, { threshold: 0.2 });
-  fills.forEach(function(f) { observer.observe(f); });
+  fills.forEach(f => observer.observe(f));
 }
 
 /* ── METRIC COUNTER ANIMATION ── */
 function animateCounters() {
-  document.querySelectorAll('.metric-value').forEach(function(el) {
-    var raw    = el.textContent.trim();
-    var prefix = (raw.match(/^[^\d]*/) || [''])[0];
-    var suffix = (raw.match(/[^\d.]+$/) || [''])[0];
-    var numStr = raw.replace(prefix,'').replace(suffix,'');
+  document.querySelectorAll('.metric-value').forEach(el => {
+    const raw = el.textContent.trim();
+    const prefix = raw.match(/^[^\d]*/)?.[0] || '';
+    const suffix = raw.match(/[^\d.]+$/)?.[0] || '';
+    const numStr = raw.replace(prefix,'').replace(suffix,'');
     if (!numStr || isNaN(numStr)) return;
-    var target = parseFloat(numStr), isDec = numStr.includes('.');
-    var step   = 0;
-    var iv = setInterval(function() {
+    const target = parseFloat(numStr), isDec = numStr.includes('.');
+    let step = 0;
+    const iv = setInterval(() => {
       step++;
-      var ease = 1 - Math.pow(1 - step/40, 3);
+      const ease = 1 - Math.pow(1 - step/40, 3);
       el.textContent = prefix + (isDec ? (target*ease).toFixed(1) : Math.round(target*ease)) + suffix;
       if (step >= 40) { clearInterval(iv); el.textContent = raw; }
     }, 25);
@@ -375,120 +363,105 @@ function animateCounters() {
   animatePipelineBars();
   animateCounters();
 
+  /* Wrap switchSection to re-animate pipeline bars on dashboard */
   var _origSwitch = switchSection;
   window.switchSection = function(id) {
     _origSwitch(id);
     if (id === 'dashboard') setTimeout(animatePipelineBars, 100);
   };
 
+  /* URL hash navigation */
   var hash = window.location.hash.replace('#','');
   if (hash && SECTION_LABELS[hash]) switchSection(hash);
 })();
 
 /* ════════════════════════════════════════════════════════════
-   GENESYS CLOUD SOFTPHONE — EMBEDDED IN DASHBOARD
-   
-   The iframe (id="spDashIframe") lives in the dashboard right
-   column. Its src is set here with the TWO required params:
-     ?clientId=...  &gcHostOrigin=...
-   Without these Genesys returns 403 host_not_allowed.
-
-   Prerequisites in Genesys Admin (must be done once):
-   1. Admin → Account Settings → Org Settings → Settings tab
-      → Security & Compliance → Allow Embeddable Domain(s)
-      → Add: https://harshavardhan1602.github.io
-   2. Admin → Integrations → OAuth → Client 226182a8...
-      → Authorized Redirect URIs → Add the same URL
+   GENESYS CLOUD SOFTPHONE
    ════════════════════════════════════════════════════════════ */
 (function initGenesys() {
 
-  var CLIENT_ID = '226182a8-bb53-435b-bc3c-2140f077768f';
-  var GC_ENV    = 'usw2.pure.cloud';
+  var CLIENT_ID  = '226182a8-bb53-435b-bc3c-2140f077768f';
+  var GC_ENV     = 'usw2.pure.cloud';
 
-  /* Use the runtime origin so it works on any host
-     (GitHub Pages, local dev, etc.) */
+  /* Always use the exact GitHub Pages origin */
   var HOST_ORIGIN = (window.location.origin && window.location.origin !== 'null')
-                  ? window.location.origin
-                  : 'https://harshavardhan1602.github.io';
+                   ? window.location.origin
+                   : 'https://harshavardhan1602.github.io';
 
-  /* Build the correct Genesys URL — both params required */
+  /* Build URL — BOTH clientId and gcHostOrigin required by Genesys */
   var GENESYS_URL = 'https://apps.' + GC_ENV + '/crm/embeddableFramework.html'
                   + '?clientId='     + CLIENT_ID
                   + '&gcHostOrigin=' + encodeURIComponent(HOST_ORIGIN);
 
-  var iframe = document.getElementById('spDashIframe');
-  var dot    = document.getElementById('spDashDot');
+  var iframe   = document.getElementById('softphone');
+  var spDot    = document.getElementById('spDot');
+  var spText   = document.getElementById('spStatusText');
+  var spBanner = document.getElementById('spStatusBanner');
 
-  if (!iframe) return; /* safety check */
-
-  /* Set dot helper */
-  function setDot(state) {
-    if (!dot) return;
-    dot.className = 'sp-status-dot' + (state ? ' ' + state : '');
+  function setStatus(state, msg) {
+    if (spDot)  spDot.className = 'softphone-status-dot ' + (state || '');
+    if (spText && msg) spText.textContent = msg;
+    if (spBanner) {
+      spBanner.style.background  = state === 'connected' ? 'var(--green-light)' : state === 'connecting' ? 'var(--gold-light)' : 'var(--accent-light)';
+      spBanner.style.color       = state === 'connected' ? 'var(--green)' : state === 'connecting' ? 'var(--gold)' : 'var(--accent)';
+      spBanner.style.borderColor = state === 'connected' ? 'rgba(22,163,74,0.25)' : state === 'connecting' ? 'rgba(217,119,6,0.25)' : 'rgba(0,102,204,0.2)';
+    }
   }
 
-  /* ── Step 1: inject correct URL immediately on page load ──
-     iframe src="" in HTML prevents premature load of wrong URL */
-  setDot('connecting');
+  if (!iframe) return;
+
+  /* Set iframe src with correct params */
+  setStatus('connecting', 'Connecting to Genesys Cloud…');
   iframe.src = GENESYS_URL;
 
-  /* ── Step 2: hide connecting state after first real load ── */
+  /* Track load attempts */
   var loadCount = 0;
+
   iframe.addEventListener('load', function() {
     loadCount++;
+    /* First load = Genesys page loaded; subsequent = OAuth redirect back */
     if (loadCount === 1) {
-      /* First load: Genesys main page. May redirect to OAuth next. */
-      setDot('connecting');
+      setStatus('connecting', 'Softphone loaded — sign in with your Genesys Cloud credentials');
     } else {
-      /* Subsequent: post-OAuth redirect back — nearly ready */
-      setDot('connecting');
+      setStatus('connecting', 'Authenticating…');
     }
-    /* Send config message so Genesys knows our clientId */
+    /* Send config on every load (handles post-OAuth redirect) */
     try {
       iframe.contentWindow.postMessage(
         { type: 'purecloud-cti-config', clientId: CLIENT_ID, region: GC_ENV },
         'https://apps.' + GC_ENV
       );
-    } catch(e) { /* cross-origin — expected, Genesys handles auth itself */ }
+    } catch(e) {}
   });
 
-  /* ── Step 3: listen for status events from Genesys iframe ── */
+  /* Listen for Genesys postMessage events */
   window.addEventListener('message', function(ev) {
-    /* Only trust messages from Genesys domains */
     if (!ev.origin) return;
-    if (ev.origin.indexOf('pure.cloud')      === -1 &&
-        ev.origin.indexOf('mypurecloud.com') === -1) return;
+    if (ev.origin.indexOf('pure.cloud') === -1 && ev.origin.indexOf('mypurecloud.com') === -1) return;
 
     var data = ev.data || {};
-    var type = (typeof data === 'string'
-               ? data
-               : (data.type || data.action || data.name || '')).toLowerCase();
+    var type = (typeof data === 'string' ? data : (data.type || data.action || data.name || '')).toLowerCase();
 
-    /* Connected / authenticated */
-    if (type.indexOf('ready')         !== -1 ||
-        type.indexOf('authenticated') !== -1 ||
-        type.indexOf('connected')     !== -1) {
-      setDot('connected');
-
-    /* Incoming / active call */
-    } else if (type.indexOf('ringing')    !== -1 ||
-               type.indexOf('alerting')   !== -1 ||
-               type.indexOf('call.start') !== -1 ||
-               type.indexOf('incoming')   !== -1) {
-      setDot('connected');
-      showToast('📞 Incoming call — Genesys Cloud');
-
-    /* Call ended */
-    } else if (type.indexOf('call.end')     !== -1 ||
-               type.indexOf('disconnected') !== -1) {
-      setDot('connected');
+    if (type.indexOf('ready') !== -1 || type.indexOf('authenticated') !== -1 || type.indexOf('connected') !== -1) {
+      setStatus('connected', 'Genesys Cloud connected — Ready to take calls');
+    } else if (type.indexOf('call.start') !== -1 || type.indexOf('ringing') !== -1 || type.indexOf('alerting') !== -1) {
+      setStatus('connected', 'Active call in progress…');
+      showToast('Incoming/outgoing call started');
+    } else if (type.indexOf('call.end') !== -1 || type.indexOf('disconnected') !== -1) {
+      setStatus('connected', 'Call ended — Genesys Cloud ready');
       showToast('Call ended');
-
-    /* Logged out / error */
-    } else if (type.indexOf('logout') !== -1 ||
-               type.indexOf('error')  !== -1) {
-      setDot('');
+    } else if (type.indexOf('error') !== -1 || type.indexOf('logout') !== -1) {
+      setStatus('', 'Sign in required — please log in to Genesys Cloud');
     }
   });
+
+  /* Wrap switchSection for softphone nav */
+  var _prev = window.switchSection;
+  window.switchSection = function(sectionId) {
+    _prev(sectionId);
+    if (sectionId === 'softphone') {
+      setStatus('connecting', 'Loading Genesys Cloud softphone…');
+    }
+  };
 
 })();
